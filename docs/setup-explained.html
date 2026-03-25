@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Setup Explained</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f0eb;
+            color: #2d2d2d;
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.15em;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .intro {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .intro h2 {
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            color: #0f3460;
+        }
+
+        .intro p {
+            font-size: 1.05em;
+            color: #555;
+        }
+
+        .analogy {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        .analogy strong {
+            color: #e65100;
+        }
+
+        .step {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #0f3460, #1a1a2e);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 1.35em;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .step .subtitle {
+            font-size: 0.95em;
+            color: #888;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .step p, .step li {
+            font-size: 1.02em;
+            color: #444;
+        }
+
+        .step ul {
+            margin: 12px 0 12px 20px;
+        }
+
+        .step li {
+            margin-bottom: 8px;
+        }
+
+        .real-world {
+            background: #e8f5e9;
+            border-left: 4px solid #43a047;
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+
+        .real-world strong {
+            color: #2e7d32;
+        }
+
+        .what-we-typed {
+            background: #1a1a2e;
+            color: #a8e6cf;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 16px 0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        .what-we-typed .label {
+            color: #888;
+            font-size: 0.82em;
+            margin-bottom: 6px;
+            font-family: -apple-system, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .folder-tree {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin: 16px 0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.9;
+            color: #555;
+        }
+
+        .folder-tree .folder { color: #0f3460; font-weight: 600; }
+        .folder-tree .desc { color: #999; font-style: italic; }
+
+        .summary {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        .summary h2 {
+            color: #2e7d32;
+            margin-bottom: 16px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            font-size: 1.05em;
+            color: #444;
+        }
+
+        .checklist li::before {
+            content: "\2705";
+            margin-right: 10px;
+        }
+
+        .next-up {
+            background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 24px;
+        }
+
+        .next-up h2 {
+            color: #0f3460;
+            margin-bottom: 12px;
+        }
+
+        .glossary {
+            margin-top: 40px;
+        }
+
+        .glossary h2 {
+            color: #0f3460;
+            margin-bottom: 16px;
+        }
+
+        .glossary-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+        }
+
+        .glossary-item dt {
+            font-weight: 700;
+            color: #1a1a2e;
+            font-size: 1.05em;
+        }
+
+        .glossary-item dd {
+            color: #555;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>What We Just Built (And Why)</h1>
+    <p>A plain-English guide to everything we set up for the FPL prediction project</p>
+</header>
+
+<div class="container">
+
+    <!-- Big picture -->
+    <div class="intro">
+        <h2>The Big Picture</h2>
+        <p>We're building a project that predicts how many Fantasy Premier League points a player will score each week. We'll use two different AI approaches and compare which one is better.</p>
+        <p style="margin-top: 12px;">But before we can write any of that clever code, we need to <strong>set up our workshop</strong>. That's what this page covers &mdash; everything we did today was preparation, not the actual building.</p>
+
+        <div class="analogy">
+            <strong>Think of it like cooking:</strong> Before you cook a meal, you need a kitchen (your computer), the right appliances (software tools), ingredients in the pantry (data), and recipe books (code libraries). Today we installed the appliances and organised the pantry shelves.
+        </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step">
+        <div class="step-number">1</div>
+        <h3>Installed Python 3.11</h3>
+        <div class="subtitle">The programming language everything runs on</div>
+
+        <p>Python is the language we'll write all our code in. Your Mac already had an older version (3.9), but some of the tools we need require a newer one. So we installed version 3.11.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Your Mac had an old blender that couldn't crush ice. We bought a newer blender that has all the features we need. The old one is still there &mdash; we just use the new one for this project.
+        </div>
+
+        <div class="what-we-typed">
+            <div class="label">What we ran</div>
+            brew install python@3.11
+        </div>
+
+        <p><strong>Homebrew</strong> is like an app store for developer tools on Mac. Instead of downloading installers from websites, you just type one command and it handles everything.</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+        <div class="step-number">2</div>
+        <h3>Created a Virtual Environment</h3>
+        <div class="subtitle">A private sandbox so our project doesn't mess up other things</div>
+
+        <p>A virtual environment is a sealed-off space where we install tools <em>only for this project</em>. Without it, installing something for this project could accidentally break something else on your computer.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Imagine you have one big tool shed shared by every project in your house. If you rearrange it for a plumbing job, you might lose track of the tools you need for the electrical job. A virtual environment is like giving each project its own personal tool shed.
+        </div>
+
+        <div class="what-we-typed">
+            <div class="label">What we ran</div>
+            python3.11 -m venv .venv
+        </div>
+
+        <p>This created a folder called <code>.venv</code> inside the project. The dot at the front means it's hidden &mdash; it's there, but it stays out of the way. Every time we work on this project, we "activate" this environment so the computer knows to use <em>our</em> tools, not the system-wide ones.</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+        <div class="step-number">3</div>
+        <h3>Installed All the Tools We Need</h3>
+        <div class="subtitle">14 software packages, each with a specific job</div>
+
+        <p>We created a shopping list called <code>requirements.txt</code> and installed everything on it. Here's what each tool does in plain English:</p>
+
+        <ul>
+            <li><strong>requests</strong> &mdash; Lets our code talk to the FPL website and download player data</li>
+            <li><strong>pandas</strong> &mdash; A spreadsheet engine for Python. Lets us sort, filter, and organise data like you would in Excel, but with code</li>
+            <li><strong>scikit-learn</strong> &mdash; A toolkit of standard AI/statistics methods. We use it to measure how good our predictions are</li>
+            <li><strong>xgboost</strong> &mdash; Our first prediction model. It's a well-proven method that learns patterns from tables of numbers (like a really smart spreadsheet formula)</li>
+            <li><strong>mlx</strong> &mdash; Apple's own AI engine, designed to run fast on your Mac's M4 chip</li>
+            <li><strong>mlx-lm</strong> &mdash; Lets us fine-tune (customise) a language model using MLX. This is how we'll teach an AI to predict FPL points</li>
+            <li><strong>huggingface_hub</strong> &mdash; Connects to Hugging Face, a website where people share pre-built AI models. We'll download our starting model from there</li>
+            <li><strong>streamlit</strong> &mdash; Turns Python code into a web dashboard with almost no effort. We'll use it to compare our two models visually</li>
+            <li><strong>matplotlib</strong> &mdash; Creates charts and graphs from data</li>
+            <li><strong>jupyter / nbformat / nbconvert</strong> &mdash; Jupyter notebooks let you mix code, charts, and written explanations in one document. Great for showing your work</li>
+            <li><strong>pyyaml</strong> &mdash; Reads configuration files (our evaluation test definitions)</li>
+            <li><strong>psutil</strong> &mdash; Measures how much memory and time our models use</li>
+        </ul>
+
+        <p style="margin-top: 12px;">We also had to install <strong>libomp</strong> (a helper that XGBoost needs to do its calculations quickly on Mac).</p>
+
+        <div class="what-we-typed">
+            <div class="label">What we ran</div>
+            pip install -r requirements.txt<br>
+            brew install libomp
+        </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+        <div class="step-number">4</div>
+        <h3>Created the Folder Structure</h3>
+        <div class="subtitle">Organised empty folders so everything has a home</div>
+
+        <p>Before writing any code, we set up folders so every file we create has an obvious place to go. It's like labelling drawers before you start unpacking boxes.</p>
+
+        <div class="folder-tree">
+            <span class="folder">data/</span> <span class="desc">&mdash; All the FPL player data</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">raw/</span> <span class="desc">&mdash; Data straight from the FPL website (unprocessed)</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">processed/</span> <span class="desc">&mdash; Data cleaned up and ready for the models</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">labelled/</span> <span class="desc">&mdash; Data you'll manually annotate yourself</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">mlx/</span> <span class="desc">&mdash; Data formatted for the language model</span><br>
+            <span class="folder">models/</span> <span class="desc">&mdash; Training scripts and saved models</span><br>
+            <span class="folder">eval/</span> <span class="desc">&mdash; Tests to measure how good the models are</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">cases/</span> <span class="desc">&mdash; Specific test scenarios</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">checks/</span> <span class="desc">&mdash; Quality validators</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">results/</span> <span class="desc">&mdash; Scores from each experiment</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">baseline/</span> <span class="desc">&mdash; The "best so far" to compare against</span><br>
+            <span class="folder">notebooks/</span> <span class="desc">&mdash; Jupyter notebooks documenting each phase</span><br>
+            <span class="folder">ui/</span> <span class="desc">&mdash; The comparison dashboard</span><br>
+            <span class="folder">writeup/</span> <span class="desc">&mdash; Final assessment and product brief</span><br>
+            <span class="folder">docs/</span> <span class="desc">&mdash; Published web pages (like this one!)</span>
+        </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step">
+        <div class="step-number">5</div>
+        <h3>Created a .gitignore File</h3>
+        <div class="subtitle">A list of things we don't want to share online</div>
+
+        <p>Git tracks every change you make to your code and lets you share it on GitHub. But some things shouldn't be shared:</p>
+
+        <ul>
+            <li><strong>AI model files</strong> &mdash; They're huge (2GB+) and can be re-downloaded</li>
+            <li><strong>Raw data</strong> &mdash; Can be re-fetched from the FPL website anytime</li>
+            <li><strong>The virtual environment</strong> &mdash; Anyone can recreate it from <code>requirements.txt</code></li>
+            <li><strong>System junk files</strong> &mdash; Things like <code>.DS_Store</code> that macOS creates automatically</li>
+        </ul>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> When you move house, you pack your personal belongings but you don't pack the tap water or the electricity &mdash; those are available at the new address. <code>.gitignore</code> is the list of things that don't need to travel with the project.
+        </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step">
+        <div class="step-number">6</div>
+        <h3>Created requirements.txt</h3>
+        <div class="subtitle">The recipe card that lists all ingredients</div>
+
+        <p>This is a simple text file listing every tool we installed. If you (or anyone) ever needs to set this project up on a different computer, they just run one command and everything gets installed automatically.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> It's the ingredients list at the top of a recipe. You don't need to figure out what you need &mdash; just take the list to the shop.
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+        <h2>What's Done</h2>
+        <ul class="checklist">
+            <li>Python 3.11 installed via Homebrew</li>
+            <li>Virtual environment created (isolated workspace)</li>
+            <li>14 software packages installed and verified working</li>
+            <li>OpenMP runtime installed (needed by XGBoost on Mac)</li>
+            <li>Project folder structure created (12 folders, each with a clear purpose)</li>
+            <li><code>.gitignore</code> created (keeps large/temporary files out of GitHub)</li>
+            <li><code>requirements.txt</code> created (makes setup reproducible)</li>
+        </ul>
+    </div>
+
+    <!-- What's next -->
+    <div class="next-up">
+        <h2>What Comes Next</h2>
+        <p>Now that the workshop is set up, the next step is <strong>Phase 1: Data Pipeline</strong>. This is where we'll:</p>
+        <ul style="margin: 16px 0 0 20px;">
+            <li>Connect to the Fantasy Premier League website and download all the player data</li>
+            <li>Clean and organise that data into a format our AI models can learn from</li>
+            <li>Create training examples for both the spreadsheet-style model (XGBoost) and the language model (LLM)</li>
+        </ul>
+    </div>
+
+    <!-- Glossary -->
+    <div class="glossary">
+        <h2>Jargon Buster</h2>
+
+        <dl>
+            <div class="glossary-item">
+                <dt>Homebrew</dt>
+                <dd>A free tool for Mac that lets you install software by typing commands instead of downloading from websites. Like an app store for developer tools.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Virtual Environment (venv)</dt>
+                <dd>A private, isolated copy of Python and its tools for one specific project. Stops different projects from interfering with each other.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>pip</dt>
+                <dd>Python's built-in tool for installing packages (add-on tools). Think of it as "please install package."</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Git / GitHub</dt>
+                <dd>Git tracks every change you make to your code (like "track changes" in Word). GitHub is a website where you can share that tracked code with others.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>.gitignore</dt>
+                <dd>A list of files and folders that Git should pretend don't exist. Used for big files, temporary files, and private data.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>XGBoost</dt>
+                <dd>A popular AI method that's great at making predictions from tables of numbers. It learns patterns like "players in good form at home against weak teams score more."</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>LLM (Large Language Model)</dt>
+                <dd>An AI that understands and generates human language (like ChatGPT). We're going to customise one to predict FPL points from player descriptions.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Fine-tuning</dt>
+                <dd>Taking a pre-built AI model and teaching it something new with your own data. Like hiring a smart employee and training them on your specific business.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>MLX</dt>
+                <dd>Software from Apple that lets AI models run efficiently on Mac's M-series chips. Without it, you'd normally need an expensive cloud GPU.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>LoRA</dt>
+                <dd>A technique for fine-tuning AI models efficiently. Instead of retraining the whole model (expensive), it makes small, targeted adjustments. Like hemming trousers instead of sewing a new pair.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>API</dt>
+                <dd>A way for software to request data from a website. The FPL API lets our code ask "give me all player stats" and get a structured answer back.</dd>
+            </div>
+        </dl>
+    </div>
+
+</div>
+
+</body>
+</html>

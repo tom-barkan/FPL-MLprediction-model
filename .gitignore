@@ -1,0 +1,18 @@
+# Models (too large for GitHub)
+models/llama-3.2-3b/
+models/fpl-lora-adapter/
+models/xgboost_fpl.json
+
+# Raw data (re-fetchable from API)
+data/raw/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/

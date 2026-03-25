@@ -1,0 +1,14 @@
+requests
+pandas
+scikit-learn
+xgboost
+streamlit
+matplotlib
+mlx
+mlx-lm
+huggingface_hub
+jupyter
+nbformat
+nbconvert
+pyyaml
+psutil
