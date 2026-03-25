@@ -1,0 +1,1703 @@
+[
+  {
+    "index": 0,
+    "actual": 0,
+    "raw_response": "To predict A.Jimenez's points, let's analyze the given data step by step:\n\n1. Form: A.Jimenez's form over the last 3 GW is 3.7 points, which is a slight improvement from his 5-GW average of 3.6 points",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 1,
+    "actual": 3,
+    "raw_response": "To predict Aaronson's points, let's analyze the given data step by step:\n\n1. Form: Aaronson's last 3 GW average is 1.7 points, which is relatively low. However, his last 5 GW average is 2.0 points, in",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 2,
+    "actual": 1,
+    "raw_response": "To predict Abraham's points, let's analyze the given data step by step:\n\n1. Form: Abraham's last 3 GW average form is 1.0 points, which is relatively low. However, his last 5 GW average form is 2.2 po",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 3,
+    "actual": 1,
+    "raw_response": "To predict Adama's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Adama has been scoring well in his last three games, which is a positive si",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 4,
+    "actual": 2,
+    "raw_response": "To predict Adli's points, let's analyze the given data step by step:\n\n1. Form: Adli has an average of 1.0 points per game in the last 3 games and 3.2 points per game in the last 5 games. This suggests",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 5,
+    "actual": 6,
+    "raw_response": "To predict Aina's points, let's analyze the given data step by step:\n\n1. Form: Aina has an average of 4.0 points in the last 3 games and 4.0 points in the last 5 games. This suggests she's in a good f",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 6,
+    "actual": 1,
+    "raw_response": "To predict Alderete's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.3 pts - This suggests that Alderete has been performing well in his last three games, which is a go",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 7,
+    "actual": 2,
+    "raw_response": "To predict Amad's points, let's analyze the given data step by step:\n\n1. Form: Amad's form over the last 5 games is 1.4 points per game, which is a slight improvement from the last 3 games (1.3 points",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 8,
+    "actual": 5,
+    "raw_response": "To predict Ampadu's points, let's analyze the given data step by step:\n\n1. Form: Ampadu's form over the last 5 games is 4.2 points, which is a good indication of his recent performance. Over the last ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 9,
+    "actual": 4,
+    "raw_response": "To predict Andersen's points, let's analyze the given data step by step:\n\n1. Form: Andersen's last 3 GW average form is 2.3 points, and his last 5 GW average form is 2.6 points. This suggests he's in ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 10,
+    "actual": 5,
+    "raw_response": "To predict Anderson's points, let's analyze the given data step by step:\n\n1. Form: Anderson has been consistently scoring 5.0 points per game over the last 3 and 5 games, indicating a strong form.\n\n2.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 11,
+    "actual": 1,
+    "raw_response": "To predict Andrey Santos' points, let's analyze the given data step by step:\n\n1. Form: Santos has a decent form, with an average of 1.0 points per game over the last 3 games and 1.4 points per game ov",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 12,
+    "actual": 2,
+    "raw_response": "To predict Anthony's points, let's analyze the given data step by step:\n\n1. Form: Anthony's last 3 GW average is 5.7 points, which is slightly higher than his last 5 GW average of 5.4 points. This sug",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 13,
+    "actual": 4,
+    "raw_response": "To predict Awoniyi's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests Awoniyi has been scoring well in his last three games, which is a positive sig",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 14,
+    "actual": 1,
+    "raw_response": "To predict Ayari's points, let's analyze the given data step by step:\n\n1. Form: Ayari's last 3 GW average form is 0.3 points, which is relatively low. However, his last 5 GW average form is 0.2 points",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 15,
+    "actual": 13,
+    "raw_response": "To predict B.Fernandes' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 10.3 pts - This suggests that Fernandes has been performing well in his last three games, which is ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 16,
+    "actual": 1,
+    "raw_response": "To predict Bailey's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - Bailey has been scoring well in his last three games.\n2. Form (last 5 GW avg): 1.8 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 17,
+    "actual": 1,
+    "raw_response": "To predict Baleba's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Baleba has been performing well in his last three games, scoring 1 point p",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 18,
+    "actual": 3,
+    "raw_response": "To predict Barkley's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.7 pts - This suggests that Barkley has been performing well in his last three games, scoring 4.7 poi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 19,
+    "actual": 1,
+    "raw_response": "To predict Barnes' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - Barnes has been scoring decently in his last three games, but his form has been inconsistent o",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 20,
+    "actual": 2,
+    "raw_response": "To predict Barnes' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - Barnes has been scoring decently in his last three games.\n2. Form (last 5 GW avg): 1.4 pts - H",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 21,
+    "actual": 1,
+    "raw_response": "To predict Barry's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.7 pts - Barry has been scoring well in his last three games, which is a good sign.\n\n2. Form (last 5 GW",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 22,
+    "actual": 2,
+    "raw_response": "To predict Bassey's points, let's analyze the given data step by step:\n\n1. Form: Bassey's form over the last 5 games is 3.8 points, which is a slight improvement from the last 3 games (3.7 points). Th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 23,
+    "actual": 5,
+    "raw_response": "To predict Berge's points, let's analyze the given data step by step:\n\n1. Form: Berge's last 3 GW average form is 2.7 points, and his last 5 GW average form is 2.8 points. This indicates a slight impr",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 24,
+    "actual": 1,
+    "raw_response": "To predict Bergvall's points, let's analyze the given data step by step:\n\n1. Form: Bergvall's form is extremely poor, with an average of 0.0 points over the last 3 and 5 games. This suggests he's not ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 25,
+    "actual": 16,
+    "raw_response": "To predict Beto's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.3 pts - Beto has been scoring well in his last three games.\n2. Form (last 5 GW avg): 2.8 pts - His rece",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 26,
+    "actual": 11,
+    "raw_response": "To predict Bijol's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - Bijol has been scoring well in his last three games.\n2. Form (last 5 GW avg): 2.4 pts - His fo",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 27,
+    "actual": 2,
+    "raw_response": "To predict Bobb's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - This suggests that Bobb has been performing well in his last three games, which is a good sign.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 28,
+    "actual": 5,
+    "raw_response": "To predict Bogle's points, let's analyze the given data step by step:\n\n1. Form: Bogle's last 3 GW average is 1.7 points, which is relatively low. However, his last 5 GW average is 2.0 points, indicati",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 29,
+    "actual": 1,
+    "raw_response": "To predict Botman's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.7 pts - This suggests Botman is in a good form, scoring well in his last three games.\n\n2. Fixture: Ho",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 30,
+    "actual": 2,
+    "raw_response": "To predict Bowen's points, let's analyze the given data step by step:\n\n1. Form: Bowen's last 3 GW average is 5.7 points, which is a slight improvement from his last 5 GW average of 5.2 points. This su",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 31,
+    "actual": 1,
+    "raw_response": "To predict Branthwaite's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.0 pts - Branthwaite has been performing well in his last three games, which is a good sign.\n\n2. ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 32,
+    "actual": 8,
+    "raw_response": "To predict Brobbey's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - This suggests that Brobbey has been scoring relatively low in his last three games.\n\n2. Form",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 33,
+    "actual": 1,
+    "raw_response": "To predict Brooks' points, let's analyze the given data step by step:\n\n1. Form: Brooks' last 3 GW average form is 0.7 points, which is slightly above his 5-GW average form of 0.6 points. This suggests",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 34,
+    "actual": 1,
+    "raw_response": "To predict Buend\u00eda's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Buend\u00eda has been performing well in his last three games, scoring 2 point",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 35,
+    "actual": 3,
+    "raw_response": "To predict Burn's points, let's analyze the given data step by step:\n\n1. Form: The player's form over the last 5 games is 1.2 points per game, which is a slight improvement from the last 3 games (1.0 ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 36,
+    "actual": 6,
+    "raw_response": "To predict C.Jones' points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 0.7 points, which is relatively low. However, his last 5 GW average is 1.2 points, indicating ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 37,
+    "actual": 2,
+    "raw_response": "To predict Caicedo's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 pts - Caicedo has been scoring well in his last three games, which is a good sign.\n\n2. Form (last ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 38,
+    "actual": 2,
+    "raw_response": "To predict Calvert-Lewin's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 1.3 points, which is a slight improvement from his last 5 GW average of 1.2 points. Thi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 39,
+    "actual": 1,
+    "raw_response": "To predict Casemiro's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 6.0 pts - Casemiro has been consistently scoring points over the last three gameweeks.\n2. Form (last ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 40,
+    "actual": 6,
+    "raw_response": "To predict Cash's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): -0.3 points, which indicates a slight decline in form.\n2. Form (last 5 GW avg): 0.2 points, showing a sli",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 41,
+    "actual": 2,
+    "raw_response": "To predict Castagne's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.3 pts - This is a relatively low form, indicating that Castagne hasn't been performing well in his ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 42,
+    "actual": 0,
+    "raw_response": "To predict Chiesa's points, let's analyze the given data step by step:\n\n1. Form: Chiesa's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 0.8 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 43,
+    "actual": 9,
+    "raw_response": "To predict Christie's points, let's analyze the given data step by step:\n\n1. Form: Christie's last 3 GW average form is 2.7 points, which is slightly better than his last 5 GW average form of 2.2 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 44,
+    "actual": 1,
+    "raw_response": "To predict Chukwueze's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests that Chukwueze has been performing well in his last three games, scoring 1.3",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 45,
+    "actual": 6,
+    "raw_response": "To predict Collins' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - Collins has been scoring well in his last three games.\n2. Form (last 5 GW avg): 1.4 pts - His",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 46,
+    "actual": 1,
+    "raw_response": "To predict Cucurella's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Cucurella has been performing well in his last three games, which is a ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 47,
+    "actual": 6,
+    "raw_response": "To predict Cunha's points, let's analyze the given data step by step:\n\n1. Form: Cunha's last 3 GW average form is 5.0 points, which is relatively good. However, his last 5 GW average form is 4.0 point",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 48,
+    "actual": 1,
+    "raw_response": "To predict Dalot's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests that Dalot has been performing relatively poorly in his last three games.\n\n2. Fo",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 49,
+    "actual": 3,
+    "raw_response": "To predict Danso's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.7 points, which is relatively good considering the recent dip in form (last 5 GW avg: 1.6 points). Thi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 50,
+    "actual": 6,
+    "raw_response": "To predict Darlow's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.7 pts - Darlow has been performing well in his last three games, which is a good sign.\n\n2. Form (last",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 51,
+    "actual": 1,
+    "raw_response": "To predict Delap's points, let's analyze the given data step by step:\n\n1. Form: Delap has an average of 1.0 points per game over the last 3 games and 1.0 points per game over the last 5 games. This su",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 52,
+    "actual": 3,
+    "raw_response": "To predict Dewsbury-Hall's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.7 pts - This suggests that Dewsbury-Hall has been performing well in his last three games, sco",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 53,
+    "actual": 5,
+    "raw_response": "To predict Diarra's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.7 pts - This suggests Diarra is in a good form, scoring well in his last three games.\n\n2. Fixture: Aw",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 54,
+    "actual": 7,
+    "raw_response": "To predict Digne's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Digne has been performing well in his last three games, which is a positive",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 55,
+    "actual": 1,
+    "raw_response": "To predict Diouf's points, let's analyze the given data step by step:\n\n1. Form: Diouf's form has been excellent over the last 5 games, averaging 5.2 points. However, his last 3 games have been slightl",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 56,
+    "actual": 1,
+    "raw_response": "To predict Disasi's points, let's analyze the given data step by step:\n\n1. Form: Disasi's last 3 GW average form is 2.0 points, which is relatively low. However, his last 5 GW average form is 2.8 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 57,
+    "actual": 1,
+    "raw_response": "To predict Dominguez's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Dominguez has been performing well in his last three games, scoring 1 p",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 58,
+    "actual": 1,
+    "raw_response": "To predict Douglas Luiz's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 3.0 points, and his last 5 GW average is 2.8 points. This suggests a slight dip in form,",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 59,
+    "actual": 1,
+    "raw_response": "To predict Dunk's points, let's analyze the given data step by step:\n\n1. Form: Dunk has an average of 4.0 points over the last 3 games and 4.0 points over the last 5 games. This suggests he's in a goo",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 60,
+    "actual": 2,
+    "raw_response": "To predict D\u00fabravka's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.7 pts - This suggests that D\u00fabravka has been performing well in her last three games, but the form ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 61,
+    "actual": 1,
+    "raw_response": "To predict E.Le F\u00e9e's points, let's analyze the given data step by step:\n\n1. Form: E.Le F\u00e9e has an average of 2.3 points per game in the last 3 games and 3.8 points per game in the last 5 games. This ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 62,
+    "actual": 1,
+    "raw_response": "To predict Edwards' points, let's analyze the given data step by step:\n\n1. Form: Edwards' last 3 GW average form is 0.3 points, which is relatively low. However, his last 5 GW average form is 1.6 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 63,
+    "actual": 1,
+    "raw_response": "To predict Ekitik\u00e9's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 6.0 pts - Ekitik\u00e9 has been scoring well in his last three games.\n2. Form (last 5 GW avg): 4.4 pts - Hi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 64,
+    "actual": 2,
+    "raw_response": "To predict Elanga's points, let's analyze the given data step by step:\n\n1. Form: Elanga's last 3 GW average form is 1.3 points, which is relatively low. However, his last 5 GW average form is 1.6 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 65,
+    "actual": 3,
+    "raw_response": "To predict Ellborg's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.3 pts - This suggests that Ellborg has been performing well in his last three games, which is a good",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 66,
+    "actual": 2,
+    "raw_response": "To predict Enzo's points, let's analyze the given data step by step:\n\n1. Form: Enzo's last 3 GW average form is 2.3 points, which is slightly above his 5-GW average form of 2.2 points. This suggests h",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 67,
+    "actual": 3,
+    "raw_response": "To predict Est\u00e8ve's points, let's analyze the given data step by step:\n\n1. Form: Est\u00e8ve's last 3 GW average form is 2.3 points, which is relatively low. However, his last 5 GW average form is 2.4 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 68,
+    "actual": 1,
+    "raw_response": "To predict Est\u00eav\u00e3o's points, let's analyze the given data step by step:\n\n1. Form: Est\u00eav\u00e3o's form over the last 5 games is 0.6 points, which is a slight improvement from the last 3 games (0.0 points). ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 69,
+    "actual": 5,
+    "raw_response": "To predict Evanilson's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is a decent average. However, his form over the last 5 GW is slightly lower at 2.6",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 70,
+    "actual": 2,
+    "raw_response": "To predict F.Kad\u0131o\u011flu's points, let's analyze the given data step by step:\n\n1. Form: F.Kad\u0131o\u011flu has an average of 3.7 points in the last 3 games and 4.2 points in the last 5 games. This suggests he's ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 71,
+    "actual": 7,
+    "raw_response": "To predict Flemming's points, let's analyze the given data step by step:\n\n1. Form: Flemming's last 5-game average form is 3.8 points, which is a good sign. However, his last 3-game average form is 2.7",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 72,
+    "actual": 2,
+    "raw_response": "To predict Fofana's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - This suggests that Fofana has been performing well in his last three games, but his form has ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 73,
+    "actual": 5,
+    "raw_response": "To predict Foster's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - Foster has been scoring well in his last three games.\n2. Form (last 5 GW avg): 1.0 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 74,
+    "actual": 0,
+    "raw_response": "To predict Frimpong's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.7 pts - This suggests that Frimpong has been performing well in his last three games, which is a go",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 75,
+    "actual": 2,
+    "raw_response": "To predict Gakpo's points, let's analyze the given data step by step:\n\n1. Form: Gakpo's last 3 GW average form is 4.0 points, which is a good sign. However, his last 5 GW average form is 3.6 points, i",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 76,
+    "actual": 1,
+    "raw_response": "To predict Gallagher's points, let's analyze the given data step by step:\n\n1. Form: Gallagher's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 1.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 77,
+    "actual": 8,
+    "raw_response": "To predict Gana's points, let's analyze the given data step by step:\n\n1. Form: Gana's last 3 GW average form is 3.0 points, which is a slight improvement from his last 5 GW average of 2.6 points. This",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 78,
+    "actual": 1,
+    "raw_response": "To predict Gannon-Doak's points, let's analyze the given data step by step:\n\n1. Form: Gannon-Doak has a poor form, with an average of 0.0 points over the last 3 and 5 games. This suggests he might not",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 79,
+    "actual": 0,
+    "raw_response": "To predict Garnacho's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - This suggests that Garnacho has been performing well in his last three games, scoring 3 poi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 80,
+    "actual": 6,
+    "raw_response": "To predict Garner's points, let's analyze the given data step by step:\n\n1. Form: Garner's last 3 GW average is 6.7 points, which is a good sign. However, his last 5 GW average is 4.8 points, indicatin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 81,
+    "actual": 3,
+    "raw_response": "To predict Geertruida's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 pts - This suggests that Geertruida has been performing well in her last three games, but her f",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 82,
+    "actual": 1,
+    "raw_response": "To predict Georginio's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 points, which is a relatively good form. However, his form over the last 5 GW is lower (0.8 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 83,
+    "actual": 8,
+    "raw_response": "To predict Gibbs-White's points, let's analyze the given data step by step:\n\n1. Form: Gibbs-White's last 3 GW average form is 6.7 points, which is relatively good. However, his last 5 GW average form ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 84,
+    "actual": 6,
+    "raw_response": "To predict Gomez's points, let's analyze the given data step by step:\n\n1. Form: Gomez has been in good form over the last 5 games, averaging 5.4 points. This suggests he's been performing well and is ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 85,
+    "actual": 10,
+    "raw_response": "To predict Gordon's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 6.7 pts - Gordon has been scoring well in his last three games.\n2. Form (last 5 GW avg): 5.4 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 86,
+    "actual": 3,
+    "raw_response": "To predict Gravenberch's points, let's analyze the given data step by step:\n\n1. Form: Gravenberch's form over the last 5 games is 3.0 points, which is a good indicator of his recent performance. Over ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 87,
+    "actual": 2,
+    "raw_response": "To predict Gray's points, let's analyze the given data step by step:\n\n1. Form: Gray's form is excellent, with an average of 4.6 points per game over the last 5 games. This suggests he's in a good scor",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 88,
+    "actual": 2,
+    "raw_response": "To predict Gro\u00df's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.0 pts - This suggests that Gro\u00df has been performing well in his last three games, scoring 5 points on a",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 89,
+    "actual": 1,
+    "raw_response": "To predict Gusto's points, let's analyze the given data step by step:\n\n1. Form: Gusto's last 3 GW average form is 2.3 points, and his last 5 GW average form is 2.6 points. This suggests he's in a dece",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 90,
+    "actual": 1,
+    "raw_response": "To predict Hall's points, let's analyze the given data step by step:\n\n1. Form: Hall's last 5 GW average form is 3.2 points, which is a good sign. His last 3 GW average form is 2.7 points, indicating a",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 91,
+    "actual": 1,
+    "raw_response": "To predict Hannibal's points, let's analyze the given data step by step:\n\n1. Form: Hannibal's form is excellent, with an average of 4.7 points per game over the last 3 games and 5.0 points per game ov",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 92,
+    "actual": 1,
+    "raw_response": "To predict Hartman's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Hartman has been performing well in his last three games, but the form ov",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 93,
+    "actual": 1,
+    "raw_response": "To predict Hato's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Hato has been performing well in his last three games, scoring 1 point per g",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 94,
+    "actual": 1,
+    "raw_response": "To predict Heaven's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.0 pts - This suggests that Heaven is not having a great run of form, scoring no points in the last th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 95,
+    "actual": 5,
+    "raw_response": "To predict Henderson's points, let's analyze the given data step by step:\n\n1. Form: Henderson's last 3 GW average is 2.0 points, which is a slight improvement from his last 5 GW average of 1.8 points.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 96,
+    "actual": 2,
+    "raw_response": "To predict Hermansen's points, let's analyze the given data step by step:\n\n1. Form: Hermansen's form over the last 5 games is 4.8 points, which is a good indication of his current performance. Over th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 97,
+    "actual": -1,
+    "raw_response": "To predict Hill's points, let's analyze the given data step by step:\n\n1. Form: Hill's last 3 GW average is 6.0 points, and his last 5 GW average is 6.6 points. This suggests he's in a good form streak",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 98,
+    "actual": 5,
+    "raw_response": "To predict Hinshelwood's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 3.3 points, which is a slight improvement from his last 5 GW average of 3.2 points. This ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 99,
+    "actual": 6,
+    "raw_response": "To predict Hudson-Odoi's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 2.3 points, and his last 5 GW average is 2.6 points. This suggests he's in a decent form ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 100,
+    "actual": 1,
+    "raw_response": "To predict Hume's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - Hume has been scoring well in his last three games.\n2. Form (last 5 GW avg): 3.0 pts - His form",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 101,
+    "actual": 1,
+    "raw_response": "To predict Humphreys' points, let's analyze the given data step by step:\n\n1. Form: Humphreys has an average of 2.3 points per game over the last 3 games and 2.6 points per game over the last 5 games. ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 102,
+    "actual": 3,
+    "raw_response": "To predict Hutchinson's points, let's analyze the given data step by step:\n\n1. Form: Hutchinson's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 103,
+    "actual": 8,
+    "raw_response": "To predict Igor Jesus's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - Jesus has been scoring well in his last three games, which is a good sign.\n\n2. Form (last",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 104,
+    "actual": 1,
+    "raw_response": "To predict Iroegbunam's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests that Iroegbunam has been scoring well in his last three games, but his form",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 105,
+    "actual": 1,
+    "raw_response": "To predict Iwobi's points, let's analyze the given data step by step:\n\n1. Form: Iwobi has an average of 5.0 points in the last 3 games and 6.0 points in the last 5 games. This suggests he's in a good ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 106,
+    "actual": 1,
+    "raw_response": "To predict J.Murphy's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 pts - This suggests that Murphy is in a decent form, scoring around 3.3 points per game over the ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 107,
+    "actual": 2,
+    "raw_response": "To predict J.Ramsey's points, let's analyze the given data step by step:\n\n1. Form: J.Ramsey has a decent form, with an average of 2.3 points per game over the last 3 games and 4.0 points per game over",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 108,
+    "actual": 1,
+    "raw_response": "To predict James' points, let's analyze the given data step by step:\n\n1. Form: James' last 3 GW average form is 0.7 points, which is slightly above his 5-GW average form of 0.6 points. This suggests h",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 109,
+    "actual": 5,
+    "raw_response": "To predict Jensen's points, let's analyze the given data step by step:\n\n1. Form: Jensen's last 3 GW average is 2.7 points, which is slightly higher than his last 5 GW average of 2.2 points. This sugge",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 110,
+    "actual": 3,
+    "raw_response": "To predict Joelinton's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 pts - This suggests that Joelinton has been performing well in his last three games, scoring 2.3",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 111,
+    "actual": 2,
+    "raw_response": "To predict Jo\u00e3o Pedro's points, let's analyze the given data step by step:\n\n1. Form: Jo\u00e3o Pedro has an excellent form, with an average of 7.7 points over the last 3 games and 8.0 points over the last ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 112,
+    "actual": 6,
+    "raw_response": "To predict Justin's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is relatively good. However, his form over the last 5 GW is lower at 2.4 points. This",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 113,
+    "actual": 6,
+    "raw_response": "To predict Kayode's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.3 pts - Kayode has been scoring well in his last three games.\n2. Form (last 5 GW avg): 3.0 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 114,
+    "actual": 8,
+    "raw_response": "To predict Keane's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - This suggests that Keane has been performing well in his last three games, scoring 1.7 points ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 115,
+    "actual": 9,
+    "raw_response": "To predict Kelleher's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 pts - This suggests that Kelleher has been performing well in his last three games, but the form ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 116,
+    "actual": 7,
+    "raw_response": "To predict Kerkez's points, let's analyze the given data step by step:\n\n1. Form: Kerkez's form over the last 5 games is 2.6 points, which is a slight improvement from the last 3 games (2.3 points). Th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 117,
+    "actual": 13,
+    "raw_response": "To predict King's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 points, which is relatively stable and decent.\n2. Form (last 5 GW avg): 1.6 points, indicating a slig",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 118,
+    "actual": 1,
+    "raw_response": "To predict Kolo Muani's points, let's analyze the given data step by step:\n\n1. Form: His last 5-game average is 2.8 points, which is a good sign. However, his last 3-game average is 2.0 points, indica",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 119,
+    "actual": 0,
+    "raw_response": "To predict Konat\u00e9's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Konat\u00e9 has been performing relatively well in his last three games, scorin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 120,
+    "actual": 6,
+    "raw_response": "To predict Konsa's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - Konsa's form has been relatively poor over the last three gameweeks.\n2. Form (last 5 GW avg): ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 121,
+    "actual": 5,
+    "raw_response": "To predict Kroupi Jr's points, let's analyze the given data step by step:\n\n1. Form: Kroupi Jr's last 3 GW average is 1.7 points, which is slightly above his last 5 GW average of 1.6 points. This sugge",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 122,
+    "actual": 2,
+    "raw_response": "To predict Lammens' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Lammens has been performing relatively well in his last three games, but n",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 123,
+    "actual": -1,
+    "raw_response": "To predict Laurent's points, let's analyze the given data step by step:\n\n1. Form: Laurent's last 3 GW average is 1.7 points, which is slightly above his last 5 GW average of 1.6 points. This suggests ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 124,
+    "actual": 1,
+    "raw_response": "To predict Lavia's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Lavia has been performing well in his last three games, scoring 1 point per",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 125,
+    "actual": 3,
+    "raw_response": "To predict Leno's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - This suggests that Leno has been performing well in his last three games, which is a positive s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 126,
+    "actual": 6,
+    "raw_response": "To predict Lewis-Potter's points, let's analyze the given data step by step:\n\n1. Form: Lewis-Potter has an average of 2.0 points per game over the last 3 games and 2.8 points per game over the last 5 ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 127,
+    "actual": 1,
+    "raw_response": "To predict Livramento's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Livramento has been performing well in his last three games, scoring 2",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 128,
+    "actual": 2,
+    "raw_response": "To predict M.Fernandes' points, let's analyze the given data step by step:\n\n1. Form: M.Fernandes has an average of 1.7 points per game in the last 3 games and 2.6 points per game in the last 5 games. ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 129,
+    "actual": 1,
+    "raw_response": "To predict Mac Allister's points, let's analyze the given data step by step:\n\n1. Form: Mac Allister's form has been excellent over the last 5 games, averaging 7.0 points. This suggests he's in a good ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 130,
+    "actual": 0,
+    "raw_response": "To predict Maguire's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests Maguire is having a relatively poor form in his last three games.\n\n2. Form (la",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 131,
+    "actual": 2,
+    "raw_response": "To predict Mainoo's points, let's analyze the given data step by step:\n\n1. Form: Mainoo's last 3 GW average form is 2.7 points, which is slightly above his 5-GW average form of 2.6 points. This sugges",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 132,
+    "actual": 2,
+    "raw_response": "Considering Mamardashvili's poor form (0.0 points in last 3 GW and 0.0 points in last 5 GW), his minutes played (0.0 in last 3 GW), and the fact that he's a goalkeeper, his points are likely to be ver",
+    "parsed_prediction": 0,
+    "parse_success": true
+  },
+  {
+    "index": 133,
+    "actual": 6,
+    "raw_response": "To predict Martinez's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - Martinez's form has been relatively poor in his last three games, scoring only 1.3 points o",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 134,
+    "actual": 3,
+    "raw_response": "To predict Mavropanos' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.0 pts - This suggests that Mavropanos has been performing well in his last three games, which is a",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 135,
+    "actual": 1,
+    "raw_response": "To predict Mayenda's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.7 pts - This suggests Mayenda is in a decent form, scoring around 3.7 points per game in the last th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 136,
+    "actual": 2,
+    "raw_response": "To predict Mbeumo's points, let's analyze the given data step by step:\n\n1. Form: Mbeumo's last 5 GW average form is 3.4 points, which is a good sign. However, his last 3 GW average form is 1.7 points,",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 137,
+    "actual": 1,
+    "raw_response": "To predict McAtee's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.3 pts - McAtee's form has been relatively poor over the last three games.\n2. Form (last 5 GW avg): 0.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 138,
+    "actual": 10,
+    "raw_response": "To predict McGinn's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - This suggests that McGinn has been performing decently over the last three gameweeks, but his",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 139,
+    "actual": 3,
+    "raw_response": "To predict McNeil's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.7 pts - This suggests McNeil is in a good form, scoring well in his last three games.\n\n2. Fixture: Ho",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 140,
+    "actual": 9,
+    "raw_response": "To predict Milenkovi\u0107's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 2.3 points, and his last 5 GW average is 3.4 points. This suggests he's in a decent form s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 141,
+    "actual": 2,
+    "raw_response": "To predict Milner's points, let's analyze the given data step by step:\n\n1. Form: Milner's last 3 GW average is 1.7 points, which is relatively low. However, his last 5 GW average is 2.0 points, indica",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 142,
+    "actual": 1,
+    "raw_response": "To predict Minteh's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is a relatively good form. However, the form (last 5 GW avg) is lower at 2.2 points, ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 143,
+    "actual": 1,
+    "raw_response": "To predict Mitoma's points, let's analyze the given data step by step:\n\n1. Form: Mitoma's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 1.6 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 144,
+    "actual": 1,
+    "raw_response": "To predict Mohamadou Kant\u00e9's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - This suggests that Kant\u00e9 has been performing decently over the last three games, but",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 145,
+    "actual": 1,
+    "raw_response": "To predict Mount's points, let's analyze the given data step by step:\n\n1. Form: Mount's form is extremely poor over the last 3 and 5 games, with an average of 0.0 points. This suggests he might not be",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 146,
+    "actual": 2,
+    "raw_response": "To predict Muniz's points, let's analyze the given data step by step:\n\n1. Form: Muniz has an average of 1.0 points per game over the last 3 games and 1.0 points per game over the last 5 games. This su",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 147,
+    "actual": 8,
+    "raw_response": "To predict Murillo's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - This suggests that Murillo has been performing well in his last three games, scoring 3 point",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 148,
+    "actual": 7,
+    "raw_response": "To predict Mykolenko's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is relatively good. However, his form over the last 5 GW is lower at 2.2 points. T",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 149,
+    "actual": 15,
+    "raw_response": "To predict N.Williams' points, let's analyze the given data step by step:\n\n1. Form: N.Williams has an average of 2.0 points per game over the last 3 games and 3.6 points per game over the last 5 games",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 150,
+    "actual": 10,
+    "raw_response": "To predict Ndiaye's points, let's analyze the given data step by step:\n\n1. Form: Ndiaye has an average of 4.0 points per game over the last 3 games and 4.6 points per game over the last 5 games. This ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 151,
+    "actual": 1,
+    "raw_response": "To predict Ndoye's points, let's analyze the given data step by step:\n\n1. Form: Ndoye's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 0.8 points",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 152,
+    "actual": 2,
+    "raw_response": "To predict Neto's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): -0.3 pts\n   This suggests that Neto has been underperforming in his last three games.\n\n2. Form (last 5 GW",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 153,
+    "actual": 1,
+    "raw_response": "To predict Ngumoha's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - This suggests that Ngumoha has been performing relatively well in his last three games, scor",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 154,
+    "actual": 2,
+    "raw_response": "To predict Nmecha's points, let's analyze the given data step by step:\n\n1. Form: Nmecha has a decent form, with an average of 1.0 points per game over the last 3 games and 3.0 points per game over the",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 155,
+    "actual": 6,
+    "raw_response": "To predict O'Brien's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is relatively good. However, his form over the last 5 GW is lower (1.6 points), indi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 156,
+    "actual": 2,
+    "raw_response": "To predict O'Nien's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that O'Nien has been performing well in his last three games, which is a good s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 157,
+    "actual": 1,
+    "raw_response": "To predict O.Dango's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.3 pts - This suggests that Dango is in a good form, contributing to his team's points.\n2. Form (last",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 158,
+    "actual": 1,
+    "raw_response": "To predict Okafor's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.0 pts - This suggests that Okafor is not in a good form, scoring no points in his last three games.\n\n",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 159,
+    "actual": 5,
+    "raw_response": "To predict Onana's points, let's analyze the given data step by step:\n\n1. Form: Onana's last 3 GW average form is 2.0 points, and his last 5 GW average form is 2.2 points. This suggests he's in a dece",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 160,
+    "actual": 1,
+    "raw_response": "To predict Osula's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.7 pts - This suggests Osula is in a decent form, scoring and assisting regularly.\n\n2. Form (last 5 GW ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 161,
+    "actual": 2,
+    "raw_response": "To predict P.M.Sarr's points, let's analyze the given data step by step:\n\n1. Form: P.M.Sarr has an average of 2.0 points per game over the last 3 games and 3.6 points per game over the last 5 games. T",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 162,
+    "actual": 2,
+    "raw_response": "To predict Pablo's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - Pablo has been scoring decently in his last three games, but his form has been inconsistent ov",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 163,
+    "actual": 2,
+    "raw_response": "To predict Palmer's points, let's analyze the given data step by step:\n\n1. Form: Palmer's last 5-game average form is 5.4 points, which is a good indicator of his current performance. His last 3-game ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 164,
+    "actual": 6,
+    "raw_response": "To predict Pau's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.3 pts - Pau's form has been relatively decent over the last three games, but it's still a relatively low",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 165,
+    "actual": 1,
+    "raw_response": "To predict Pedro Porro's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - This suggests that Porro has been performing well in his last three games, which is a go",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 166,
+    "actual": 2,
+    "raw_response": "To predict Petrovi\u0107's points, let's analyze the given data step by step:\n\n1. Form: Petrovi\u0107 has an average of 5.0 points in the last 3 games and 5.4 points in the last 5 games. This suggests he's in a",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 167,
+    "actual": 7,
+    "raw_response": "To predict Pickford's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 pts - This suggests that Pickford has been performing well in his last three games, which is a po",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 168,
+    "actual": 10,
+    "raw_response": "Considering Pinnock's poor form, lack of minutes, and no goals or assists in the last 3 GW, his points value seems low. The fact that he's been playing for a team that scores 6 goals per 3 GW and conc",
+    "parsed_prediction": 0,
+    "parse_success": true
+  },
+  {
+    "index": 169,
+    "actual": 1,
+    "raw_response": "Considering Potts' poor form over the last 3 games (0.0 points) and the fact that he's been playing with a low minutes average (0.0 minutes), it's likely that he'll struggle to make an impact in his n",
+    "parsed_prediction": 0,
+    "parse_success": true
+  },
+  {
+    "index": 170,
+    "actual": 2,
+    "raw_response": "To predict Ramsdale's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 pts - This suggests that Ramsdale has been performing well in his last three games, which is a po",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 171,
+    "actual": 2,
+    "raw_response": "To predict Rayan's points, let's analyze the given data step by step:\n\n1. Form: Rayan's last 3 GW average form is 2.7 points, which is slightly below his 5-GW average form of 3.4 points. This suggests",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 172,
+    "actual": 5,
+    "raw_response": "To predict Ra\u00fal's points, let's analyze the given data step by step:\n\n1. Form: Ra\u00fal's form has been improving over the last 5 games, with an average of 3.4 points. This suggests he's in a good scoring",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 173,
+    "actual": 1,
+    "raw_response": "To predict Reed's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.0 pts - Reed has been struggling with points in his last three games.\n2. Form (last 5 GW avg): 0.2 pts ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 174,
+    "actual": 0,
+    "raw_response": "To predict Reinildo's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.0 pts - This suggests that Reinildo has been struggling to score points in his last three games.\n\n2",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 175,
+    "actual": 2,
+    "raw_response": "To predict Richarlison's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 5.0 pts - This suggests that Richarlison has been scoring well in his last three games, which is a",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 176,
+    "actual": 3,
+    "raw_response": "To predict Rigg's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.0 pts - Rigg has been scoring well in his last three games.\n2. Form (last 5 GW avg): 0.6 pts - His form",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 177,
+    "actual": 1,
+    "raw_response": "To predict Robertson's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - Robertson's form has been relatively poor over the last three gameweeks, scoring an averag",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 178,
+    "actual": 1,
+    "raw_response": "To predict Robinson's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.0 pts - This suggests that Robinson has been performing well in his last three games, which is a go",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 179,
+    "actual": 6,
+    "raw_response": "To predict Rodon's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - This suggests that Rodon has been performing well in his last three games, which is a good sig",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 180,
+    "actual": 6,
+    "raw_response": "To predict Rogers' points, let's analyze the given data step by step:\n\n1. Form: Rogers has an average of 1.7 points per game over the last 3 games and 1.8 points per game over the last 5 games. This s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 181,
+    "actual": 1,
+    "raw_response": "To predict Romero's points, let's analyze the given data step by step:\n\n1. Form: Romero's form is extremely poor, with an average of 0.0 points over the last 3 and 5 games. This suggests he's not cont",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 182,
+    "actual": 1,
+    "raw_response": "To predict R\u00f6hl's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.3 pts - R\u00f6hl has been scoring relatively well in his last three games.\n2. Form (last 5 GW avg): 0.2 pts",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 183,
+    "actual": 1,
+    "raw_response": "To predict S.Magassa's points, let's analyze the given data step by step:\n\n1. Form: S.Magassa's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 1.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 184,
+    "actual": 1,
+    "raw_response": "To predict Sadiki's points, let's analyze the given data step by step:\n\n1. Form: Sadiki's form is decent, with an average of 2.0 points per game over the last 3 games and 2.0 points per game over the ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 185,
+    "actual": 6,
+    "raw_response": "To predict Sancho's points, let's analyze the given data step by step:\n\n1. Form: Sancho's last 3 GW average form is 0.7 points, which is relatively low. However, his last 5 GW average form is 0.8 poin",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 186,
+    "actual": 4,
+    "raw_response": "To predict Sangar\u00e9's points, let's analyze the given data step by step:\n\n1. Form: Sangar\u00e9's last 3 GW average form is 2.0 points, which is relatively low. However, his last 5 GW average form is 2.6 po",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 187,
+    "actual": 3,
+    "raw_response": "To predict Schade's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - This suggests that Schade has been performing well in his last three games, which is a good s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 188,
+    "actual": 2,
+    "raw_response": "To predict Scott's points, let's analyze the given data step by step:\n\n1. Form: Scott's last 3 GW average form is 3.7 points, and his last 5 GW average form is 4.0 points. This suggests he's in a good",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 189,
+    "actual": 7,
+    "raw_response": "To predict Sels' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - This suggests that Sels has been performing well in his last three games, which is a positive si",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 190,
+    "actual": 1,
+    "raw_response": "To predict Senesi's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 8.3 pts - Senesi has been scoring well in his last three games.\n2. Form (last 5 GW avg): 6.4 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 191,
+    "actual": 1,
+    "raw_response": "To predict Sessegnon's points, let's analyze the given data step by step:\n\n1. Form: Sessegnon's last 3 GW average form is 2.0 points, and his last 5 GW average form is 2.4 points. This suggests he's i",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 192,
+    "actual": 3,
+    "raw_response": "To predict Shaw's points, let's analyze the given data step by step:\n\n1. Form: Shaw's last 3 GW average form is 2.0 points, which is relatively low. However, his last 5 GW average form is 2.8 points, ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 193,
+    "actual": 0,
+    "raw_response": "To predict Smith's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.7 points, which is a slight improvement from the last 5 GW avg of 2.0 points. This suggests that Smith",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 194,
+    "actual": 1,
+    "raw_response": "To predict Smith Rowe's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 1.0 points, and his last 5 GW average is 1.2 points. This suggests he's in a decent form s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 195,
+    "actual": 2,
+    "raw_response": "To predict Solanke's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.7 pts - This suggests that Solanke has been scoring well in his last three games, which is a positiv",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 196,
+    "actual": 2,
+    "raw_response": "To predict Sou\u010dek's points, let's analyze the given data step by step:\n\n1. Form: Sou\u010dek's form over the last 5 games is excellent, averaging 5.0 points. This suggests he's in a good run of form and li",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 197,
+    "actual": 1,
+    "raw_response": "To predict Spence's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests that Spence has been performing well in his last three games, which is a positi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 198,
+    "actual": 3,
+    "raw_response": "To predict Stach's points, let's analyze the given data step by step:\n\n1. Form: Stach's last 5-game average form is 4.4 points, which is a good sign. His last 3-game average form is 3.7 points, indica",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 199,
+    "actual": 5,
+    "raw_response": "To predict Struijk's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - Struijk has been scoring well in his last three games.\n2. Form (last 5 GW avg): 2.8 pts - Hi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 200,
+    "actual": 3,
+    "raw_response": "To predict Szoboszlai's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 6.7 points, which is a decent form. However, his last 5 GW average is 4.6 points, indicati",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 201,
+    "actual": 2,
+    "raw_response": "To predict S\u00e1nchez's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - S\u00e1nchez has been scoring relatively well in his last three games.\n2. Form (last 5 GW avg): 1",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 202,
+    "actual": 8,
+    "raw_response": "To predict Talbi's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests that Talbi has been scoring well in his last three games, but his form has been ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 203,
+    "actual": 1,
+    "raw_response": "To predict Tanaka's points, let's analyze the given data step by step:\n\n1. Form: Tanaka's form is extremely poor over the last 3 and 5 games, with an average of 0.0 points. This suggests he might not ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 204,
+    "actual": 6,
+    "raw_response": "To predict Tarkowski's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 6.0 pts - This suggests that Tarkowski has been performing well in his last three games, which is a ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 205,
+    "actual": 1,
+    "raw_response": "To predict Taty's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.7 pts - This suggests that Taty has been scoring well in his last three games, which is a good sign.\n\n2",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 206,
+    "actual": 2,
+    "raw_response": "To predict Tavernier's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.0 pts - This suggests that Tavernier has been performing well in his last three games, which is a ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 207,
+    "actual": 1,
+    "raw_response": "To predict Tchaouna's points, let's analyze the given data step by step:\n\n1. Form: The player's form over the last 3 games is 0.7 points, which is slightly above the average form over the last 5 games",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 208,
+    "actual": 2,
+    "raw_response": "To predict Tel's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - This suggests Tel is in a decent form, scoring around 1.7 points per game over the last three ga",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 209,
+    "actual": 4,
+    "raw_response": "To predict Thiago's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 4.7 pts - Thiago has been scoring well in his last three games.\n2. Form (last 5 GW avg): 3.6 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 210,
+    "actual": 0,
+    "raw_response": "To predict Thiaw's points, let's analyze the given data step by step:\n\n1. Form: Thiaw's last 5 GW average form is 5.6 points, which is a good indicator of his current performance. His last 3 GW averag",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 211,
+    "actual": 1,
+    "raw_response": "Considering Tielemans' poor form over the last 3 and 5 games, and the lack of minutes played, I would think he's unlikely to contribute significantly to his team's score. The home fixture is a slight ",
+    "parsed_prediction": 0,
+    "parse_success": true
+  },
+  {
+    "index": 212,
+    "actual": 1,
+    "raw_response": "To determine Tosin's predicted points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - Tosin has been scoring relatively well in his last three games.\n2. Form (last 5 GW",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 213,
+    "actual": 2,
+    "raw_response": "To predict Trippier's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 points, which is relatively stable and decent.\n2. Form (last 5 GW avg): 1.8 points, indicating a ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 214,
+    "actual": 4,
+    "raw_response": "To predict Truffert's points, let's analyze the given data step by step:\n\n1. Form: Truffert's last 3 GW average is 7.7 points, which is a good sign. However, his last 5 GW average is 7.2 points, indic",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 215,
+    "actual": -1,
+    "raw_response": "To predict Udogie's points, let's analyze the given data step by step:\n\n1. Form: Udogie's form is extremely poor, with an average of 0.0 points over the last 3 and 5 games. This suggests that he might",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 216,
+    "actual": 1,
+    "raw_response": "To predict Ugarte's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - This suggests Ugarte is having a decent run of form, scoring 0.7 points per game.\n\n2. Form (l",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 217,
+    "actual": 2,
+    "raw_response": "To predict Ugochukwu's points, let's analyze the given data step by step:\n\n1. Form: Ugochukwu's last 3 GW average is 1.3 points, which is relatively low. However, his last 5 GW average is 2.4 points, ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 218,
+    "actual": 4,
+    "raw_response": "To predict Van Hecke's points, let's analyze the given data step by step:\n\n1. Form: Van Hecke's form over the last 5 games is 5.8 points, which is a good indicator of his recent performance. His form ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 219,
+    "actual": 1,
+    "raw_response": "To predict Van de Ven's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is -1.0 points, which is a relatively low form. However, his last 5 GW average is 0.0 points,",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 220,
+    "actual": 6,
+    "raw_response": "To predict Van den Berg's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 4.3 points, and his last 5 GW average is 4.4 points. This suggests he's in a good form s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 221,
+    "actual": 1,
+    "raw_response": "To predict Veltman's points, let's analyze the given data step by step:\n\n1. Form: Veltman's form is excellent, with an average of 1.0 points per game over the last 3 games and 1.0 points per game over",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 222,
+    "actual": 3,
+    "raw_response": "To predict Verbruggen's points, let's analyze the given data step by step:\n\n1. Form: Verbruggen's last 3 GW average form is 4.0 points, and his last 5 GW average form is 4.2 points. This suggests he's",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 223,
+    "actual": 2,
+    "raw_response": "To predict Vicario's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.7 pts - This suggests that Vicario has been performing relatively well in his last three games, but ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 224,
+    "actual": 3,
+    "raw_response": "To predict Virgil's points, let's analyze the given data step by step:\n\n1. Form: Virgil's form over the last 5 games is excellent, averaging 7.6 points. This suggests he's in a good run of form and li",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 225,
+    "actual": 1,
+    "raw_response": "To predict Walker's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.0 pts - Walker has been scoring well in his last three games.\n2. Form (last 5 GW avg): 2.2 pts - His ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 226,
+    "actual": 0,
+    "raw_response": "To predict Wan-Bissaka's points, let's analyze the given data step by step:\n\n1. Form: Wan-Bissaka has an average of 3.0 points per game over the last 3 games and 3.4 points per game over the last 5 ga",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 227,
+    "actual": 1,
+    "raw_response": "To predict Ward-Prowse's points, let's analyze the given data step by step:\n\n1. Form: His last 3 GW average is 2.7 points, which is slightly above his last 5 GW average of 2.6 points. This suggests he",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 228,
+    "actual": 9,
+    "raw_response": "To predict Watkins' points, let's analyze the given data step by step:\n\n1. Form: Watkins has a decent form, with an average of 1.0 points per game over the last 3 games and 1.4 points per game over th",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 229,
+    "actual": 12,
+    "raw_response": "To predict Welbeck's points, let's analyze the given data step by step:\n\n1. Form: Welbeck's form over the last 5 games is 4.6 points, which is a good indication of his current performance. Over the la",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 230,
+    "actual": 1,
+    "raw_response": "To predict Wieffer's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 3.3 points, which is relatively good. However, his form over the last 5 GW is lower at 2.4 points. Thi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 231,
+    "actual": 1,
+    "raw_response": "To predict Willock's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 2.3 points, which is relatively stable and decent.\n2. Form (last 5 GW avg): 1.8 points, indicating a s",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 232,
+    "actual": 9,
+    "raw_response": "To predict Wilson's points, let's analyze the given data step by step:\n\n1. Form: Wilson has an excellent form, averaging 5.0 points over the last 3 games and 5.0 points over the last 5 games. This sug",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 233,
+    "actual": 1,
+    "raw_response": "To predict Wilson's points, let's analyze the given data step by step:\n\n1. Form: Wilson's last 3 GW average form is 0.3 points, which is relatively poor. However, his last 5 GW average form is 0.6 poi",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 234,
+    "actual": 2,
+    "raw_response": "To predict Wirtz's points, let's analyze the given data step by step:\n\n1. Form: Wirtz has an average of 1.0 points per game over the last 3 games and 1.2 points per game over the last 5 games. This su",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 235,
+    "actual": 1,
+    "raw_response": "To predict Wissa's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.3 pts - This indicates Wissa is having a decent run of form, scoring 0.3 points per game.\n\n2. Form (la",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 236,
+    "actual": 5,
+    "raw_response": "To predict Woltemade's points, let's analyze the given data step by step:\n\n1. Form: Woltemade has an average of 1.0 points per game over the last 3 games and 1.0 points per game over the last 5 games.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 237,
+    "actual": 1,
+    "raw_response": "To predict Xavi's points, let's analyze the given data step by step:\n\n1. Form: Xavi's last 3 GW average form is 1.0 points, which is relatively low. However, his last 5 GW average form is 1.2 points, ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 238,
+    "actual": 4,
+    "raw_response": "To predict Xhaka's points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 1.3 pts - This suggests Xhaka is in a decent form, but not exceptional.\n2. Form (last 5 GW avg): 1.0 pts",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 239,
+    "actual": 3,
+    "raw_response": "To predict Yarmoliuk's points, let's analyze the given data step by step:\n\n1. Form: Yarmoliuk has an average of 1.0 points per game over the last 3 games and 1.0 points per game over the last 5 games.",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 240,
+    "actual": 1,
+    "raw_response": "To predict Yates' points, let's analyze the given data step by step:\n\n1. Form (last 3 GW avg): 0.7 pts - This suggests that Yates is having a decent run of form, scoring around 0.7 points per game.\n\n2",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 241,
+    "actual": 1,
+    "raw_response": "To predict Yoro's points, let's analyze the given data step by step:\n\n1. Form: Yoro's last 3 GW average form is 2.0 points, which is relatively low. However, his last 5 GW average form is 2.6 points, ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  },
+  {
+    "index": 242,
+    "actual": 0,
+    "raw_response": "To predict \u0160e\u0161ko's points, let's analyze the given data step by step:\n\n1. Form: \u0160e\u0161ko has an excellent form, with an average of 5.0 points in the last 3 games and 6.2 points in the last 5 games. This ",
+    "parsed_prediction": 1,
+    "parse_success": true
+  }
+]
