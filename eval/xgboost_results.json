@@ -1,0 +1,26 @@
+{
+  "mae": 2.1065,
+  "rmse": 2.8063,
+  "within_1": 0.2675,
+  "within_3": 0.823,
+  "test_size": 243,
+  "train_size": 8225,
+  "by_position": {
+    "GK": {
+      "mae": 1.721,
+      "count": 16
+    },
+    "DEF": {
+      "mae": 2.3888,
+      "count": 76
+    },
+    "MID": {
+      "mae": 1.827,
+      "count": 118
+    },
+    "FWD": {
+      "mae": 2.6424,
+      "count": 33
+    }
+  }
+}
