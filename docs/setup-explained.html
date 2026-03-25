@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Setup Explained</title>
+    <title>FPL Predictor — How We Built It</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -30,12 +30,37 @@
         header p {
             font-size: 1.15em;
             opacity: 0.85;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
+        /* Phase navigation */
+        .phase-nav {
+            background: #1a1a2e;
+            padding: 16px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .phase-nav a {
+            display: inline-block;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.88em;
+            font-weight: 600;
+            padding: 6px 16px;
+            margin: 0 4px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .phase-nav a:hover { color: white; background: rgba(255,255,255,0.08); }
+        .phase-nav a.done { color: #a8e6cf; }
+        .phase-nav a.current { color: #ffc234; background: rgba(255,194,52,0.12); }
+
         .container {
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
             padding: 40px 20px 80px;
         }
@@ -67,9 +92,35 @@
             margin: 20px 0;
             font-size: 1.05em;
         }
+        .analogy strong { color: #e65100; }
 
-        .analogy strong {
-            color: #e65100;
+        /* Phase header banners */
+        .phase-banner {
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 48px 0 24px;
+            color: white;
+        }
+        .phase-banner.setup { background: linear-gradient(135deg, #0f3460, #1a1a2e); }
+        .phase-banner.data { background: linear-gradient(135deg, #0d7377, #14919b); }
+        .phase-banner.xgboost { background: linear-gradient(135deg, #1a5276, #2471a3); }
+        .phase-banner.llm { background: linear-gradient(135deg, #6c3483, #8e44ad); }
+
+        .phase-banner h2 {
+            font-size: 1.6em;
+            margin-bottom: 4px;
+        }
+        .phase-banner .phase-label {
+            font-size: 0.85em;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        .phase-banner .phase-desc {
+            margin-top: 8px;
+            opacity: 0.85;
+            font-size: 1.02em;
         }
 
         .step {
@@ -94,6 +145,9 @@
             font-size: 1.1em;
             margin-bottom: 16px;
         }
+        .step-number.data-step { background: linear-gradient(135deg, #0d7377, #14919b); }
+        .step-number.xgb-step { background: linear-gradient(135deg, #1a5276, #2471a3); }
+        .step-number.llm-step { background: linear-gradient(135deg, #6c3483, #8e44ad); }
 
         .step h3 {
             font-size: 1.35em;
@@ -113,13 +167,10 @@
             color: #444;
         }
 
-        .step ul {
+        .step ul, .step ol {
             margin: 12px 0 12px 20px;
         }
-
-        .step li {
-            margin-bottom: 8px;
-        }
+        .step li { margin-bottom: 8px; }
 
         .real-world {
             background: #e8f5e9;
@@ -128,10 +179,7 @@
             border-radius: 0 10px 10px 0;
             margin: 16px 0;
         }
-
-        .real-world strong {
-            color: #2e7d32;
-        }
+        .real-world strong { color: #2e7d32; }
 
         .what-we-typed {
             background: #1a1a2e;
@@ -142,8 +190,8 @@
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-size: 0.92em;
             overflow-x: auto;
+            line-height: 1.6;
         }
-
         .what-we-typed .label {
             color: #888;
             font-size: 0.82em;
@@ -164,9 +212,162 @@
             line-height: 1.9;
             color: #555;
         }
-
         .folder-tree .folder { color: #0f3460; font-weight: 600; }
         .folder-tree .desc { color: #999; font-style: italic; }
+
+        /* Results table */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        .results-table th {
+            background: #1a1a2e;
+            color: white;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .results-table th:first-child { border-radius: 10px 0 0 0; }
+        .results-table th:last-child { border-radius: 0 10px 0 0; }
+        .results-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .results-table tr:nth-child(even) { background: #f8f8f8; }
+        .results-table .winner {
+            font-weight: 700;
+            color: #2e7d32;
+        }
+        .results-table .best-cell {
+            background: #e8f5e9;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+
+        /* Visual chart bars */
+        .bar-chart { margin: 20px 0; }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .bar-label {
+            width: 140px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #444;
+            flex-shrink: 0;
+        }
+        .bar-track {
+            flex: 1;
+            height: 28px;
+            background: #f0f0f0;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            font-size: 0.82em;
+            font-weight: 700;
+            color: white;
+            transition: width 0.6s ease;
+        }
+        .bar-fill.xgb { background: linear-gradient(90deg, #1a5276, #2980b9); }
+        .bar-fill.llm-ft { background: linear-gradient(90deg, #6c3483, #af7ac5); }
+        .bar-fill.llm-fs { background: linear-gradient(90deg, #935116, #dc7633); }
+        .bar-fill.llm-cot { background: linear-gradient(90deg, #0d7377, #48c9b0); }
+        .bar-fill.llm-zs { background: linear-gradient(90deg, #922b21, #e74c3c); }
+
+        .bar-value {
+            margin-left: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #666;
+            flex-shrink: 0;
+            width: 50px;
+        }
+
+        /* Prompt example */
+        .prompt-example {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85em;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+        .prompt-example .system { color: #ff6b6b; }
+        .prompt-example .user { color: #a8e6cf; }
+        .prompt-example .assistant { color: #ffd93d; font-weight: 700; }
+        .prompt-example .label-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-bottom: 4px;
+            font-family: -apple-system, sans-serif;
+            font-weight: 600;
+        }
+        .prompt-example .label-tag.sys { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+        .prompt-example .label-tag.usr { background: rgba(168,230,207,0.15); color: #a8e6cf; }
+        .prompt-example .label-tag.ast { background: rgba(255,217,61,0.15); color: #ffd93d; }
+
+        /* Feature pills */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .feature-pill {
+            background: #e8eaf6;
+            color: #3949ab;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: 500;
+        }
+
+        /* Strategy comparison cards */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .strategy-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .strategy-card h4 {
+            font-size: 1.05em;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+        .strategy-card .mae-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.88em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .strategy-card .mae-badge.good { background: #e8f5e9; color: #2e7d32; }
+        .strategy-card .mae-badge.ok { background: #fff8e1; color: #e65100; }
+        .strategy-card .mae-badge.bad { background: #fce4ec; color: #c62828; }
+        .strategy-card p { font-size: 0.92em; color: #666; }
 
         .summary {
             background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
@@ -174,23 +375,17 @@
             padding: 32px;
             margin-top: 40px;
         }
-
         .summary h2 {
             color: #2e7d32;
             margin-bottom: 16px;
         }
 
-        .checklist {
-            list-style: none;
-            padding: 0;
-        }
-
+        .checklist { list-style: none; padding: 0; }
         .checklist li {
             padding: 8px 0;
             font-size: 1.05em;
             color: #444;
         }
-
         .checklist li::before {
             content: "\2705";
             margin-right: 10px;
@@ -202,21 +397,16 @@
             padding: 32px;
             margin-top: 24px;
         }
-
         .next-up h2 {
             color: #0f3460;
             margin-bottom: 12px;
         }
 
-        .glossary {
-            margin-top: 40px;
-        }
-
+        .glossary { margin-top: 40px; }
         .glossary h2 {
             color: #0f3460;
             margin-bottom: 16px;
         }
-
         .glossary-item {
             background: white;
             border-radius: 12px;
@@ -224,244 +414,566 @@
             margin-bottom: 12px;
             box-shadow: 0 1px 6px rgba(0,0,0,0.04);
         }
-
         .glossary-item dt {
             font-weight: 700;
             color: #1a1a2e;
             font-size: 1.05em;
         }
-
         .glossary-item dd {
             color: #555;
             margin-top: 4px;
+        }
+
+        /* Key insight callout */
+        .insight {
+            background: linear-gradient(135deg, #ede7f6, #e8eaf6);
+            border-left: 4px solid #7e57c2;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .insight strong { color: #4a148c; }
+
+        @media (max-width: 600px) {
+            .strategy-grid { grid-template-columns: 1fr; }
+            .bar-label { width: 100px; font-size: 0.8em; }
+            header h1 { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>What We Just Built (And Why)</h1>
-    <p>A plain-English guide to everything we set up for the FPL prediction project</p>
+    <h1>FPL Points Predictor</h1>
+    <p>A plain-English guide to everything we built &mdash; from setting up the tools to training AI models that predict Fantasy Premier League points</p>
 </header>
+
+<nav class="phase-nav">
+    <a href="#setup" class="done">Setup</a>
+    <a href="#phase1" class="done">Data Pipeline</a>
+    <a href="#phase2" class="done">XGBoost</a>
+    <a href="#phase3" class="done">LLM</a>
+    <a href="#results" class="current">Results</a>
+</nav>
 
 <div class="container">
 
     <!-- Big picture -->
     <div class="intro">
         <h2>The Big Picture</h2>
-        <p>We're building a project that predicts how many Fantasy Premier League points a player will score each week. We'll use two different AI approaches and compare which one is better.</p>
-        <p style="margin-top: 12px;">But before we can write any of that clever code, we need to <strong>set up our workshop</strong>. That's what this page covers &mdash; everything we did today was preparation, not the actual building.</p>
-
+        <p>We built a system that predicts how many Fantasy Premier League points a player will score each gameweek. We tried <strong>two completely different AI approaches</strong> and compared them head-to-head:</p>
+        <ul style="margin: 16px 0 0 20px; color: #555;">
+            <li><strong>XGBoost</strong> &mdash; a traditional "number-crunching" AI that learns from spreadsheets of stats</li>
+            <li><strong>Fine-Tuned LLM</strong> &mdash; a ChatGPT-like language model that we taught to understand FPL by reading player descriptions</li>
+        </ul>
         <div class="analogy">
-            <strong>Think of it like cooking:</strong> Before you cook a meal, you need a kitchen (your computer), the right appliances (software tools), ingredients in the pantry (data), and recipe books (code libraries). Today we installed the appliances and organised the pantry shelves.
+            <strong>Think of it like cooking:</strong> We set up a kitchen (installed tools), bought ingredients (downloaded player data), then cooked the same meal using two totally different recipes to see which tastes better.
         </div>
     </div>
 
-    <!-- Step 1 -->
+
+    <!-- ============================================ -->
+    <!-- SETUP PHASE -->
+    <!-- ============================================ -->
+    <div class="phase-banner setup" id="setup">
+        <div class="phase-label">Phase 0</div>
+        <h2>Setting Up the Workshop</h2>
+        <div class="phase-desc">Installing tools, creating the project structure, and getting ready to build</div>
+    </div>
+
     <div class="step">
         <div class="step-number">1</div>
         <h3>Installed Python 3.11</h3>
         <div class="subtitle">The programming language everything runs on</div>
-
-        <p>Python is the language we'll write all our code in. Your Mac already had an older version (3.9), but some of the tools we need require a newer one. So we installed version 3.11.</p>
-
+        <p>Python is the language we write all our code in. Your Mac had an older version (3.9), but some tools need a newer one. So we installed 3.11 via <strong>Homebrew</strong> (an app store for developer tools).</p>
         <div class="real-world">
-            <strong>Real-world analogy:</strong> Your Mac had an old blender that couldn't crush ice. We bought a newer blender that has all the features we need. The old one is still there &mdash; we just use the new one for this project.
+            <strong>Real-world analogy:</strong> Your Mac had an old blender that couldn't crush ice. We bought a newer blender with all the features we need. The old one's still there &mdash; we just use the new one.
         </div>
-
-        <div class="what-we-typed">
-            <div class="label">What we ran</div>
-            brew install python@3.11
-        </div>
-
-        <p><strong>Homebrew</strong> is like an app store for developer tools on Mac. Instead of downloading installers from websites, you just type one command and it handles everything.</p>
     </div>
 
-    <!-- Step 2 -->
     <div class="step">
         <div class="step-number">2</div>
         <h3>Created a Virtual Environment</h3>
         <div class="subtitle">A private sandbox so our project doesn't mess up other things</div>
-
-        <p>A virtual environment is a sealed-off space where we install tools <em>only for this project</em>. Without it, installing something for this project could accidentally break something else on your computer.</p>
-
+        <p>A virtual environment is a sealed-off space where we install tools <em>only for this project</em>. Without it, installing something here could accidentally break something else on your computer.</p>
         <div class="real-world">
-            <strong>Real-world analogy:</strong> Imagine you have one big tool shed shared by every project in your house. If you rearrange it for a plumbing job, you might lose track of the tools you need for the electrical job. A virtual environment is like giving each project its own personal tool shed.
+            <strong>Real-world analogy:</strong> Instead of one big shared tool shed for every project in the house, each project gets its own personal tool shed. No mix-ups.
         </div>
-
-        <div class="what-we-typed">
-            <div class="label">What we ran</div>
-            python3.11 -m venv .venv
-        </div>
-
-        <p>This created a folder called <code>.venv</code> inside the project. The dot at the front means it's hidden &mdash; it's there, but it stays out of the way. Every time we work on this project, we "activate" this environment so the computer knows to use <em>our</em> tools, not the system-wide ones.</p>
     </div>
 
-    <!-- Step 3 -->
     <div class="step">
         <div class="step-number">3</div>
-        <h3>Installed All the Tools We Need</h3>
-        <div class="subtitle">14 software packages, each with a specific job</div>
+        <h3>Installed 14 Software Packages</h3>
+        <div class="subtitle">Each one has a specific job</div>
+        <p>We created a shopping list (<code>requirements.txt</code>) and installed everything. The key packages:</p>
+        <ul>
+            <li><strong>pandas</strong> &mdash; a spreadsheet engine for Python (like Excel but with code)</li>
+            <li><strong>xgboost</strong> &mdash; our "traditional AI" prediction model</li>
+            <li><strong>mlx + mlx-lm</strong> &mdash; Apple's AI engine that runs language models on your Mac's M4 chip</li>
+            <li><strong>requests</strong> &mdash; lets our code download data from the FPL website</li>
+            <li><strong>matplotlib</strong> &mdash; creates charts and graphs</li>
+            <li><strong>streamlit</strong> &mdash; turns Python code into a web dashboard</li>
+        </ul>
+    </div>
 
-        <p>We created a shopping list called <code>requirements.txt</code> and installed everything on it. Here's what each tool does in plain English:</p>
+    <div class="step">
+        <div class="step-number">4</div>
+        <h3>Created the Folder Structure &amp; Config Files</h3>
+        <div class="subtitle">Labelled every drawer before unpacking</div>
+        <div class="folder-tree">
+            <span class="folder">data/</span> <span class="desc">&mdash; All the FPL player data</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">raw/</span> <span class="desc">&mdash; Data straight from the FPL website</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">processed/</span> <span class="desc">&mdash; Data cleaned up for the models</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">mlx/</span> <span class="desc">&mdash; Data formatted for the language model</span><br>
+            <span class="folder">models/</span> <span class="desc">&mdash; Training scripts and saved models</span><br>
+            <span class="folder">eval/</span> <span class="desc">&mdash; Results and charts from testing</span><br>
+            <span class="folder">docs/</span> <span class="desc">&mdash; This page!</span>
+        </div>
+        <p>We also created a <code>.gitignore</code> (tells GitHub to skip huge files like AI models) and <code>requirements.txt</code> (lets anyone recreate our setup with one command).</p>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- PHASE 1: DATA PIPELINE -->
+    <!-- ============================================ -->
+    <div class="phase-banner data" id="phase1">
+        <div class="phase-label">Phase 1</div>
+        <h2>Building the Data Pipeline</h2>
+        <div class="phase-desc">Downloading 825 players' stats from the FPL website, cleaning the data, and preparing it for both AI models</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number data-step">1</div>
+        <h3>Downloaded All the Data</h3>
+        <div class="subtitle">825 players, every fixture, every gameweek &mdash; straight from the FPL website</div>
+
+        <p>The Fantasy Premier League website has a free, public <strong>API</strong> (a way for code to request data). We wrote a script that asked it for three things:</p>
+        <ol>
+            <li><strong>Player profiles</strong> &mdash; name, team, position, price for all 825 players</li>
+            <li><strong>Fixtures</strong> &mdash; every match in the season with scores and difficulty ratings</li>
+            <li><strong>Player histories</strong> &mdash; gameweek-by-gameweek stats for each player (points, goals, assists, minutes, bonus, etc.)</li>
+        </ol>
+
+        <p style="margin-top: 12px;">The player histories took ~15 minutes to download because we made 825 individual requests (one per player), with a polite 1-second pause between each so we wouldn't overload the website.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Imagine going to a library and photocopying every Premier League player's report card, one at a time. It takes a while, but now you have everything in your own filing cabinet.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number data-step">2</div>
+        <h3>Engineered 20 Features</h3>
+        <div class="subtitle">Turning raw data into meaningful patterns the AI can learn from</div>
+
+        <p>"Feature engineering" means creating useful numbers from raw data. Instead of giving the AI a pile of raw stats, we calculated things like:</p>
+
+        <div class="feature-grid">
+            <span class="feature-pill">3-GW form average</span>
+            <span class="feature-pill">5-GW form average</span>
+            <span class="feature-pill">Goals per 90 min</span>
+            <span class="feature-pill">Assists per 90 min</span>
+            <span class="feature-pill">ICT index (3 GW)</span>
+            <span class="feature-pill">Minutes average</span>
+            <span class="feature-pill">Clean sheet %</span>
+            <span class="feature-pill">Bonus average</span>
+            <span class="feature-pill">Fixture difficulty</span>
+            <span class="feature-pill">Home or away</span>
+            <span class="feature-pill">Team goals scored</span>
+            <span class="feature-pill">Team goals conceded</span>
+            <span class="feature-pill">Opponent goals conceded</span>
+            <span class="feature-pill">Player price</span>
+            <span class="feature-pill">Position</span>
+        </div>
+
+        <div class="insight">
+            <strong>Critical rule: no cheating!</strong> Every rolling average only uses <em>past</em> gameweeks. When predicting GW 15, the model can only see GWs 1&ndash;14. This prevents "data leakage" &mdash; the AI equivalent of reading the answers before taking the test.
+        </div>
+
+        <p><strong>Final dataset:</strong> 8,468 rows (one per player-per-gameweek), 20 columns each. We used GW 4&ndash;30 for training and GW 31+ for testing.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Raw data is like a pile of receipts. Feature engineering is like organising them into a spreadsheet with columns for "average weekly spend," "most common store," and "spending trend." Much more useful for spotting patterns.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number data-step">3</div>
+        <h3>Created Training Prompts for the Language Model</h3>
+        <div class="subtitle">Converting spreadsheet data into natural language descriptions</div>
+
+        <p>XGBoost can read spreadsheets directly. But a language model needs <em>words</em>. So we converted each row of stats into a natural language description, like this:</p>
+
+        <div class="prompt-example">
+            <div><span class="label-tag sys">SYSTEM</span></div>
+            <div class="system">You are an FPL points predictor. Given player stats and fixture info, predict the total FPL points for the gameweek. Respond with only a single integer.</div>
+            <br>
+            <div><span class="label-tag usr">USER</span></div>
+            <div class="user">Player: Salah (MID)<br>
+            Gameweek: 15<br>
+            Fixture: Home (FDR: 2)<br>
+            Form (last 3 GW avg): 8.3 pts<br>
+            Goals per 90 (season): 0.62<br>
+            ICT index (last 3 GW avg): 12.1<br>
+            Team goals scored (last 3 GW): 9<br>
+            Price: 13.2</div>
+            <br>
+            <div><span class="label-tag ast">ASSISTANT</span></div>
+            <div class="assistant">8</div>
+        </div>
+
+        <p>We generated <strong>8,225 training prompts</strong> and <strong>243 test prompts</strong> in this format. The model learns by seeing thousands of these examples and figuring out the relationship between the stats and the points.</p>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- PHASE 2: XGBOOST -->
+    <!-- ============================================ -->
+    <div class="phase-banner xgboost" id="phase2">
+        <div class="phase-label">Phase 2</div>
+        <h2>Training XGBoost</h2>
+        <div class="phase-desc">The traditional "number-crunching" approach &mdash; feeding a spreadsheet of stats into a proven machine learning model</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number xgb-step">1</div>
+        <h3>What is XGBoost?</h3>
+        <div class="subtitle">A really smart spreadsheet formula</div>
+
+        <p>XGBoost is one of the most popular AI methods for making predictions from tables of numbers. It works by building hundreds of simple decision trees (like flowcharts) and combining their answers.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Imagine asking 500 different football pundits to predict a player's score, where each pundit specialises in one thing (form, fixtures, position, etc.). XGBoost combines all their opinions into one smart prediction. Each subsequent pundit focuses on correcting what the previous ones got wrong.
+        </div>
+
+        <p style="margin-top: 12px;">We fed it our 8,225 training rows (GW 4&ndash;30) and let it learn patterns like <em>"midfielders in form, playing at home against weak teams, tend to score more points."</em></p>
+    </div>
+
+    <div class="step">
+        <div class="step-number xgb-step">2</div>
+        <h3>Results: MAE 2.11</h3>
+        <div class="subtitle">On average, predictions are off by about 2 points</div>
+
+        <p>We tested on 243 player-gameweek cases from GW 31 (data the model never saw during training). Here's how it did:</p>
+
+        <table class="results-table">
+            <tr>
+                <th>Metric</th>
+                <th>Score</th>
+                <th>What it means</th>
+            </tr>
+            <tr>
+                <td><strong>MAE</strong></td>
+                <td>2.11</td>
+                <td>On average, predictions are off by 2.11 points</td>
+            </tr>
+            <tr>
+                <td><strong>RMSE</strong></td>
+                <td>2.81</td>
+                <td>Big misses are penalised more heavily &mdash; still reasonable</td>
+            </tr>
+            <tr>
+                <td><strong>Within &plusmn;3</strong></td>
+                <td>82.3%</td>
+                <td>4 out of 5 predictions are within 3 points of reality</td>
+            </tr>
+        </table>
+
+        <p><strong>By position:</strong> Best at predicting goalkeepers (MAE 1.72) and midfielders (1.83). Worst at forwards (2.64) &mdash; strikers are volatile because a single goal massively swings their score.</p>
+
+        <div class="insight">
+            <strong>Is 2.11 good?</strong> Consider that the average FPL player scores about 3 points per gameweek. Being off by 2 points means the model captures the general trend but can't reliably predict hauls or blanks. This is a strong baseline to beat.
+        </div>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- PHASE 3: LLM FINE-TUNING -->
+    <!-- ============================================ -->
+    <div class="phase-banner llm" id="phase3">
+        <div class="phase-label">Phase 3</div>
+        <h2>Fine-Tuning a Language Model</h2>
+        <div class="phase-desc">Teaching a ChatGPT-like AI to predict FPL points &mdash; running entirely on your Mac, no cloud needed</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number llm-step">1</div>
+        <h3>Downloaded the Base Model</h3>
+        <div class="subtitle">A 2GB open-source AI brain from Hugging Face</div>
+
+        <p>We downloaded <strong>Llama 3.2 3B</strong> &mdash; a free, open-source language model made by Meta (the Facebook company). It's similar to ChatGPT but smaller and designed to run on personal computers.</p>
 
         <ul>
-            <li><strong>requests</strong> &mdash; Lets our code talk to the FPL website and download player data</li>
-            <li><strong>pandas</strong> &mdash; A spreadsheet engine for Python. Lets us sort, filter, and organise data like you would in Excel, but with code</li>
-            <li><strong>scikit-learn</strong> &mdash; A toolkit of standard AI/statistics methods. We use it to measure how good our predictions are</li>
-            <li><strong>xgboost</strong> &mdash; Our first prediction model. It's a well-proven method that learns patterns from tables of numbers (like a really smart spreadsheet formula)</li>
-            <li><strong>mlx</strong> &mdash; Apple's own AI engine, designed to run fast on your Mac's M4 chip</li>
-            <li><strong>mlx-lm</strong> &mdash; Lets us fine-tune (customise) a language model using MLX. This is how we'll teach an AI to predict FPL points</li>
-            <li><strong>huggingface_hub</strong> &mdash; Connects to Hugging Face, a website where people share pre-built AI models. We'll download our starting model from there</li>
-            <li><strong>streamlit</strong> &mdash; Turns Python code into a web dashboard with almost no effort. We'll use it to compare our two models visually</li>
-            <li><strong>matplotlib</strong> &mdash; Creates charts and graphs from data</li>
-            <li><strong>jupyter / nbformat / nbconvert</strong> &mdash; Jupyter notebooks let you mix code, charts, and written explanations in one document. Great for showing your work</li>
-            <li><strong>pyyaml</strong> &mdash; Reads configuration files (our evaluation test definitions)</li>
-            <li><strong>psutil</strong> &mdash; Measures how much memory and time our models use</li>
+            <li><strong>"3B"</strong> = 3 billion parameters (think of these as the "brain cells" of the AI)</li>
+            <li><strong>"4-bit"</strong> = compressed to use less memory, so it fits on your Mac</li>
+            <li><strong>"Instruct"</strong> = already trained to follow instructions and answer questions</li>
         </ul>
 
-        <p style="margin-top: 12px;">We also had to install <strong>libomp</strong> (a helper that XGBoost needs to do its calculations quickly on Mac).</p>
+        <p style="margin-top: 12px;">At this stage, the model knows <em>nothing</em> about FPL. It's a general-purpose AI that can chat about anything. We need to teach it.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> We hired a very smart employee who speaks great English and knows about many topics &mdash; but has never heard of Fantasy Premier League. Next step: training them.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number llm-step">2</div>
+        <h3>Fine-Tuned It with LoRA</h3>
+        <div class="subtitle">600 training iterations on your Mac's M4 chip</div>
+
+        <p><strong>LoRA</strong> (Low-Rank Adaptation) is a clever technique for teaching an AI model new skills without retraining the entire thing. Instead of adjusting all 3 billion parameters (expensive and slow), it makes small, targeted tweaks &mdash; like putting on a specialised pair of glasses.</p>
+
+        <p style="margin-top: 12px;">We fed it our 7,322 training prompts and let it learn for 600 iterations. The whole process took about 20 minutes and ran <strong>entirely on your Mac</strong> using Apple's MLX framework &mdash; no expensive cloud GPU needed.</p>
 
         <div class="what-we-typed">
             <div class="label">What we ran</div>
-            pip install -r requirements.txt<br>
-            brew install libomp
+            python -m mlx_lm lora \<br>
+            &nbsp;&nbsp;--model models/llama-3.2-3b \<br>
+            &nbsp;&nbsp;--data data/mlx \<br>
+            &nbsp;&nbsp;--train --iters 600 \<br>
+            &nbsp;&nbsp;--adapter-path models/fpl-lora-adapter
+        </div>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Instead of sending our employee to a 4-year university degree (retraining from scratch), we sent them on a focused 2-week course specifically about FPL stats. Much faster, much cheaper, surprisingly effective.
         </div>
     </div>
 
-    <!-- Step 4 -->
     <div class="step">
-        <div class="step-number">4</div>
-        <h3>Created the Folder Structure</h3>
-        <div class="subtitle">Organised empty folders so everything has a home</div>
+        <div class="step-number llm-step">3</div>
+        <h3>Tested 4 Different Strategies</h3>
+        <div class="subtitle">How much does fine-tuning actually help?</div>
 
-        <p>Before writing any code, we set up folders so every file we create has an obvious place to go. It's like labelling drawers before you start unpacking boxes.</p>
+        <p>To understand the value of fine-tuning, we tested the same model in 4 different ways:</p>
 
-        <div class="folder-tree">
-            <span class="folder">data/</span> <span class="desc">&mdash; All the FPL player data</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">raw/</span> <span class="desc">&mdash; Data straight from the FPL website (unprocessed)</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">processed/</span> <span class="desc">&mdash; Data cleaned up and ready for the models</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">labelled/</span> <span class="desc">&mdash; Data you'll manually annotate yourself</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">mlx/</span> <span class="desc">&mdash; Data formatted for the language model</span><br>
-            <span class="folder">models/</span> <span class="desc">&mdash; Training scripts and saved models</span><br>
-            <span class="folder">eval/</span> <span class="desc">&mdash; Tests to measure how good the models are</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">cases/</span> <span class="desc">&mdash; Specific test scenarios</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">checks/</span> <span class="desc">&mdash; Quality validators</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">results/</span> <span class="desc">&mdash; Scores from each experiment</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">baseline/</span> <span class="desc">&mdash; The "best so far" to compare against</span><br>
-            <span class="folder">notebooks/</span> <span class="desc">&mdash; Jupyter notebooks documenting each phase</span><br>
-            <span class="folder">ui/</span> <span class="desc">&mdash; The comparison dashboard</span><br>
-            <span class="folder">writeup/</span> <span class="desc">&mdash; Final assessment and product brief</span><br>
-            <span class="folder">docs/</span> <span class="desc">&mdash; Published web pages (like this one!)</span>
+        <div class="strategy-grid">
+            <div class="strategy-card">
+                <h4>Zero-Shot</h4>
+                <span class="mae-badge bad">MAE: 9.72</span>
+                <p>Just ask the base model to predict, with no examples or training. Like asking someone who's never watched football.</p>
+            </div>
+            <div class="strategy-card">
+                <h4>Few-Shot</h4>
+                <span class="mae-badge ok">MAE: 2.15</span>
+                <p>Show the model 3 example predictions first, then ask it to predict. Like giving someone a quick demo before their first day.</p>
+            </div>
+            <div class="strategy-card">
+                <h4>Chain-of-Thought</h4>
+                <span class="mae-badge ok">MAE: 2.20</span>
+                <p>Ask the model to "think step by step" before answering. Like asking someone to show their working on a maths exam.</p>
+            </div>
+            <div class="strategy-card">
+                <h4>Fine-Tuned</h4>
+                <span class="mae-badge good">MAE: 1.96</span>
+                <p>Our custom-trained model. Saw 7,322 training examples and learned the patterns. The clear winner.</p>
+            </div>
+        </div>
+
+        <div class="insight">
+            <strong>Key takeaway:</strong> Zero-shot is terrible (9.72 MAE) &mdash; the model just guesses. Few-shot and chain-of-thought are decent, getting close to XGBoost with no training. But fine-tuning wins: the investment in 20 minutes of training pays off with the best score of all.
         </div>
     </div>
 
-    <!-- Step 5 -->
-    <div class="step">
-        <div class="step-number">5</div>
-        <h3>Created a .gitignore File</h3>
-        <div class="subtitle">A list of things we don't want to share online</div>
 
-        <p>Git tracks every change you make to your code and lets you share it on GitHub. But some things shouldn't be shared:</p>
+    <!-- ============================================ -->
+    <!-- RESULTS COMPARISON -->
+    <!-- ============================================ -->
+    <div class="phase-banner setup" id="results" style="background: linear-gradient(135deg, #1b5e20, #388e3c);">
+        <div class="phase-label">Head to Head</div>
+        <h2>The Final Showdown</h2>
+        <div class="phase-desc">All five approaches compared side by side on 243 unseen test cases</div>
+    </div>
+
+    <div class="step">
+        <h3>Accuracy Comparison (MAE &mdash; lower is better)</h3>
+        <div class="subtitle">Mean Absolute Error: how many points off, on average</div>
+
+        <div class="bar-chart">
+            <div class="bar-row">
+                <div class="bar-label">Fine-Tuned LLM</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-ft" style="width: 78%;">1.96</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">XGBoost</div>
+                <div class="bar-track">
+                    <div class="bar-fill xgb" style="width: 74%;">2.11</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">Few-Shot LLM</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-fs" style="width: 73%;">2.15</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">Chain-of-Thought</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-cot" style="width: 72%;">2.20</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">Zero-Shot</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-zs" style="width: 20%;">9.72</div>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 0.9em; color: #888; margin-top: 8px;">Bar length represents accuracy (longer = more accurate). Numbers show MAE (lower = better).</p>
+    </div>
+
+    <div class="step">
+        <h3>Full Results Table</h3>
+
+        <table class="results-table">
+            <tr>
+                <th>Model</th>
+                <th>MAE</th>
+                <th>RMSE</th>
+                <th>Within &plusmn;1</th>
+                <th>Within &plusmn;3</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td class="winner">Fine-Tuned LLM</td>
+                <td class="best-cell">1.96</td>
+                <td>3.29</td>
+                <td class="best-cell">63.0%</td>
+                <td>77.8%</td>
+                <td>136s</td>
+            </tr>
+            <tr>
+                <td>XGBoost</td>
+                <td>2.11</td>
+                <td class="best-cell">2.81</td>
+                <td>&mdash;</td>
+                <td class="best-cell">82.3%</td>
+                <td>&lt;1s</td>
+            </tr>
+            <tr>
+                <td>Few-Shot LLM</td>
+                <td>2.15</td>
+                <td>3.31</td>
+                <td>56.0%</td>
+                <td>76.1%</td>
+                <td>362s</td>
+            </tr>
+            <tr>
+                <td>Chain-of-Thought</td>
+                <td>2.20</td>
+                <td>3.60</td>
+                <td>60.1%</td>
+                <td>73.7%</td>
+                <td>826s</td>
+            </tr>
+            <tr>
+                <td>Zero-Shot</td>
+                <td>9.72</td>
+                <td>12.55</td>
+                <td>5.4%</td>
+                <td>25.9%</td>
+                <td>129s</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="step">
+        <h3>What Does This Tell Us?</h3>
+        <div class="subtitle">The nuanced takeaways behind the numbers</div>
 
         <ul>
-            <li><strong>AI model files</strong> &mdash; They're huge (2GB+) and can be re-downloaded</li>
-            <li><strong>Raw data</strong> &mdash; Can be re-fetched from the FPL website anytime</li>
-            <li><strong>The virtual environment</strong> &mdash; Anyone can recreate it from <code>requirements.txt</code></li>
-            <li><strong>System junk files</strong> &mdash; Things like <code>.DS_Store</code> that macOS creates automatically</li>
+            <li><strong>Fine-tuning works.</strong> The fine-tuned LLM has the best MAE (1.96) and is most accurate within &plusmn;1 point (63%). Teaching the model about FPL clearly paid off.</li>
+            <li><strong>XGBoost is more consistent.</strong> Its RMSE (2.81 vs 3.29) and &plusmn;3 accuracy (82.3% vs 77.8%) are better, meaning it makes fewer extreme mistakes. It's the "safe bet."</li>
+            <li><strong>XGBoost is 136x faster.</strong> Under 1 second vs 2+ minutes. For real-time use (a live dashboard), XGBoost wins hands down.</li>
+            <li><strong>You don't always need fine-tuning.</strong> Few-shot (just showing 3 examples) gets close to XGBoost with zero training. For quick experiments, this is powerful.</li>
+            <li><strong>Zero-shot is useless.</strong> Without any FPL context, the model just guesses random numbers. Generic AI isn't enough for specialised tasks.</li>
         </ul>
 
-        <div class="real-world">
-            <strong>Real-world analogy:</strong> When you move house, you pack your personal belongings but you don't pack the tap water or the electricity &mdash; those are available at the new address. <code>.gitignore</code> is the list of things that don't need to travel with the project.
+        <div class="insight">
+            <strong>The bottom line:</strong> If you need the most accurate predictions overall, the fine-tuned LLM wins. If you need speed, consistency, and simplicity, XGBoost wins. In production, you'd probably want XGBoost for the dashboard and the LLM for deeper analysis.
         </div>
     </div>
 
-    <!-- Step 6 -->
-    <div class="step">
-        <div class="step-number">6</div>
-        <h3>Created requirements.txt</h3>
-        <div class="subtitle">The recipe card that lists all ingredients</div>
-
-        <p>This is a simple text file listing every tool we installed. If you (or anyone) ever needs to set this project up on a different computer, they just run one command and everything gets installed automatically.</p>
-
-        <div class="real-world">
-            <strong>Real-world analogy:</strong> It's the ingredients list at the top of a recipe. You don't need to figure out what you need &mdash; just take the list to the shop.
-        </div>
-    </div>
 
     <!-- Summary -->
     <div class="summary">
-        <h2>What's Done</h2>
+        <h2>Everything We've Built So Far</h2>
         <ul class="checklist">
-            <li>Python 3.11 installed via Homebrew</li>
-            <li>Virtual environment created (isolated workspace)</li>
-            <li>14 software packages installed and verified working</li>
-            <li>OpenMP runtime installed (needed by XGBoost on Mac)</li>
-            <li>Project folder structure created (12 folders, each with a clear purpose)</li>
-            <li><code>.gitignore</code> created (keeps large/temporary files out of GitHub)</li>
-            <li><code>requirements.txt</code> created (makes setup reproducible)</li>
+            <li>Development environment set up (Python 3.11, virtual environment, 14 packages)</li>
+            <li>FPL data pipeline: fetches 825 players' stats from the FPL API</li>
+            <li>Feature engineering: 20 features per player-gameweek (8,468 training rows)</li>
+            <li>LLM prompt generation in two formats (simple JSONL + MLX chat)</li>
+            <li>XGBoost model trained and evaluated (MAE: 2.11)</li>
+            <li>Llama 3.2 3B downloaded and fine-tuned with LoRA (600 iterations)</li>
+            <li>Four LLM strategies tested (zero-shot, few-shot, CoT, fine-tuned)</li>
+            <li>Full comparison: fine-tuned LLM wins on MAE (1.96), XGBoost wins on consistency</li>
         </ul>
     </div>
 
     <!-- What's next -->
     <div class="next-up">
         <h2>What Comes Next</h2>
-        <p>Now that the workshop is set up, the next step is <strong>Phase 1: Data Pipeline</strong>. This is where we'll:</p>
-        <ul style="margin: 16px 0 0 20px;">
-            <li>Connect to the Fantasy Premier League website and download all the player data</li>
-            <li>Clean and organise that data into a format our AI models can learn from</li>
-            <li>Create training examples for both the spreadsheet-style model (XGBoost) and the language model (LLM)</li>
+        <ul style="margin: 8px 0 0 20px;">
+            <li><strong>Phase 4: Eval Framework</strong> &mdash; structured test scenarios (fixture context, positional, edge cases) with automatic regression detection</li>
+            <li><strong>Phase 5: Comparison Dashboard</strong> &mdash; interactive Streamlit web app to explore predictions side by side</li>
+            <li><strong>Phase 6: Write-Up</strong> &mdash; product-oriented assessment: "Would I ship this? In what form?"</li>
+            <li><strong>Phase 7: Notebooks &amp; Docs</strong> &mdash; documented Jupyter experiments and GitHub Pages</li>
         </ul>
     </div>
 
     <!-- Glossary -->
     <div class="glossary">
         <h2>Jargon Buster</h2>
-
         <dl>
             <div class="glossary-item">
-                <dt>Homebrew</dt>
-                <dd>A free tool for Mac that lets you install software by typing commands instead of downloading from websites. Like an app store for developer tools.</dd>
+                <dt>API (Application Programming Interface)</dt>
+                <dd>A way for code to request data from a website. The FPL API lets our script ask "give me all player stats" and get structured data back.</dd>
             </div>
             <div class="glossary-item">
-                <dt>Virtual Environment (venv)</dt>
-                <dd>A private, isolated copy of Python and its tools for one specific project. Stops different projects from interfering with each other.</dd>
+                <dt>Feature Engineering</dt>
+                <dd>The art of turning raw data into meaningful numbers. Instead of "goals in GW12" and "goals in GW13," you create "goals per 90 minutes this season" &mdash; a much more useful pattern.</dd>
             </div>
             <div class="glossary-item">
-                <dt>pip</dt>
-                <dd>Python's built-in tool for installing packages (add-on tools). Think of it as "please install package."</dd>
+                <dt>MAE (Mean Absolute Error)</dt>
+                <dd>The average difference between predicted and actual values, ignoring direction. MAE of 2 means predictions are off by 2 points on average.</dd>
             </div>
             <div class="glossary-item">
-                <dt>Git / GitHub</dt>
-                <dd>Git tracks every change you make to your code (like "track changes" in Word). GitHub is a website where you can share that tracked code with others.</dd>
-            </div>
-            <div class="glossary-item">
-                <dt>.gitignore</dt>
-                <dd>A list of files and folders that Git should pretend don't exist. Used for big files, temporary files, and private data.</dd>
+                <dt>RMSE (Root Mean Square Error)</dt>
+                <dd>Like MAE, but it punishes big mistakes more heavily. A model with low MAE but high RMSE makes occasional huge errors.</dd>
             </div>
             <div class="glossary-item">
                 <dt>XGBoost</dt>
-                <dd>A popular AI method that's great at making predictions from tables of numbers. It learns patterns like "players in good form at home against weak teams score more."</dd>
+                <dd>A popular AI method for tabular data. It builds hundreds of decision trees (flowcharts), each one learning from the mistakes of the previous ones. Think of it as a committee of 500 pundits reaching consensus.</dd>
             </div>
             <div class="glossary-item">
                 <dt>LLM (Large Language Model)</dt>
-                <dd>An AI that understands and generates human language (like ChatGPT). We're going to customise one to predict FPL points from player descriptions.</dd>
+                <dd>An AI that understands and generates human language (like ChatGPT). We used one called Llama 3.2, made by Meta.</dd>
             </div>
             <div class="glossary-item">
-                <dt>Fine-tuning</dt>
-                <dd>Taking a pre-built AI model and teaching it something new with your own data. Like hiring a smart employee and training them on your specific business.</dd>
+                <dt>Fine-Tuning</dt>
+                <dd>Teaching a pre-built AI model something new with your own data. Like sending a smart employee on a specialised training course.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>LoRA (Low-Rank Adaptation)</dt>
+                <dd>A technique for fine-tuning efficiently. Instead of retraining the whole model (expensive), it makes small, targeted adjustments &mdash; like hemming trousers instead of sewing a new pair.</dd>
             </div>
             <div class="glossary-item">
                 <dt>MLX</dt>
-                <dd>Software from Apple that lets AI models run efficiently on Mac's M-series chips. Without it, you'd normally need an expensive cloud GPU.</dd>
+                <dd>Apple's AI engine for Mac M-series chips. It lets you run and train AI models locally instead of paying for cloud GPUs. This is what makes the whole project possible on a Mac Mini.</dd>
             </div>
             <div class="glossary-item">
-                <dt>LoRA</dt>
-                <dd>A technique for fine-tuning AI models efficiently. Instead of retraining the whole model (expensive), it makes small, targeted adjustments. Like hemming trousers instead of sewing a new pair.</dd>
+                <dt>Zero-Shot / Few-Shot / Chain-of-Thought</dt>
+                <dd><strong>Zero-shot:</strong> ask the AI with no examples. <strong>Few-shot:</strong> show it a few examples first. <strong>Chain-of-thought:</strong> ask it to think step-by-step. These are prompt engineering strategies &mdash; ways to get better results without any training.</dd>
             </div>
             <div class="glossary-item">
-                <dt>API</dt>
-                <dd>A way for software to request data from a website. The FPL API lets our code ask "give me all player stats" and get a structured answer back.</dd>
+                <dt>ICT Index</dt>
+                <dd>An FPL metric combining Influence, Creativity, and Threat. Higher ICT = more likely to score points. Think of it as a "danger rating" for each player.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>FDR (Fixture Difficulty Rating)</dt>
+                <dd>FPL's rating of how hard a match is, from 1 (easiest) to 5 (hardest). Playing at home against a bottom team = FDR 2. Away at Manchester City = FDR 5.</dd>
             </div>
         </dl>
     </div>
