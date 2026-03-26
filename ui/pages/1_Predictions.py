@@ -38,9 +38,15 @@ def run():
     </div>
     """, unsafe_allow_html=True)
 
+    # ---- Check if Claude predictions exist ----
+    has_claude = "claude_predicted_pts" in df.columns and df["claude_predicted_pts"].notna().any()
+
     # ---- Summary Metric Cards ----
     total_players = len(df)
-    avg_pts = (df["xgb_predicted_pts"] + df["llm_predicted_pts"]).mean() / 2
+    model_cols = ["xgb_predicted_pts", "llm_predicted_pts"]
+    if has_claude:
+        model_cols.append("claude_predicted_pts")
+    avg_pts = df[model_cols].mean(axis=1).mean()
     top_player = df.loc[df["combined_value_score"].idxmax()]
     agreement = (abs(df["xgb_predicted_pts"] - df["llm_predicted_pts"]) < 1.0).mean() * 100
 
@@ -90,18 +96,19 @@ def run():
     # Sort control
     sort_col1, sort_col2 = st.columns([2, 7])
     with sort_col1:
-        sort_by = st.selectbox(
-            "Sort by",
-            options=[
-                "Combined Value Score",
-                "XGBoost Predicted Points",
-                "LLM Predicted Points",
-                "XGBoost Confidence",
-                "LLM Confidence",
-                "Price (low to high)",
-                "Form (3GW)",
-            ],
-        )
+        sort_options = [
+            "Combined Value Score",
+            "XGBoost Predicted Points",
+            "LLM Predicted Points",
+            "XGBoost Confidence",
+            "LLM Confidence",
+            "Price (low to high)",
+            "Form (3GW)",
+        ]
+        if has_claude:
+            sort_options.insert(3, "Claude Predicted Points")
+            sort_options.insert(6, "Claude Confidence")
+        sort_by = st.selectbox("Sort by", options=sort_options)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -117,10 +124,10 @@ def run():
     filtered = filtered[
         (filtered["price"] >= price_range[0]) & (filtered["price"] <= price_range[1])
     ]
-    filtered = filtered[
-        (filtered["xgb_confidence"] >= min_confidence)
-        | (filtered["llm_confidence"] >= min_confidence)
-    ]
+    conf_mask = (filtered["xgb_confidence"] >= min_confidence) | (filtered["llm_confidence"] >= min_confidence)
+    if has_claude:
+        conf_mask = conf_mask | (filtered["claude_confidence"] >= min_confidence)
+    filtered = filtered[conf_mask]
 
     if home_away == "Home":
         filtered = filtered[filtered["was_home"] == 1]
@@ -132,8 +139,10 @@ def run():
         "Combined Value Score": ("combined_value_score", False),
         "XGBoost Predicted Points": ("xgb_predicted_pts", False),
         "LLM Predicted Points": ("llm_predicted_pts", False),
+        "Claude Predicted Points": ("claude_predicted_pts", False),
         "XGBoost Confidence": ("xgb_confidence", False),
         "LLM Confidence": ("llm_confidence", False),
+        "Claude Confidence": ("claude_confidence", False),
         "Price (low to high)": ("price", True),
         "Form (3GW)": ("form_3gw", False),
     }
@@ -157,59 +166,50 @@ def run():
     gw_col = f"GW{gw}"
     gw2_col = f"GW{gw + 1}"
 
-    display_df = filtered[
-        [
-            "photo_url",
-            "player_name",
-            "position",
-            "team_name",
-            "price",
-            "last_3_pts",
-            gw_col,
-            gw2_col,
-            "form_3gw",
-            "avg_minutes_3gw",
-            "xgb_predicted_pts",
-            "xgb_confidence",
-            "llm_predicted_pts",
-            "llm_confidence",
-            "combined_value_score",
-        ]
-    ].copy()
-
-    display_df.columns = [
-        "Photo",
-        "Player",
-        "Pos",
-        "Team",
-        "Price",
-        "Last 3 GW",
-        gw_col,
-        gw2_col,
-        "Form",
-        "Mins",
-        "XGB Pts",
-        "XGB Conf",
-        "LLM Pts",
-        "LLM Conf",
-        "Value",
+    table_cols = [
+        "photo_url", "player_name", "position", "team_name", "price",
+        "last_3_pts", gw_col, gw2_col, "form_3gw", "avg_minutes_3gw",
+        "xgb_predicted_pts", "xgb_confidence",
+        "llm_predicted_pts", "llm_confidence",
     ]
+    col_names = [
+        "Photo", "Player", "Pos", "Team", "Price",
+        "Last 3 GW", gw_col, gw2_col, "Form", "Mins",
+        "XGB Pts", "XGB Conf",
+        "LLM Pts", "LLM Conf",
+    ]
+
+    if has_claude:
+        table_cols.extend(["claude_predicted_pts", "claude_confidence"])
+        col_names.extend(["Claude Pts", "Claude Conf"])
+
+    table_cols.append("combined_value_score")
+    col_names.append("Value")
+
+    display_df = filtered[table_cols].copy()
+    display_df.columns = col_names
 
     # Format confidence as "XX%" strings for cleaner display
     display_df["XGB Conf"] = display_df["XGB Conf"].apply(lambda x: f"{int(x)}%")
     display_df["LLM Conf"] = display_df["LLM Conf"].apply(lambda x: f"{int(x)}%")
+    if has_claude:
+        display_df["Claude Conf"] = display_df["Claude Conf"].apply(lambda x: f"{int(x)}%")
+
+    col_config = {
+        "Photo": st.column_config.ImageColumn("", width="small"),
+        "Price": st.column_config.NumberColumn("Price", format="£%.1f"),
+        "Form": st.column_config.NumberColumn("Form", format="%.1f"),
+        "Mins": st.column_config.NumberColumn("Mins", format="%d"),
+        "XGB Pts": st.column_config.NumberColumn("XGB Pts", format="%.1f"),
+        "LLM Pts": st.column_config.NumberColumn("LLM Pts", format="%.1f"),
+        "Value": st.column_config.NumberColumn("Value", format="%.2f"),
+    }
+    if has_claude:
+        col_config["Claude Pts"] = st.column_config.NumberColumn("Claude Pts", format="%.1f")
 
     st.dataframe(
         display_df,
-        column_config={
-            "Photo": st.column_config.ImageColumn("", width="small"),
-            "Price": st.column_config.NumberColumn("Price", format="£%.1f"),
-            "Form": st.column_config.NumberColumn("Form", format="%.1f"),
-            "Mins": st.column_config.NumberColumn("Mins", format="%d"),
-            "XGB Pts": st.column_config.NumberColumn("XGB Pts", format="%.1f"),
-            "LLM Pts": st.column_config.NumberColumn("LLM Pts", format="%.1f"),
-            "Value": st.column_config.NumberColumn("Value", format="%.2f"),
-        },
+        column_config=col_config,
         use_container_width=True,
         height=700,
         hide_index=True,
@@ -223,19 +223,28 @@ def run():
         if selected_player:
             p = filtered[filtered["player_name"] == selected_player].iloc[0]
 
-            col_left, col_right = st.columns(2)
+            model_cols = st.columns(3 if has_claude else 2)
 
-            with col_left:
-                st.markdown("#### XGBoost Prediction")
+            with model_cols[0]:
+                st.markdown("#### XGBoost")
                 st.metric("Predicted Points", f"{p['xgb_predicted_pts']:.1f}")
                 st.metric("Confidence", f"{p['xgb_confidence']}%")
                 st.metric("Value Score", f"{p['xgb_value_score']:.2f}")
 
-            with col_right:
-                st.markdown("#### Fine-Tuned LLM Prediction")
+            with model_cols[1]:
+                st.markdown("#### Fine-Tuned LLM")
                 st.metric("Predicted Points", f"{p['llm_predicted_pts']:.1f}")
                 st.metric("Confidence", f"{p['llm_confidence']}%")
                 st.metric("Value Score", f"{p['llm_value_score']:.2f}")
+
+            if has_claude:
+                with model_cols[2]:
+                    st.markdown("#### Claude (Haiku)")
+                    st.metric("Predicted Points", f"{p['claude_predicted_pts']:.1f}")
+                    st.metric("Confidence", f"{int(p['claude_confidence'])}%")
+                    st.metric("Value Score", f"{p['claude_value_score']:.2f}")
+                    if pd.notna(p.get("claude_reasoning")):
+                        st.caption(f"_{p['claude_reasoning']}_")
 
             st.markdown("#### Player Context")
             ctx1, ctx2, ctx3, ctx4 = st.columns(4)
@@ -306,7 +315,7 @@ def run():
     # ---- Footer ----
     st.markdown(
         '<div class="fpl-footer">'
-        'Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) | '
+        'Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) + Claude Haiku | '
         'Data from the FPL API | '
         'Predictions are for educational purposes only'
         '</div>',
