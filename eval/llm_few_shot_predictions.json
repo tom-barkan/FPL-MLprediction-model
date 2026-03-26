@@ -499,8 +499,8 @@
   {
     "index": 71,
     "actual": 7,
-    "raw_response": "3",
-    "parsed_prediction": 3,
+    "raw_response": "2",
+    "parsed_prediction": 2,
     "parse_success": true
   },
   {
@@ -618,8 +618,8 @@
   {
     "index": 88,
     "actual": 2,
-    "raw_response": "3",
-    "parsed_prediction": 3,
+    "raw_response": "4",
+    "parsed_prediction": 4,
     "parse_success": true
   },
   {
@@ -947,8 +947,8 @@
   {
     "index": 135,
     "actual": 1,
-    "raw_response": "1",
-    "parsed_prediction": 1,
+    "raw_response": "2",
+    "parsed_prediction": 2,
     "parse_success": true
   },
   {
