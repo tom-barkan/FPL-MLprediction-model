@@ -230,7 +230,12 @@ def predict_llm(next_gw_df):
             print(f"  LLM: {i+1}/{len(next_gw_df)} predictions done")
 
     del model, tokenizer
-    preds = np.array(preds, dtype=float)
+    raw_preds = np.array(preds, dtype=float)
+
+    # Blend raw LLM prediction with player features for smoother output.
+    # The LLM gives a directional signal (0/1/2/4/9/10), but we refine it
+    # using form, ICT, and fixture data to produce realistic decimal values.
+    preds = _smooth_predictions(raw_preds, next_gw_df)
 
     # Confidence heuristic based on feature clarity:
     # Higher confidence when: good form consistency (3gw ~= 5gw), high minutes,
@@ -238,6 +243,50 @@ def predict_llm(next_gw_df):
     confidences = _compute_feature_confidence(next_gw_df, preds)
 
     return preds, confidences
+
+
+def _smooth_predictions(raw_preds, df):
+    """
+    Blend the LLM's integer prediction with player features to produce
+    smoother, more realistic decimal predictions.
+
+    The LLM gives a directional signal (low/mid/high), and we refine it:
+    - 40% LLM signal (dampened toward realistic range)
+    - 30% recent form (the most predictive feature)
+    - 30% feature-based estimate (ICT, fixture, minutes)
+    """
+    form = df["form_3gw"].values
+    form5 = df["form_5gw"].values
+    ict = df["ict_index_3gw"].values
+    fdr = df["fixture_difficulty"].values
+    minutes = df["avg_minutes_3gw"].values
+    goals_p90 = df["goals_per_90_season"].values
+    assists_p90 = df["assists_per_90_season"].values
+    cs_pct = df["clean_sheets_pct_season"].values
+    positions = df["position"].values
+
+    # 1. Dampen the LLM prediction toward the mean (reduce 9/10 overshoot)
+    # Map raw LLM: compress toward 1-7 range
+    llm_dampened = np.clip(raw_preds * 0.6 + 1.0, 0.5, 7.5)
+
+    # 2. Feature-based estimate
+    # Start from form, adjust for fixture and attacking threat
+    fixture_adj = np.where(fdr <= 2, 0.5, np.where(fdr >= 4, -0.5, 0.0))
+    attack_bonus = (goals_p90 + assists_p90) * 2.0
+    cs_bonus = np.where(np.isin(positions, ["GK", "DEF"]), cs_pct * 3.0, 0.0)
+    minutes_factor = np.clip(minutes / 90.0, 0.0, 1.0)
+
+    feature_est = (form * 0.5 + form5 * 0.3 + ict * 0.15 +
+                   fixture_adj + attack_bonus + cs_bonus) * minutes_factor
+
+    # 3. Blend: 40% LLM, 30% form, 30% feature estimate
+    blended = 0.40 * llm_dampened + 0.30 * form + 0.30 * feature_est
+
+    # Clip to realistic FPL range and round to 1 decimal
+    blended = np.clip(blended, 0.5, 10.0)
+    blended = np.round(blended, 1)
+
+    return blended
 
 
 def _compute_feature_confidence(df, preds):
