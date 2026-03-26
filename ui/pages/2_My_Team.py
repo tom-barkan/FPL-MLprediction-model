@@ -1,5 +1,7 @@
 """
 My Team Page — Squad builder + multi-transfer planner.
+
+Two-column layout: pitch on left, transfer planner on right.
 """
 
 import streamlit as st
@@ -11,8 +13,12 @@ from ui.components import (
     fixture_run_html,
     player_card_html,
     metric_card_html,
+    metric_card_compact_html,
     delta_html,
     fdr_legend_html,
+    pitch_player_html,
+    pitch_html,
+    suggestion_card_html,
 )
 
 
@@ -102,32 +108,31 @@ def auto_pick_xi(squad_df):
     return best_xi, captain_id
 
 
-def render_pitch(squad_df, gw, lookahead):
-    """Render squad in a pitch layout."""
-    for pos in ["GK", "DEF", "MID", "FWD"]:
+def build_pitch_html(squad_df, lookahead):
+    """Build the full pitch HTML with players arranged in formation rows."""
+    # Order: FWD (top), MID, DEF, GK (bottom)
+    position_rows = []
+    for pos in ["FWD", "MID", "DEF", "GK"]:
         pos_players = squad_df[squad_df["position"] == pos].sort_values(
             "combined_value_score", ascending=False
         )
-
         if len(pos_players) == 0:
             continue
-
-        cols = st.columns(max(len(pos_players), 1))
-        for i, (_, player) in enumerate(pos_players.iterrows()):
+        cards = []
+        for _, player in pos_players.iterrows():
             team_id = int(player["team"])
             fixtures = lookahead.get(team_id, [])
-
-            with cols[i]:
-                st.markdown(
-                    player_card_html(
-                        player["player_name"],
-                        player["team_name"],
-                        player["price"],
-                        player["combined_value_score"],
-                        fixtures,
-                    ),
-                    unsafe_allow_html=True,
+            cards.append(
+                pitch_player_html(
+                    player["player_name"],
+                    player["team_name"],
+                    player["price"],
+                    player["combined_value_score"],
+                    fixtures,
                 )
+            )
+        position_rows.append((pos, cards))
+    return pitch_html(position_rows)
 
 
 def get_transfer_suggestions(df, squad_df, player_out, strategy, gw):
@@ -186,52 +191,29 @@ def get_transfer_suggestions(df, squad_df, player_out, strategy, gw):
     return candidates.head(10)
 
 
-def render_suggestion_row(player_in, player_out, gw, lookahead, idx, transfer_idx):
-    """Render a single transfer suggestion with apply button."""
+def render_suggestion_card(player_in, player_out, lookahead, idx, transfer_idx):
+    """Render a suggestion card with an Apply button below it."""
     team_id_in = int(player_in["team"])
     fixtures_in = lookahead.get(team_id_in, [])
 
-    pts_delta = player_in["combined_value_score"] - player_out["combined_value_score"]
-    xgb_delta = player_in["xgb_predicted_pts"] - player_out["xgb_predicted_pts"]
-    llm_delta = player_in["llm_predicted_pts"] - player_out["llm_predicted_pts"]
-    cost_delta = player_in["price"] - player_out["price"]
+    # Render card HTML
+    st.markdown(
+        suggestion_card_html(player_in, player_out, fixtures_in),
+        unsafe_allow_html=True,
+    )
 
-    c1, c2, c3, c4, c5 = st.columns([3, 2, 2, 2, 1.5])
-
-    with c1:
-        fixtures_html = fixture_run_html(fixtures_in) if fixtures_in else ""
-        st.markdown(
-            f"**{player_in['player_name']}** "
-            f"<span style='color:#888;font-size:0.85em;'>"
-            f"{player_in['team_name']} &middot; {player_in['price']:.1f}m</span>"
-            f"<br>{fixtures_html}",
-            unsafe_allow_html=True,
-        )
-
-    with c2:
-        st.markdown(
-            f"XGB: **{player_in['xgb_predicted_pts']:.1f}** pts "
-            f"({'+' if xgb_delta >= 0 else ''}{xgb_delta:.1f})<br>"
-            f"LLM: **{player_in['llm_predicted_pts']:.1f}** pts "
-            f"({'+' if llm_delta >= 0 else ''}{llm_delta:.1f})",
-            unsafe_allow_html=True,
-        )
-
-    with c3:
-        st.markdown(f"Value: **{player_in['combined_value_score']:.2f}**")
-        st.markdown(delta_html(pts_delta, "value"), unsafe_allow_html=True)
-
-    with c4:
-        cost_str = f"+{cost_delta:.1f}m" if cost_delta >= 0 else f"{cost_delta:.1f}m"
-        st.markdown(f"Cost: **{cost_str}**")
-
-    with c5:
-        if st.button("Apply", key=f"apply_{transfer_idx}_{idx}", type="primary"):
-            squad = st.session_state.squad.copy()
-            squad.remove(int(player_out["player_id"]))
-            squad.append(int(player_in["player_id"]))
-            st.session_state.squad = squad
-            st.rerun()
+    # Apply button (Streamlit widget -- must be outside HTML)
+    if st.button(
+        f"Apply: {player_in['player_name']}",
+        key=f"apply_{transfer_idx}_{idx}",
+        type="primary",
+        use_container_width=True,
+    ):
+        squad = st.session_state.squad.copy()
+        squad.remove(int(player_out["player_id"]))
+        squad.append(int(player_in["player_id"]))
+        st.session_state.squad = squad
+        st.rerun()
 
 
 def run():
@@ -247,21 +229,17 @@ def run():
     # ---- Header ----
     st.markdown(f"""
     <div class="fpl-header">
-        <h1>My Team</h1>
-        <p>Squad Builder & Transfer Advisor &mdash; GW {gw}</p>
+        <h1>FPL Squad & Transfer Planner</h1>
+        <p>Squad Builder & Transfer Advisor &mdash; Gameweek {gw}</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # ---- Squad Builder ----
-    st.markdown('<span class="section-header">Squad Builder</span>', unsafe_allow_html=True)
-
-    # Build player options for multiselect
+    # ---- Squad Builder (player selector) ----
     player_options = {}
     for _, row in df.iterrows():
         label = f"{row['player_name']} - {row['position']} - {row['team_name']} - {row['price']:.1f}m"
         player_options[label] = int(row["player_id"])
 
-    # Reverse mapping for defaults
     id_to_label = {v: k for k, v in player_options.items()}
     current_labels = [id_to_label[pid] for pid in st.session_state.squad if pid in id_to_label]
 
@@ -273,7 +251,6 @@ def run():
         help="Search by player name. Select up to 15 players (2 GK, 5 DEF, 5 MID, 3 FWD).",
     )
 
-    # Update session state
     new_squad = [player_options[label] for label in selected_labels]
     if new_squad != st.session_state.squad:
         st.session_state.squad = new_squad
@@ -289,192 +266,173 @@ def run():
     for w in warnings:
         st.warning(w)
 
-    # ---- Squad Composition & Budget ----
+    # ---- Header Metric Cards Row ----
     total_cost = squad_df["price"].sum()
     remaining = TOTAL_BUDGET - total_cost
     pos_counts = squad_df["position"].value_counts().to_dict()
 
-    comp_cols = st.columns(6)
-    with comp_cols[0]:
-        st.markdown(
-            metric_card_html("Budget Left", f"{remaining:.1f}m", sub=f"{total_cost:.1f}m spent"),
-            unsafe_allow_html=True,
-        )
-    with comp_cols[1]:
-        st.markdown(
-            metric_card_html("Players", f"{len(squad_df)}/15"),
-            unsafe_allow_html=True,
-        )
-    for i, pos in enumerate(["GK", "DEF", "MID", "FWD"]):
-        with comp_cols[i + 2]:
-            count = pos_counts.get(pos, 0)
-            limit = POSITION_LIMITS[pos]
-            st.markdown(
-                metric_card_html(pos, f"{count}/{limit}"),
-                unsafe_allow_html=True,
-            )
+    metrics_items = [
+        ("Budget Left", f"{remaining:.1f}m"),
+        ("Squad Composition GK", f"{pos_counts.get('GK', 0)}/{POSITION_LIMITS['GK']}"),
+        ("DEF", f"{pos_counts.get('DEF', 0)}/{POSITION_LIMITS['DEF']}"),
+        ("MID", f"{pos_counts.get('MID', 0)}/{POSITION_LIMITS['MID']}"),
+        ("FWD", f"{pos_counts.get('FWD', 0)}/{POSITION_LIMITS['FWD']}"),
+    ]
+    mc_html = '<div class="mc-row">'
+    for lbl, val in metrics_items:
+        mc_html += metric_card_compact_html(lbl, val)
+    mc_html += '</div>'
+    st.markdown(mc_html, unsafe_allow_html=True)
 
     # ---- FDR Legend ----
     st.markdown(fdr_legend_html(), unsafe_allow_html=True)
 
-    # ---- Pitch Layout ----
-    st.markdown('<span class="section-header">Your Squad</span>', unsafe_allow_html=True)
-    render_pitch(squad_df, gw, lookahead)
+    # ---- Two-Column Layout: Pitch + Transfer Planner ----
+    left_col, right_col = st.columns([5, 6], gap="large")
 
-    # ---- Squad Overview Table ----
-    if len(squad_df) >= 11:
-        st.markdown('<span class="section-header">Starting XI</span>', unsafe_allow_html=True)
+    # ======== LEFT COLUMN: Pitch ========
+    with left_col:
+        st.markdown(
+            '<span class="section-header">Your Squad</span>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(build_pitch_html(squad_df, lookahead), unsafe_allow_html=True)
 
-        xi_df, captain_id = auto_pick_xi(squad_df)
+        # Bench / Starting XI info
+        if len(squad_df) >= 11:
+            xi_df, captain_id = auto_pick_xi(squad_df)
+            captain_name = xi_df.loc[xi_df["player_id"] == captain_id, "player_name"].iloc[0]
+            bench = squad_df[~squad_df["player_id"].isin(xi_df["player_id"])]
 
-        captain_name = xi_df.loc[xi_df["player_id"] == captain_id, "player_name"].iloc[0]
-        bench = squad_df[~squad_df["player_id"].isin(xi_df["player_id"])]
-
-        # Formation
-        xi_pos = xi_df["position"].value_counts()
-        formation = f"{xi_pos.get('DEF', 0)}-{xi_pos.get('MID', 0)}-{xi_pos.get('FWD', 0)}"
-
-        info_cols = st.columns(3)
-        with info_cols[0]:
-            st.markdown(metric_card_html("Formation", formation), unsafe_allow_html=True)
-        with info_cols[1]:
+            xi_pos = xi_df["position"].value_counts()
+            formation = f"{xi_pos.get('DEF', 0)}-{xi_pos.get('MID', 0)}-{xi_pos.get('FWD', 0)}"
             total_pts = (xi_df["xgb_predicted_pts"] + xi_df["llm_predicted_pts"]).sum() / 2
-            st.markdown(
-                metric_card_html("XI Predicted Pts", f"{total_pts:.1f}"),
-                unsafe_allow_html=True,
-            )
-        with info_cols[2]:
-            st.markdown(
-                metric_card_html("Captain", captain_name, sub="highest value score"),
-                unsafe_allow_html=True,
-            )
 
-        # XI table
-        xi_display = xi_df[
-            ["player_name", "position", "team_name", "price", "opponent", "home_away",
-             "fixture_difficulty", "gw2_opponent", "gw2_home_away",
-             "xgb_predicted_pts", "xgb_confidence", "llm_predicted_pts",
-             "llm_confidence", "combined_value_score"]
-        ].copy()
-        xi_display.columns = [
-            "Player", "Pos", "Team", "Price", "Opp", "H/A", "FDR",
-            "Next Opp", "Next H/A",
-            "XGB Pts", "XGB Conf", "LLM Pts", "LLM Conf", "Value",
-        ]
-        st.dataframe(
-            xi_display.style.format({
-                "Price": "{:.1f}", "XGB Pts": "{:.1f}", "LLM Pts": "{:.1f}", "Value": "{:.2f}",
-            }),
-            use_container_width=True,
-            hide_index=True,
+            info_html = f"""
+            <div class="mc-row" style="margin-top:12px;">
+                {metric_card_compact_html("Formation", formation)}
+                {metric_card_compact_html("XI Predicted Pts", f"{total_pts:.1f}")}
+                {metric_card_compact_html("Captain", captain_name)}
+            </div>
+            """
+            st.markdown(info_html, unsafe_allow_html=True)
+
+            if not bench.empty:
+                bench_names = ", ".join(
+                    f"{r['player_name']} ({r['position']})"
+                    for _, r in bench.iterrows()
+                )
+                st.caption(f"Bench: {bench_names}")
+
+    # ======== RIGHT COLUMN: Transfer Planner ========
+    with right_col:
+        st.markdown(
+            '<span class="section-header">Transfer Planner</span>',
+            unsafe_allow_html=True,
         )
 
-        if not bench.empty:
-            st.markdown("**Bench:**")
-            bench_display = bench[
-                ["player_name", "position", "team_name", "price",
-                 "xgb_predicted_pts", "llm_predicted_pts", "combined_value_score"]
-            ].copy()
-            bench_display.columns = ["Player", "Pos", "Team", "Price", "XGB Pts", "LLM Pts", "Value"]
-            st.dataframe(
-                bench_display.style.format({
-                    "Price": "{:.1f}", "XGB Pts": "{:.1f}", "LLM Pts": "{:.1f}", "Value": "{:.2f}",
-                }),
-                use_container_width=True,
-                hide_index=True,
-            )
-
-    # ---- Transfer Planner ----
-    st.markdown("---")
-    st.markdown('<span class="section-header">Transfer Planner</span>', unsafe_allow_html=True)
-
-    num_transfers = st.radio(
-        "Number of transfers",
-        options=[1, 2, 3],
-        horizontal=True,
-        help="Plan 1-3 transfers. Points hit: -4 per extra transfer beyond your free transfer.",
-    )
-
-    # Budget tracker
-    total_cost = squad_df["price"].sum()
-    st.markdown(
-        f"""<div class="budget-bar">
-        <div><span class="budget-label">Squad Value</span><br><span class="budget-value">{total_cost:.1f}m</span></div>
-        <div><span class="budget-label">Budget Remaining</span><br><span class="budget-value">{TOTAL_BUDGET - total_cost:.1f}m</span></div>
-        <div><span class="budget-label">Transfers</span><br><span class="budget-value">{num_transfers}</span></div>
-        </div>""",
-        unsafe_allow_html=True,
-    )
-
-    # Sort squad by worst performers
-    squad_sorted = squad_df.sort_values("combined_value_score", ascending=True)
-
-    for t_idx in range(num_transfers):
-        st.markdown(f"#### Transfer {t_idx + 1}")
-
-        # Player out selection
-        out_options = {
-            f"{r['player_name']} ({r['position']}, {r['team_name']}, {r['price']:.1f}m) — Value: {r['combined_value_score']:.2f}": int(r["player_id"])
-            for _, r in squad_sorted.iterrows()
-        }
-
-        selected_out = st.selectbox(
-            "Player Out",
-            options=list(out_options.keys()),
-            key=f"transfer_out_{t_idx}",
+        # Number of transfers + budget info
+        num_transfers = st.radio(
+            "Number of transfers",
+            options=[1, 2, 3],
+            horizontal=True,
+            help="Plan 1-3 transfers. Points hit: -4 per extra transfer beyond your free transfer.",
         )
 
-        if not selected_out:
-            continue
+        budget_html = f"""
+        <div class="budget-bar">
+            <div><span class="budget-label">Squad Value</span><br>
+                <span class="budget-value">{total_cost:.1f}m</span></div>
+            <div><span class="budget-label">Budget Remaining</span><br>
+                <span class="budget-value">{remaining:.1f}m</span></div>
+        </div>
+        """
+        st.markdown(budget_html, unsafe_allow_html=True)
 
-        out_id = out_options[selected_out]
-        player_out = squad_df[squad_df["player_id"] == out_id].iloc[0]
+        # Sort squad by worst performers for the dropdown
+        squad_sorted = squad_df.sort_values("combined_value_score", ascending=True)
 
-        # Show outgoing player fixture info
-        out_team_id = int(player_out["team"])
-        out_fixtures = lookahead.get(out_team_id, [])
-        if out_fixtures:
+        for t_idx in range(num_transfers):
+            # Transfer section header
             st.markdown(
-                f"<span class='transfer-out'>OUT:</span> {player_out['player_name']} "
-                f"&mdash; Next fixtures: {fixture_run_html(out_fixtures)}",
+                f'<div class="tp-section-hdr">Transfer {t_idx + 1}</div>',
                 unsafe_allow_html=True,
             )
 
-        # Strategy tabs
-        safe_tab, diff_tab, form_tab, fix_tab = st.tabs(
-            ["Safe Picks", "Differential", "Form", "Fixture"]
-        )
+            # ---- 1. Player Out ----
+            st.markdown("**1. Player Out**")
+            out_options = {
+                f"{r['player_name']} ({r['position']}, {r['team_name']}, {r['price']:.1f}m) — Value: {r['combined_value_score']:.2f}": int(r["player_id"])
+                for _, r in squad_sorted.iterrows()
+            }
 
-        strategies = [
-            (safe_tab, "Safe", "High confidence from both models, sorted by value score"),
-            (diff_tab, "Differential", "High predicted points but lower confidence — high risk/reward"),
-            (form_tab, "Form", "Players in best recent form with consistent minutes"),
-            (fix_tab, "Fixture", "Easiest upcoming fixtures across next 2 gameweeks"),
-        ]
+            selected_out = st.selectbox(
+                "Select Player",
+                options=list(out_options.keys()),
+                key=f"transfer_out_{t_idx}",
+                label_visibility="collapsed",
+            )
 
-        for tab, strategy, description in strategies:
-            with tab:
-                st.caption(description)
-                suggestions = get_transfer_suggestions(df, squad_df, player_out, strategy, gw)
+            if not selected_out:
+                continue
 
-                if suggestions.empty:
-                    st.info(f"No {strategy.lower()} picks available for this position and budget.")
-                    continue
+            out_id = out_options[selected_out]
+            player_out = squad_df[squad_df["player_id"] == out_id].iloc[0]
 
-                for idx, (_, player_in) in enumerate(suggestions.iterrows()):
-                    render_suggestion_row(player_in, player_out, gw, lookahead, idx, f"{t_idx}_{strategy}")
-                    if idx < len(suggestions) - 1:
-                        st.markdown(
-                            "<hr style='margin:4px 0;border:none;border-top:1px solid #f0f0f0;'>",
-                            unsafe_allow_html=True,
+            # Out banner with fixtures
+            out_team_id = int(player_out["team"])
+            out_fixtures = lookahead.get(out_team_id, [])
+            fix_badges = fixture_run_html(out_fixtures) if out_fixtures else ""
+
+            st.markdown(
+                f"""<div class="tp-out-banner">
+                    <span class="out-pill">OUT</span>
+                    <span class="out-name">{player_out['player_name']}</span>
+                    <span style="color:#888;font-size:0.85em;">
+                        Next Fixtures:
+                    </span>
+                    <span class="out-fixtures">{fix_badges}</span>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+
+            # ---- 2. Recommended Transfers ----
+            st.markdown("**2. Recommended Transfers**")
+
+            safe_tab, diff_tab, form_tab, fix_tab = st.tabs(
+                ["Safe Picks", "Differentials", "Form", "Fixture"]
+            )
+
+            strategies = [
+                (safe_tab, "Safe", "High confidence from both models, sorted by value score"),
+                (diff_tab, "Differential", "High predicted points but lower confidence -- high risk/reward"),
+                (form_tab, "Form", "Players in best recent form with consistent minutes"),
+                (fix_tab, "Fixture", "Easiest upcoming fixtures across next 2 gameweeks"),
+            ]
+
+            for tab, strategy, description in strategies:
+                with tab:
+                    st.caption(description)
+                    suggestions = get_transfer_suggestions(df, squad_df, player_out, strategy, gw)
+
+                    if suggestions.empty:
+                        st.info(f"No {strategy.lower()} picks available for this position and budget.")
+                        continue
+
+                    for idx, (_, player_in) in enumerate(suggestions.iterrows()):
+                        render_suggestion_card(
+                            player_in, player_out, lookahead,
+                            idx, f"{t_idx}_{strategy}",
                         )
 
-    # Footer
-    st.markdown("---")
-    st.caption(
+    # ---- Footer ----
+    st.markdown(
+        '<div class="fpl-footer">'
         "Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) | "
         "Data from the FPL API | "
         "Predictions are for educational purposes only"
+        "</div>",
+        unsafe_allow_html=True,
     )
 
 

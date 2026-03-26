@@ -1,5 +1,5 @@
 """
-Main Predictions Page — Hero table with filters and fixture lookahead.
+Predictions Page — Redesigned to match Stitch design mockup.
 """
 
 import streamlit as st
@@ -25,15 +25,15 @@ def run():
 
     gw = int(df["gameweek"].iloc[0])
 
-    # ---- Header ----
+    # ---- Header Banner ----
     st.markdown(f"""
     <div class="fpl-header">
-        <h1>FPL Points Predictor</h1>
-        <p>Gameweek {gw} Predictions &mdash; XGBoost vs Fine-Tuned LLM</p>
+        <h1>FPL Predictions &amp; Squad Planner</h1>
+        <p>Gameweek {gw} Predictions &amp; Transfer Advisor</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # ---- Summary Metrics ----
+    # ---- Summary Metric Cards ----
     total_players = len(df)
     avg_pts = (df["xgb_predicted_pts"] + df["llm_predicted_pts"]).mean() / 2
     top_player = df.loc[df["combined_value_score"].idxmax()]
@@ -50,20 +50,22 @@ def run():
             unsafe_allow_html=True,
         )
     with cols[3]:
-        st.markdown(metric_card_html("Model Agreement", f"{agreement:.0f}%", sub="within 1.0 pts"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("Model Agreement", f"{agreement:.1f}%", sub="within 1.0 pts"), unsafe_allow_html=True)
 
     # ---- Filter Bar ----
     st.markdown('<div class="filter-bar">', unsafe_allow_html=True)
 
+    all_positions = ["GK", "DEF", "MID", "FWD"]
     all_teams = sorted(df["team_name"].unique())
 
+    # Row 1: Position pills, Team, Price, Confidence, Fixture
     fc1, fc2, fc3, fc4, fc5 = st.columns([2, 2, 2, 1.5, 1.5])
 
     with fc1:
         positions = st.multiselect(
             "Position",
-            options=["GK", "DEF", "MID", "FWD"],
-            default=["GK", "DEF", "MID", "FWD"],
+            options=all_positions,
+            default=all_positions,
         )
     with fc2:
         teams = st.multiselect("Team", options=all_teams, default=[])
@@ -80,6 +82,7 @@ def run():
     with fc5:
         home_away = st.radio("Fixture", ["All", "Home", "Away"], horizontal=True)
 
+    # Sort control
     sort_col1, sort_col2 = st.columns([2, 7])
     with sort_col1:
         sort_by = st.selectbox(
@@ -97,7 +100,7 @@ def run():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ---- FDR Legend ----
+    # ---- FDR Legend Strip ----
     st.markdown(fdr_legend_html(), unsafe_allow_html=True)
 
     # ---- Apply Filters ----
@@ -152,10 +155,9 @@ def run():
             "position",
             "team_name",
             "price",
-            "last_3_pts",
-            f"GW{gw}",
-            f"GW{gw + 1}",
+            "avg_minutes_3gw",
             "form_3gw",
+            "last_3_pts",
             "xgb_predicted_pts",
             "xgb_confidence",
             "llm_predicted_pts",
@@ -169,10 +171,9 @@ def run():
         "Pos",
         "Team",
         "Price",
-        "Last 3 GW",
-        f"GW{gw}",
-        f"GW{gw + 1}",
+        "Mins",
         "Form",
+        "Last 3 GW",
         "XGB Pts",
         "XGB Conf",
         "LLM Pts",
@@ -185,6 +186,7 @@ def run():
         .format(
             {
                 "Price": "{:.1f}",
+                "Mins": "{:.0f}",
                 "Form": "{:.1f}",
                 "XGB Pts": "{:.1f}",
                 "LLM Pts": "{:.1f}",
@@ -192,7 +194,6 @@ def run():
             }
         )
         .background_gradient(subset=["XGB Pts", "LLM Pts"], cmap="Greens", vmin=0, vmax=8)
-        .background_gradient(subset=["XGB Conf", "LLM Conf"], cmap="Blues", vmin=0, vmax=100)
         .background_gradient(subset=["Value"], cmap="YlOrRd", vmin=0),
         column_config={
             "XGB Conf": st.column_config.ProgressColumn(
@@ -202,6 +203,7 @@ def run():
                 "LLM Conf", min_value=0, max_value=100, format="%d%%"
             ),
             "Price": st.column_config.NumberColumn("Price", format="%.1f"),
+            "Mins": st.column_config.NumberColumn("Mins", format="%d"),
             "Value": st.column_config.NumberColumn("Value", format="%.2f"),
         },
         use_container_width=True,
@@ -297,12 +299,14 @@ def run():
                 hide_index=True,
             )
 
-    # Footer
-    st.markdown("---")
-    st.caption(
-        "Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) | "
-        "Data from the FPL API | "
-        "Predictions are for educational purposes only"
+    # ---- Footer ----
+    st.markdown(
+        '<div class="fpl-footer">'
+        'Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) | '
+        'Data from the FPL API | '
+        'Predictions are for educational purposes only'
+        '</div>',
+        unsafe_allow_html=True,
     )
 
 
