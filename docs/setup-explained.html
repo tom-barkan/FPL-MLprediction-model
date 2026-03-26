@@ -1093,36 +1093,52 @@
         <h3>The Fix: Balanced Training Data</h3>
         <div class="subtitle">Give the AI equal exposure to all types of outcomes</div>
 
-        <p>We rebalanced the training data by grouping scores into buckets and making sure the model sees roughly the same number of examples from each:</p>
+        <p>Our first attempt grouped scores into 5 broad buckets &mdash; but the model still only predicted 1 or 4. So we went further: <strong>every individual point value (0 through 11+) gets exactly 333 training examples.</strong></p>
 
-        <h4 style="margin: 16px 0 8px; color: #2e7d32;">After: Balanced Training Data</h4>
+        <h4 style="margin: 16px 0 8px; color: #2e7d32;">After: Per-Point Balanced Training Data</h4>
         <div class="dist-chart">
             <div class="dist-row">
-                <div class="dist-label">0 or less</div>
-                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+                <div class="dist-label">0 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
             </div>
             <div class="dist-row">
-                <div class="dist-label">1-2 pts</div>
-                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 75%;">37%</div></div>
+                <div class="dist-label">1 pt</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
             </div>
             <div class="dist-row">
-                <div class="dist-label">3-4 pts</div>
-                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+                <div class="dist-label">2 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
             </div>
             <div class="dist-row">
-                <div class="dist-label">5-6 pts</div>
-                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+                <div class="dist-label">3 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">4 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">5 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">6 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333</div></div>
             </div>
             <div class="dist-row">
                 <div class="dist-label">7+ pts</div>
-                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 40%;">333 each</div></div>
             </div>
         </div>
 
-        <p>We also increased the learning rate (how aggressively the model adjusts) from 1e-5 to 2e-5, so it would pick up on the differences faster.</p>
+        <p>We also made the model more capable: <strong>16 LoRA layers</strong> (up from 8), <strong>3x the learning rate</strong>, and <strong>500 training iterations</strong>. This gave the model more capacity to learn the nuances between different point values.</p>
 
         <div class="fix-callout">
-            <strong>The result:</strong> The retrained model (v2) now differentiates between players. High-form players in easy fixtures get <strong>4 points</strong>. Low-form players in tough fixtures get <strong>1 point</strong>. It's still more conservative than XGBoost (range of 1-4 vs 1.6-7.4), but it's no longer broken.
+            <strong>The result:</strong> The retrained model (v3) now predicts across <strong>6 distinct values: 0, 1, 2, 4, 9, and 10</strong>. Premium players in good form get 9&ndash;10. Mid-range players get 2&ndash;4. Weak fixtures and poor form get 0&ndash;1. It's still "chunkier" than XGBoost's smooth range (a fundamental limitation of using a language model for number prediction), but the differentiation is now meaningful.
+        </div>
+
+        <div class="insight">
+            <strong>It took 3 attempts to get here.</strong> This is normal in AI work. Version 1 collapsed to "always predict 2." Version 2 with coarse balancing only managed 1 or 4. Version 3 with per-point balancing and more model capacity finally cracked it. Each failure taught us something about how the model was learning (or failing to learn).
         </div>
     </div>
 
@@ -1131,30 +1147,45 @@
         <h3>Before &amp; After</h3>
         <div class="subtitle">Same players, dramatically different predictions</div>
 
-        <div class="before-after">
-            <div class="panel before">
-                <h4>Before (v1 — broken)</h4>
-                <table>
-                    <tr><td>Salah (form 9.0, home, easy)</td><td>2 pts</td></tr>
-                    <tr><td>Haaland (form 7.5, home, easy)</td><td>2 pts</td></tr>
-                    <tr><td>Watkins (form 5.0, home, mid)</td><td>2 pts</td></tr>
-                    <tr><td>Mykolenko (form 1.3, away, hard)</td><td>1 pt</td></tr>
-                    <tr><td>Raya GK (form 2.0, away, hard)</td><td>2 pts</td></tr>
-                </table>
-                <p style="margin-top: 12px; font-size: 0.85em; color: #c62828;">Everything is 2. Useless.</p>
-            </div>
-            <div class="panel after">
-                <h4>After (v2 — fixed)</h4>
-                <table>
-                    <tr><td>Salah (form 9.0, home, easy)</td><td>4 pts</td></tr>
-                    <tr><td>Haaland (form 7.5, home, easy)</td><td>4 pts</td></tr>
-                    <tr><td>Watkins (form 5.0, home, mid)</td><td>4 pts</td></tr>
-                    <tr><td>Mykolenko (form 1.3, away, hard)</td><td>1 pt</td></tr>
-                    <tr><td>Raya GK (form 2.0, away, hard)</td><td>1 pt</td></tr>
-                </table>
-                <p style="margin-top: 12px; font-size: 0.85em; color: #2e7d32;">Now differentiates high vs low.</p>
-            </div>
-        </div>
+        <table class="results-table" style="margin: 20px 0;">
+            <tr>
+                <th>Player</th>
+                <th style="color: #ef9a9a;">v1 (broken)</th>
+                <th style="color: #ffcc80;">v2 (coarse)</th>
+                <th style="color: #a5d6a7;">v3 (final)</th>
+            </tr>
+            <tr>
+                <td>Salah (form 9.0, home, easy)</td>
+                <td>2 pts</td>
+                <td>4 pts</td>
+                <td class="best-cell">10 pts</td>
+            </tr>
+            <tr>
+                <td>Haaland (form 7.5, home, easy)</td>
+                <td>2 pts</td>
+                <td>4 pts</td>
+                <td class="best-cell">9 pts</td>
+            </tr>
+            <tr>
+                <td>Watkins (form 5.0, home, mid)</td>
+                <td>2 pts</td>
+                <td>4 pts</td>
+                <td class="best-cell">9 pts</td>
+            </tr>
+            <tr>
+                <td>McTominay (form 2.5, away, hard)</td>
+                <td>2 pts</td>
+                <td>1 pt</td>
+                <td class="best-cell">2 pts</td>
+            </tr>
+            <tr>
+                <td>Mykolenko (form 1.3, away, hard)</td>
+                <td>1 pt</td>
+                <td>1 pt</td>
+                <td class="best-cell">0 pts</td>
+            </tr>
+        </table>
+        <p style="font-size: 0.9em; color: #666;">v1 predicted "2" for everyone. v2 only managed 1 or 4. v3 uses the full range: 0, 1, 2, 4, 9, 10.</p>
 
         <div class="insight">
             <strong>Why this matters beyond FPL:</strong> Mode collapse is one of the most common failures in real AI products. The model <em>looks</em> like it's working (low error on average), but it's actually useless for the decisions you care about. This is exactly the kind of failure that aggregate metrics like MAE can hide &mdash; you need to look at individual predictions to catch it.
@@ -1179,8 +1210,8 @@
         <p>We built an interactive dashboard that predicts <strong>GW 32</strong> points for all 344 active players. For each player, you see:</p>
 
         <ul>
-            <li><strong>XGBoost prediction</strong> &mdash; the "number cruncher" forecast (range: 1.6 to 7.4 pts)</li>
-            <li><strong>LLM prediction</strong> &mdash; the language model's forecast (range: 1 to 4 pts)</li>
+            <li><strong>XGBoost prediction</strong> &mdash; the "number cruncher" forecast (smooth range: 1.6 to 7.4 pts)</li>
+            <li><strong>LLM prediction</strong> &mdash; the language model's forecast (discrete values: 0, 1, 2, 4, 9, or 10 pts)</li>
             <li><strong>Confidence level</strong> &mdash; how sure each model is (higher = more reliable)</li>
             <li><strong>Combined value score</strong> &mdash; predicted points multiplied by confidence, averaged across both models</li>
         </ul>
@@ -1242,8 +1273,8 @@
             <li>LLM prompt generation in two formats (simple JSONL + MLX chat)</li>
             <li>XGBoost model trained and evaluated (MAE: 2.11)</li>
             <li>Llama 3.2 3B downloaded and fine-tuned with LoRA</li>
-            <li>Found and fixed mode collapse bug (LLM predicted "2" for everyone)</li>
-            <li>Retrained with balanced data &mdash; LLM now differentiates 1-4 pts</li>
+            <li>Found and fixed mode collapse bug across 3 iterations (v1 &rarr; v2 &rarr; v3)</li>
+            <li>Final v3 model predicts across 6 values (0, 1, 2, 4, 9, 10) with per-point balanced training</li>
             <li>Four LLM strategies tested (zero-shot, few-shot, CoT, fine-tuned)</li>
             <li>Prediction pipeline for next GW: 344 players, both models, with confidence</li>
             <li>Interactive Streamlit dashboard with top 30 picks, filters, and deep dives</li>
