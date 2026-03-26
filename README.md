@@ -109,10 +109,10 @@ Every experiment run is compared against a saved baseline, with automatic regres
 ## Current Progress
 
 - [x] **Phase 1: Data Pipeline** — FPL API fetcher, feature engineering (20 features), prompt generation
-- [ ] **Phase 2: XGBoost Baseline** — Train and evaluate the traditional ML model
-- [ ] **Phase 3: LLM Fine-Tuning** — LoRA fine-tune Llama 3.2 3B with MLX, plus prompt engineering baselines
+- [x] **Phase 2: XGBoost Baseline** — Trained and evaluated (MAE 2.11)
+- [x] **Phase 3: LLM Fine-Tuning** — LoRA fine-tuned Llama 3.2 3B with MLX (MAE 1.96)
 - [ ] **Phase 4: Eval Framework** — Category-based eval suite, output quality checks, regression detection
-- [ ] **Phase 5: Comparison UI** — Streamlit dashboard for side-by-side model comparison
+- [x] **Phase 5: Comparison Dashboard** — Multi-page Streamlit app with predictions table, fixture lookahead, squad builder, and transfer advisor
 - [ ] **Phase 6: Write-Up** — Product assessment and "would I ship this?" analysis
 - [ ] **Phase 7: Notebooks & Docs** — Documented experiments and findings
 
@@ -123,23 +123,28 @@ data/
   fetch_fpl.py              Fetches all data from FPL API
   build_features.py         Engineers 20 features per player-gameweek
   build_prompts.py          Generates LLM training prompts (JSONL + MLX chat format)
-  processed/                Feature CSV + prompt files
+  processed/                Feature CSV + prediction outputs
   mlx/                      MLX-formatted train/valid/test splits
+  raw/                      Raw JSON from FPL API (players, fixtures, teams, gameweeks)
 models/
-  train_xgboost.py          XGBoost training script (coming soon)
-  predict_llm.py            LLM inference script (coming soon)
+  train_xgboost.py          XGBoost training script
+  predict_next_gw.py        Next-GW prediction pipeline (XGBoost + LLM)
+  predict_llm.py            LLM evaluation harness (4 strategies)
+  xgboost_fpl.json          Pre-trained XGBoost model
+  llama-3.2-3b/             Base model (4-bit quantised)
+  fpl-lora-adapter-v2/      Fine-tuned LoRA weights
 eval/
   eval_suite.yaml           Named eval scenarios and categories
   run_eval.py               Single-command eval runner
   compare.py                Regression detection between runs
-notebooks/
-  01_data_exploration        Data analysis and visualization
-  02_xgboost_training        XGBoost experiments
-  03_llm_finetuning          LLM fine-tuning experiments
-  04_eval_framework          Eval suite walkthrough
-  05_comparison              Final comparison and assessment
 ui/
-  app.py                    Streamlit comparison dashboard
+  app.py                    Entry point — multi-page navigation shell
+  data_loader.py            Cached data loading + fixture lookahead
+  styles.py                 FPL-themed CSS styling
+  components.py             Reusable HTML components (badges, cards, etc.)
+  pages/
+    1_Predictions.py        Main predictions table with filters + next 2 fixtures
+    2_My_Team.py            Squad builder + multi-transfer advisor
 ```
 
 ## Reproduce This
@@ -160,14 +165,32 @@ python data/fetch_fpl.py
 python data/build_features.py
 python data/build_prompts.py
 
-# Train XGBoost (coming soon)
-# python models/train_xgboost.py
+# Train XGBoost
+python models/train_xgboost.py
 
 # Fine-tune LLM (requires Apple Silicon)
-# pip install mlx mlx-lm
-# huggingface-cli download mlx-community/Llama-3.2-3B-Instruct-4bit --local-dir models/llama-3.2-3b
-# mlx_lm.lora --model models/llama-3.2-3b --data data/mlx --train --iters 600 --adapter-path models/fpl-lora-adapter
+pip install mlx mlx-lm
+huggingface-cli download mlx-community/Llama-3.2-3B-Instruct-4bit --local-dir models/llama-3.2-3b
+mlx_lm.lora --model models/llama-3.2-3b --data data/mlx --train --iters 600 --adapter-path models/fpl-lora-adapter-v2
+
+# Generate next-GW predictions (both models)
+python models/predict_next_gw.py
+
+# Launch the dashboard
+streamlit run ui/app.py
 ```
+
+### Dashboard
+
+The Streamlit dashboard has two pages:
+
+**Predictions** — The main page with a sortable/filterable table showing XGBoost and LLM predictions for all 344 players. Includes next 2 fixtures with fixture difficulty ratings, confidence progress bars, player deep dive, and model agreement analysis.
+
+**My Team** — Build your 15-player FPL squad and get transfer recommendations. Features squad validation (position limits, max 3 per team, 100m budget), auto-picked starting XI, and a multi-transfer planner with four strategy tabs:
+- **Safe** — High confidence from both models
+- **Differential** — High points, lower confidence (risk/reward)
+- **Form** — Players trending up in recent gameweeks
+- **Fixture** — Easiest upcoming fixtures
 
 ## Hardware
 
