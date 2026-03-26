@@ -44,9 +44,13 @@ def load_players_metadata():
             "element_type": p["element_type"],
             "team": p["team"],
             "now_cost": p["now_cost"],
+            "code": p.get("code", 0),
         }
         for p in players
     }
+
+
+PLAYER_PHOTO_URL = "https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png"
 
 
 @st.cache_data
@@ -182,6 +186,13 @@ def get_enriched_predictions():
     last3_map = load_last_n_gw_points(current_gw, n=3)
     df["last_3_pts"] = df["player_id"].map(
         lambda pid: last3_map.get(pid, "-")
+    )
+
+    # Add player photo URLs
+    df["photo_url"] = df["player_id"].map(
+        lambda pid: PLAYER_PHOTO_URL.format(
+            code=players_meta.get(pid, {}).get("code", 0)
+        )
     )
 
     return df

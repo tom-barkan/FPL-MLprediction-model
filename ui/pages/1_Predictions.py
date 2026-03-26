@@ -159,6 +159,7 @@ def run():
 
     display_df = filtered[
         [
+            "photo_url",
             "player_name",
             "position",
             "team_name",
@@ -177,6 +178,7 @@ def run():
     ].copy()
 
     display_df.columns = [
+        "Photo",
         "Player",
         "Pos",
         "Team",
@@ -200,6 +202,7 @@ def run():
     st.dataframe(
         display_df,
         column_config={
+            "Photo": st.column_config.ImageColumn("", width="small"),
             "Price": st.column_config.NumberColumn("Price", format="£%.1f"),
             "Form": st.column_config.NumberColumn("Form", format="%.1f"),
             "Mins": st.column_config.NumberColumn("Mins", format="%d"),

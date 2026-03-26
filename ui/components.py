@@ -95,8 +95,8 @@ def player_card_html(name, team, price, pts, fixtures_list=None):
     )
 
 
-def pitch_player_html(name, team_name, price, pts, fixtures_list=None):
-    """Render a compact player card for the green pitch layout."""
+def pitch_player_html(name, team_name, price, pts, fixtures_list=None, photo_url=None):
+    """Render a compact player card for the green pitch layout with photo."""
     team_color = TEAM_COLORS.get(team_name, "#37003c")
 
     fixtures_str = ""
@@ -111,8 +111,13 @@ def pitch_player_html(name, team_name, price, pts, fixtures_list=None):
         fixtures_str = " ".join(mini_badges)
 
     fix_div = f'<div class="pp-fix">{fixtures_str}</div>' if fixtures_str else ''
+    photo_div = (
+        f'<img class="pp-photo" src="{photo_url}" alt="{name}" onerror="this.style.display=\'none\'">'
+        if photo_url else ''
+    )
     return (
         f'<div class="pitch-player">'
+        f'{photo_div}'
         f'<div class="pp-name"><span class="pp-dot" style="background:{team_color};"></span>{name}</div>'
         f'<div class="pp-meta">{team_name} &middot; {price:.1f}m</div>'
         f'<div class="pp-pts">{pts:.1f}</div>'

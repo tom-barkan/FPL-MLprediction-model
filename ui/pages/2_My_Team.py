@@ -140,6 +140,7 @@ def build_pitch_html(squad_df, lookahead):
                     player["price"],
                     player["combined_value_score"],
                     fixtures,
+                    photo_url=player.get("photo_url"),
                 )
             )
         position_rows.append((pos, cards))

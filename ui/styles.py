@@ -478,6 +478,18 @@ CSS = """
         box-shadow: 0 2px 8px rgba(0,0,0,0.22);
         flex: 0 0 auto;
     }
+    .pitch-player .pp-photo {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top;
+        border: 2px solid #e8e8e8;
+        margin-bottom: 2px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .pitch-player .pp-dot {
         width: 8px; height: 8px;
         border-radius: 50%;
