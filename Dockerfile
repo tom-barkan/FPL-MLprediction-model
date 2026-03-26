@@ -9,4 +9,6 @@ COPY . .
 
 RUN chmod +x start.sh
 
+EXPOSE 8501
+
 CMD ["./start.sh"]
