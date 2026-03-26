@@ -552,6 +552,7 @@
 
         .step-number.bug-step { background: linear-gradient(135deg, #b71c1c, #e53935); }
         .step-number.dash-step { background: linear-gradient(135deg, #e65100, #ff8f00); }
+        .step-number.lesson-step { background: linear-gradient(135deg, #0d47a1, #1565c0); }
 
         @media (max-width: 600px) {
             .before-after { grid-template-columns: 1fr; }
@@ -574,8 +575,10 @@
     <a href="#phase2" class="done">XGBoost</a>
     <a href="#phase3" class="done">LLM</a>
     <a href="#results" class="done">Results</a>
-    <a href="#bugfix" class="done">Bug Fix</a>
-    <a href="#dashboard" class="current">Dashboard</a>
+    <a href="#iterations" class="done">Iterations</a>
+    <a href="#smoothing" class="done">Smoothing</a>
+    <a href="#lessons" class="done">Lessons</a>
+    <a href="#dashboard" class="done">Dashboard</a>
 </nav>
 
 <div class="container">
@@ -841,11 +844,11 @@
     <div class="step">
         <div class="step-number llm-step">2</div>
         <h3>Fine-Tuned It with LoRA</h3>
-        <div class="subtitle">600 training iterations on your Mac's M4 chip</div>
+        <div class="subtitle">Our first attempt &mdash; 600 training iterations on your Mac's M4 chip</div>
 
         <p><strong>LoRA</strong> (Low-Rank Adaptation) is a clever technique for teaching an AI model new skills without retraining the entire thing. Instead of adjusting all 3 billion parameters (expensive and slow), it makes small, targeted tweaks &mdash; like putting on a specialised pair of glasses.</p>
 
-        <p style="margin-top: 12px;">We fed it our 7,322 training prompts and let it learn for 600 iterations. The whole process took about 20 minutes and ran <strong>entirely on your Mac</strong> using Apple's MLX framework &mdash; no expensive cloud GPU needed.</p>
+        <p style="margin-top: 12px;">We fed it our 7,322 training prompts and let it learn for 600 iterations. The whole process took about 20 minutes and ran <strong>entirely on your Mac</strong> using Apple's MLX framework &mdash; no expensive cloud GPU needed. (This was v1 &mdash; we'd later discover it was broken and iterate twice more. See <a href="#iterations">the iteration journey</a>.)</p>
 
         <div class="what-we-typed">
             <div class="label">What we ran</div>
@@ -871,12 +874,12 @@
         <div class="strategy-grid">
             <div class="strategy-card">
                 <h4>Zero-Shot</h4>
-                <span class="mae-badge bad">MAE: 9.72</span>
+                <span class="mae-badge bad">MAE: 11.54</span>
                 <p>Just ask the base model to predict, with no examples or training. Like asking someone who's never watched football.</p>
             </div>
             <div class="strategy-card">
                 <h4>Few-Shot</h4>
-                <span class="mae-badge ok">MAE: 2.15</span>
+                <span class="mae-badge good">MAE: 2.16</span>
                 <p>Show the model 3 example predictions first, then ask it to predict. Like giving someone a quick demo before their first day.</p>
             </div>
             <div class="strategy-card">
@@ -885,14 +888,14 @@
                 <p>Ask the model to "think step by step" before answering. Like asking someone to show their working on a maths exam.</p>
             </div>
             <div class="strategy-card">
-                <h4>Fine-Tuned</h4>
-                <span class="mae-badge good">MAE: 1.96</span>
-                <p>Our custom-trained model. Saw 7,322 training examples and learned the patterns. The clear winner.</p>
+                <h4>Fine-Tuned (v3)</h4>
+                <span class="mae-badge ok">MAE: 3.35</span>
+                <p>Our custom-trained model (3 iterations). Higher MAE because it predicts across the full 0&ndash;10 range &mdash; bigger misses, but better player ranking.</p>
             </div>
         </div>
 
         <div class="insight">
-            <strong>Key takeaway:</strong> Zero-shot is terrible (9.72 MAE) &mdash; the model just guesses. Few-shot and chain-of-thought are decent, getting close to XGBoost with no training. But fine-tuning wins: the investment in 20 minutes of training pays off with the best score of all.
+            <strong>Surprise finding:</strong> Few-shot (just 3 examples in the prompt, no training) nearly matches XGBoost (2.16 vs 2.11). Fine-tuning trades raw accuracy for differentiation &mdash; it's the only approach that predicts high-value hauls (9&ndash;10 pts). More on this in the <a href="#iterations" style="color: #4a148c;">iteration journey</a> below.
         </div>
     </div>
 
@@ -903,7 +906,7 @@
     <div class="phase-banner setup" id="results" style="background: linear-gradient(135deg, #1b5e20, #388e3c);">
         <div class="phase-label">Head to Head</div>
         <h2>The Final Showdown</h2>
-        <div class="phase-desc">All five approaches compared side by side on 243 unseen test cases</div>
+        <div class="phase-desc">All five approaches compared side by side on 243 unseen test cases (after 3 iterations of fine-tuning)</div>
     </div>
 
     <div class="step">
@@ -912,33 +915,33 @@
 
         <div class="bar-chart">
             <div class="bar-row">
-                <div class="bar-label">Fine-Tuned LLM</div>
-                <div class="bar-track">
-                    <div class="bar-fill llm-ft" style="width: 78%;">1.96</div>
-                </div>
-            </div>
-            <div class="bar-row">
                 <div class="bar-label">XGBoost</div>
                 <div class="bar-track">
-                    <div class="bar-fill xgb" style="width: 74%;">2.11</div>
+                    <div class="bar-fill xgb" style="width: 82%;">2.11</div>
                 </div>
             </div>
             <div class="bar-row">
                 <div class="bar-label">Few-Shot LLM</div>
                 <div class="bar-track">
-                    <div class="bar-fill llm-fs" style="width: 73%;">2.15</div>
+                    <div class="bar-fill llm-fs" style="width: 80%;">2.16</div>
                 </div>
             </div>
             <div class="bar-row">
                 <div class="bar-label">Chain-of-Thought</div>
                 <div class="bar-track">
-                    <div class="bar-fill llm-cot" style="width: 72%;">2.20</div>
+                    <div class="bar-fill llm-cot" style="width: 79%;">2.20</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">Fine-Tuned v3</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-ft" style="width: 59%;">3.35</div>
                 </div>
             </div>
             <div class="bar-row">
                 <div class="bar-label">Zero-Shot</div>
                 <div class="bar-track">
-                    <div class="bar-fill llm-zs" style="width: 20%;">9.72</div>
+                    <div class="bar-fill llm-zs" style="width: 15%;">11.54</div>
                 </div>
             </div>
         </div>
@@ -959,44 +962,44 @@
                 <th>Time</th>
             </tr>
             <tr>
-                <td class="winner">Fine-Tuned LLM</td>
-                <td class="best-cell">1.96</td>
-                <td>3.29</td>
-                <td class="best-cell">63.0%</td>
-                <td>77.8%</td>
-                <td>136s</td>
-            </tr>
-            <tr>
-                <td>XGBoost</td>
-                <td>2.11</td>
+                <td class="winner">XGBoost</td>
+                <td class="best-cell">2.11</td>
                 <td class="best-cell">2.81</td>
-                <td>&mdash;</td>
+                <td>26.7%</td>
                 <td class="best-cell">82.3%</td>
                 <td>&lt;1s</td>
             </tr>
             <tr>
                 <td>Few-Shot LLM</td>
-                <td>2.15</td>
-                <td>3.31</td>
-                <td>56.0%</td>
+                <td>2.16</td>
+                <td>3.32</td>
+                <td>55.6%</td>
                 <td>76.1%</td>
-                <td>362s</td>
+                <td>370s</td>
             </tr>
             <tr>
                 <td>Chain-of-Thought</td>
                 <td>2.20</td>
                 <td>3.60</td>
-                <td>60.1%</td>
+                <td class="best-cell">60.1%</td>
                 <td>73.7%</td>
-                <td>826s</td>
+                <td>845s</td>
+            </tr>
+            <tr>
+                <td>Fine-Tuned v3</td>
+                <td>3.35</td>
+                <td>4.46</td>
+                <td>39.1%</td>
+                <td>65.8%</td>
+                <td>148s</td>
             </tr>
             <tr>
                 <td>Zero-Shot</td>
-                <td>9.72</td>
-                <td>12.55</td>
-                <td>5.4%</td>
-                <td>25.9%</td>
-                <td>129s</td>
+                <td>11.54</td>
+                <td>14.22</td>
+                <td>2.1%</td>
+                <td>10.3%</td>
+                <td>133s</td>
             </tr>
         </table>
     </div>
@@ -1006,26 +1009,26 @@
         <div class="subtitle">The nuanced takeaways behind the numbers</div>
 
         <ul>
-            <li><strong>Fine-tuning works.</strong> The fine-tuned LLM has the best MAE (1.96) and is most accurate within &plusmn;1 point (63%). Teaching the model about FPL clearly paid off.</li>
-            <li><strong>XGBoost is more consistent.</strong> Its RMSE (2.81 vs 3.29) and &plusmn;3 accuracy (82.3% vs 77.8%) are better, meaning it makes fewer extreme mistakes. It's the "safe bet."</li>
-            <li><strong>XGBoost is 136x faster.</strong> Under 1 second vs 2+ minutes. For real-time use (a live dashboard), XGBoost wins hands down.</li>
-            <li><strong>You don't always need fine-tuning.</strong> Few-shot (just showing 3 examples) gets close to XGBoost with zero training. For quick experiments, this is powerful.</li>
-            <li><strong>Zero-shot is useless.</strong> Without any FPL context, the model just guesses random numbers. Generic AI isn't enough for specialised tasks.</li>
+            <li><strong>XGBoost wins on accuracy.</strong> Lowest MAE (2.11), lowest RMSE (2.81), and highest &plusmn;3 accuracy (82.3%). It's fast, consistent, and the clear winner on raw prediction quality.</li>
+            <li><strong>Few-shot is shockingly close.</strong> Just 3 examples in the prompt &mdash; no training at all &mdash; gets MAE 2.16. That's within 0.05 of XGBoost's score. For quick experiments, this is a revelation.</li>
+            <li><strong>Fine-tuned v3 trades accuracy for range.</strong> Its MAE (3.35) is higher because it predicts across the full 0&ndash;10 spectrum. Bigger misses when wrong, but it's the only approach that identifies potential 9&ndash;10 point hauls. Better for <em>ranking</em> players than predicting exact scores.</li>
+            <li><strong>XGBoost is 370x faster.</strong> Under 1 second vs 6+ minutes. For a live dashboard, there's no contest.</li>
+            <li><strong>Zero-shot is useless.</strong> Without any FPL context, the model just guesses random numbers (MAE 11.54). Generic AI isn't enough for specialised tasks.</li>
         </ul>
 
         <div class="insight">
-            <strong>The bottom line:</strong> If you need the most accurate predictions overall, the fine-tuned LLM wins. If you need speed, consistency, and simplicity, XGBoost wins. In production, you'd probably want XGBoost for the dashboard and the LLM for deeper analysis.
+            <strong>The bottom line:</strong> XGBoost wins on accuracy and speed. But the interesting story is <em>why</em> the fine-tuned LLM's numbers changed across 3 iterations &mdash; and what that teaches us about training AI models. Read on.
         </div>
     </div>
 
 
     <!-- ============================================ -->
-    <!-- BUG FIX: MODE COLLAPSE -->
+    <!-- THE ITERATION JOURNEY -->
     <!-- ============================================ -->
-    <div class="phase-banner bugfix" id="bugfix">
-        <div class="phase-label">Debugging</div>
-        <h2>The LLM Was Broken (And How We Fixed It)</h2>
-        <div class="phase-desc">Our fine-tuned model predicted "2 points" for every single player &mdash; from Salah to a third-choice goalkeeper. Here's why, and what we did about it.</div>
+    <div class="phase-banner bugfix" id="iterations">
+        <div class="phase-label">The Iteration Journey</div>
+        <h2>3 Attempts to Fix the LLM</h2>
+        <div class="phase-desc">Fine-tuning took 3 iterations to get right. Each failure taught us something about how AI models learn &mdash; and where they take shortcuts.</div>
     </div>
 
     <div class="step">
@@ -1192,6 +1195,233 @@
         </div>
     </div>
 
+    <div class="step">
+        <div class="step-number bug-step" style="background: linear-gradient(135deg, #1b5e20, #43a047);">5</div>
+        <h3>Configuration Changes Across All 3 Iterations</h3>
+        <div class="subtitle">What we changed each time and what it unlocked</div>
+
+        <table class="results-table" style="margin: 20px 0;">
+            <tr>
+                <th>Setting</th>
+                <th style="color: #ef9a9a;">v1</th>
+                <th style="color: #ffcc80;">v2</th>
+                <th style="color: #a5d6a7;">v3</th>
+            </tr>
+            <tr>
+                <td><strong>LoRA Layers</strong></td>
+                <td>8</td>
+                <td>8</td>
+                <td class="best-cell">16</td>
+            </tr>
+            <tr>
+                <td><strong>Learning Rate</strong></td>
+                <td>1e-5</td>
+                <td>2e-5</td>
+                <td class="best-cell">3e-5</td>
+            </tr>
+            <tr>
+                <td><strong>Iterations</strong></td>
+                <td>600</td>
+                <td>400</td>
+                <td>500</td>
+            </tr>
+            <tr>
+                <td><strong>Data Balancing</strong></td>
+                <td>None (raw)</td>
+                <td>5 buckets</td>
+                <td class="best-cell">Per-point (333 each)</td>
+            </tr>
+            <tr>
+                <td><strong>Unique Predictions</strong></td>
+                <td style="color: #c62828;">1 value</td>
+                <td style="color: #e65100;">4 values</td>
+                <td class="best-cell">6 values</td>
+            </tr>
+            <tr>
+                <td><strong>Prediction Range</strong></td>
+                <td style="color: #c62828;">Always "2"</td>
+                <td style="color: #e65100;">0, 1, 2, 4</td>
+                <td class="best-cell">0, 1, 2, 4, 9, 10</td>
+            </tr>
+        </table>
+
+        <div class="insight">
+            <strong>The key lesson:</strong> Data quality was the bottleneck, not model capacity. Fixing the data distribution (v1 &rarr; v2) had a bigger impact than doubling the LoRA layers (v2 &rarr; v3). Doubling layers <em>without</em> fixing the data would have just produced a more confident "always predict 2" model.
+        </div>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- SMOOTHING -->
+    <!-- ============================================ -->
+    <div class="phase-banner llm" id="smoothing" style="background: linear-gradient(135deg, #4a148c, #7b1fa2);">
+        <div class="phase-label">Production Pipeline</div>
+        <h2>Smoothing: From Discrete to Continuous</h2>
+        <div class="phase-desc">The v3 model predicts 6 integers. For the dashboard, we blend it with player features to produce realistic decimal predictions.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number llm-step">1</div>
+        <h3>The Problem with Raw LLM Output</h3>
+        <div class="subtitle">6 integers aren't enough for a useful dashboard</div>
+
+        <p>The fine-tuned v3 model predicts one of {0, 1, 2, 4, 9, 10} for every player. That's great for ranking (Salah gets 10, a bench warmer gets 0), but it means:</p>
+        <ul>
+            <li>150+ players all get the same prediction of "2"</li>
+            <li>No way to distinguish between a "strong 2" and a "weak 2"</li>
+            <li>The dashboard can't rank players within the same bracket</li>
+        </ul>
+
+        <div class="analogy">
+            <strong>Think of it like this:</strong> Imagine a restaurant reviewer who only gives 1, 2, 3, 4, or 5 stars. That's useful for broad rankings, but it can't tell you whether a 4-star restaurant is "almost 5" or "barely 4." You need decimal scores for finer ordering.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number llm-step">2</div>
+        <h3>The Smoothing Formula</h3>
+        <div class="subtitle">40% LLM signal + 30% recent form + 30% feature-based estimate</div>
+
+        <p>We blend three signals to produce realistic decimal predictions:</p>
+
+        <div style="background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin: 16px 0; font-family: 'SF Mono', monospace; font-size: 0.9em; line-height: 2;">
+            <strong style="color: #6c3483;">Step 1:</strong> Dampen LLM signal<br>
+            &nbsp;&nbsp;llm_dampened = raw_prediction &times; 0.6 + 1.0 &nbsp;<span style="color: #999;">(clip to 0.5&ndash;7.5)</span><br><br>
+            <strong style="color: #0d7377;">Step 2:</strong> Build a feature-based estimate<br>
+            &nbsp;&nbsp;feature_est = form &times; 0.5 + form_5gw &times; 0.3 + ict &times; 0.15<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;+ fixture_adjustment + attack_bonus + clean_sheet_bonus<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&times; minutes_factor<br><br>
+            <strong style="color: #1a5276;">Step 3:</strong> Blend all three components<br>
+            &nbsp;&nbsp;<strong>final = 40% &times; llm_dampened + 30% &times; recent_form + 30% &times; feature_est</strong><br><br>
+            <strong style="color: #888;">Step 4:</strong> Clip to 0.5&ndash;10.0, round to 1 decimal place
+        </div>
+
+        <div class="before-after">
+            <div class="panel before">
+                <h4>Before Smoothing</h4>
+                <table>
+                    <tr><td>Unique values</td><td>6</td></tr>
+                    <tr><td>Range</td><td>0 &ndash; 10 (integers)</td></tr>
+                    <tr><td>Mean</td><td>~2.8</td></tr>
+                    <tr><td>Useful for ranking?</td><td>Coarse only</td></tr>
+                </table>
+            </div>
+            <div class="panel after">
+                <h4>After Smoothing</h4>
+                <table>
+                    <tr><td>Unique values</td><td>66</td></tr>
+                    <tr><td>Range</td><td>0.5 &ndash; 9.5 (decimals)</td></tr>
+                    <tr><td>Mean</td><td>~3.05</td></tr>
+                    <tr><td>Useful for ranking?</td><td>Fine-grained</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="real-world">
+            <strong>Why blend?</strong> The LLM provides directional signal (who will score high vs low), while form stats provide calibration (realistic point ranges). Blending captures both &mdash; the LLM's pattern recognition and the stats' grounding in reality.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number llm-step">3</div>
+        <h3>Confidence Calculation</h3>
+        <div class="subtitle">Not all predictions are equally reliable</div>
+
+        <p>Each LLM prediction comes with a confidence score based on four heuristics:</p>
+        <ul>
+            <li><strong>Form consistency</strong> &mdash; do the 3-game and 5-game averages agree? Consistent form = more predictable</li>
+            <li><strong>Minutes played</strong> &mdash; a guaranteed starter (90 mins) is more predictable than a rotation risk (45 mins)</li>
+            <li><strong>Fixture clarity</strong> &mdash; extreme fixtures (FDR 1 or 5) are easier to predict than mid-table matchups (FDR 3)</li>
+            <li><strong>Prediction-form alignment</strong> &mdash; does the prediction match the player's recent output?</li>
+        </ul>
+
+        <p style="margin-top: 12px;">The dashboard's <strong>combined value score</strong> uses both models: <code>(XGB pts &times; XGB confidence + LLM pts &times; LLM confidence) / 2</code>. Players where both models agree and predict high points rise to the top.</p>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- KEY LESSONS -->
+    <!-- ============================================ -->
+    <div class="phase-banner setup" id="lessons" style="background: linear-gradient(135deg, #0d47a1, #1565c0);">
+        <div class="phase-label">What We Learned</div>
+        <h2>Key Lessons from the Experiment</h2>
+        <div class="phase-desc">The most valuable insights aren't just the final numbers &mdash; they're the surprises we found along the way</div>
+    </div>
+
+    <div class="step">
+        <h3>Lesson 1: Few-Shot Prompting Nearly Matches XGBoost</h3>
+        <div class="subtitle">The most unexpected result of the entire project</div>
+
+        <p>Giving the base model (no fine-tuning) just <strong>3 examples in the prompt</strong> achieved MAE 2.16 &mdash; within 0.05 of XGBoost's 2.11. No training, no data balancing, no LoRA. Just a well-written prompt.</p>
+
+        <div class="bar-chart" style="max-width: 500px;">
+            <div class="bar-row">
+                <div class="bar-label">XGBoost</div>
+                <div class="bar-track">
+                    <div class="bar-fill xgb" style="width: 90%;">2.11</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">Few-Shot (0 training)</div>
+                <div class="bar-track">
+                    <div class="bar-fill llm-fs" style="width: 88%;">2.16</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight">
+            <strong>Implication:</strong> For many prediction tasks, prompt engineering can get you 97% of the way there with zero infrastructure investment. The remaining 3% requires a full ML pipeline. Whether that last 3% is worth it depends entirely on your use case.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Lesson 2: Data Quality &gt; Model Capacity</h3>
+        <div class="subtitle">The most impactful change was fixing the training data, not making the model bigger</div>
+
+        <p>Across our 3 iterations, the biggest leap came from <strong>balancing the training data</strong> (v1 &rarr; v2), not from doubling the LoRA layers (v2 &rarr; v3):</p>
+
+        <ul>
+            <li><strong>v1 &rarr; v2 (data fix):</strong> Went from 1 unique prediction to 4. The model finally learned to differentiate.</li>
+            <li><strong>v2 &rarr; v3 (data + capacity):</strong> Went from 4 unique predictions to 6. The model learned the full range.</li>
+        </ul>
+
+        <p style="margin-top: 12px;">Doubling LoRA layers <em>without</em> fixing the data would have just produced a more confident "always predict 2" model. The data was the bottleneck.</p>
+
+        <div class="real-world">
+            <strong>The takeaway for any AI project:</strong> Before making your model bigger, look at your training data. Is it balanced? Is it representative? Fixing data problems is almost always higher-leverage than scaling model parameters.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Lesson 3: Aggregate Metrics Can Hide Failures</h3>
+        <div class="subtitle">MAE looked fine. The predictions were useless.</div>
+
+        <p>The v1 model (always predicting "2") had a decent-looking MAE &mdash; because 2 points is close to the average FPL score. If we'd only checked MAE, we might have shipped a model that was technically accurate but practically useless.</p>
+
+        <p style="margin-top: 12px;">We only caught the problem by <strong>inspecting individual predictions</strong> and noticing they were all identical. This led us to check the prediction <em>distribution</em>, not just the aggregate error.</p>
+
+        <div class="insight">
+            <strong>Rule of thumb:</strong> Always check the distribution of your model's outputs, not just the average error. A model that predicts the mean for every input will have a low MAE but zero utility. Look at unique values, histograms, and individual edge cases.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Lesson 4: Accuracy vs Differentiation Trade-Off</h3>
+        <div class="subtitle">The "best" model depends on what you're using it for</div>
+
+        <p>The fine-tuned v3 model has <em>worse</em> MAE than XGBoost (3.35 vs 2.11). But it provides something XGBoost doesn't: <strong>meaningful differentiation at the extremes.</strong></p>
+
+        <ul>
+            <li><strong>If you need exact point predictions:</strong> XGBoost wins (lower MAE, tighter error bounds)</li>
+            <li><strong>If you need to rank players:</strong> Fine-tuned v3 is more useful (identifies potential 9&ndash;10 pt hauls)</li>
+            <li><strong>If you need quick, good-enough predictions:</strong> Few-shot prompting gets you 97% of XGBoost with zero training</li>
+        </ul>
+
+        <div class="analogy">
+            <strong>Think of it like hiring scouts:</strong> XGBoost is the precise scout who rates every player 5.2 to 7.8 (accurate but narrow). The fine-tuned LLM is the scout who says "this player is a 10, that one is a 0" (sometimes wrong, but identifies the standouts). You want both perspectives.
+        </div>
+    </div>
+
 
     <!-- ============================================ -->
     <!-- DASHBOARD -->
@@ -1265,29 +1495,34 @@
 
     <!-- Summary -->
     <div class="summary">
-        <h2>Everything We've Built So Far</h2>
+        <h2>Everything We've Built</h2>
         <ul class="checklist">
             <li>Development environment set up (Python 3.11, virtual environment, 14 packages)</li>
             <li>FPL data pipeline: fetches 825 players' stats from the FPL API</li>
-            <li>Feature engineering: 20 features per player-gameweek (8,468 training rows)</li>
-            <li>LLM prompt generation in two formats (simple JSONL + MLX chat)</li>
-            <li>XGBoost model trained and evaluated (MAE: 2.11)</li>
-            <li>Llama 3.2 3B downloaded and fine-tuned with LoRA</li>
-            <li>Found and fixed mode collapse bug across 3 iterations (v1 &rarr; v2 &rarr; v3)</li>
-            <li>Final v3 model predicts across 6 values (0, 1, 2, 4, 9, 10) with per-point balanced training</li>
-            <li>Four LLM strategies tested (zero-shot, few-shot, CoT, fine-tuned)</li>
+            <li>Feature engineering: 20 features per player-gameweek (8,225 training rows)</li>
+            <li>LLM prompt generation with per-point balanced data (333 examples each for 0&ndash;11 pts)</li>
+            <li>XGBoost model trained and evaluated (MAE: 2.11 &mdash; the accuracy winner)</li>
+            <li>Llama 3.2 3B downloaded and fine-tuned with LoRA across 3 iterations</li>
+            <li>Found and fixed mode collapse bug (v1: always "2" &rarr; v2: 4 values &rarr; v3: full 0&ndash;10 range)</li>
+            <li>Four LLM strategies tested: zero-shot (11.54), few-shot (2.16), CoT (2.20), fine-tuned v3 (3.35)</li>
+            <li>Production smoothing pipeline: blends LLM signal (40%) with form (30%) and features (30%)</li>
+            <li>Confidence scoring based on form consistency, minutes, fixture clarity, and prediction alignment</li>
+            <li>Eval framework: 14 named test cases across 4 categories with regression detection</li>
             <li>Prediction pipeline for next GW: 344 players, both models, with confidence</li>
-            <li>Interactive Streamlit dashboard with top 30 picks, filters, and deep dives</li>
+            <li>Interactive Streamlit dashboard with predictions table, squad builder, and transfer planner</li>
+            <li>Product assessment and "would I ship this?" brief with build-vs-buy framework</li>
+            <li>5 documented Jupyter notebooks covering every phase of the experiment</li>
         </ul>
     </div>
 
     <!-- What's next -->
     <div class="next-up">
-        <h2>What Comes Next</h2>
+        <h2>All Phases Complete</h2>
+        <p style="margin-bottom: 12px;">All 7 phases of the project are now complete. Explore the documented experiments in <code>notebooks/</code> and read the product assessment in <code>writeup/</code>.</p>
         <ul style="margin: 8px 0 0 20px;">
-            <li><strong>Phase 4: Eval Framework</strong> &mdash; structured test scenarios with automatic regression detection</li>
-            <li><strong>Phase 6: Write-Up</strong> &mdash; product-oriented assessment: "Would I ship this? In what form?"</li>
-            <li><strong>Phase 7: Notebooks &amp; Docs</strong> &mdash; documented Jupyter experiments and GitHub Pages</li>
+            <li><strong>Notebooks:</strong> <code>notebooks/01_data_exploration.ipynb</code> through <code>05_comparison_and_assessment.ipynb</code></li>
+            <li><strong>Eval Suite:</strong> <code>python eval/run_eval.py --tag your-tag --compare-baseline</code></li>
+            <li><strong>Product Brief:</strong> <code>writeup/product_brief.md</code></li>
         </ul>
     </div>
 

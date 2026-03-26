@@ -1,0 +1,1003 @@
+{
+  "tag": "v3-baseline",
+  "timestamp": "2026-03-26T14:24:28.512653",
+  "test_size": 243,
+  "models": {
+    "xgboost": {
+      "categories": {
+        "fixture_context": {
+          "cases": {
+            "home_vs_away_all": {
+              "mae": 2.192,
+              "rmse": 2.955,
+              "within_1": 0.24,
+              "within_3": 0.832,
+              "in_expected_range_pct": 1.0,
+              "count": 125,
+              "mean_prediction": 3.05,
+              "mean_actual": 3.26,
+              "checks": null,
+              "description": "All home players vs all away players"
+            }
+          },
+          "category_mae": 2.192,
+          "total_count": 125
+        },
+        "positional": {
+          "cases": {
+            "goalkeeper_home": {
+              "mae": 1.579,
+              "rmse": 1.94,
+              "within_1": 0.375,
+              "within_3": 0.875,
+              "in_expected_range_pct": 1.0,
+              "count": 8,
+              "mean_prediction": 3.37,
+              "mean_actual": 3.88,
+              "checks": null,
+              "description": "GK at home \u2014 clean sheet opportunity"
+            },
+            "budget_defender_away": {
+              "mae": 2.247,
+              "rmse": 3.264,
+              "within_1": 0.259,
+              "within_3": 0.852,
+              "in_expected_range_pct": 1.0,
+              "count": 27,
+              "mean_prediction": 2.75,
+              "mean_actual": 2.85,
+              "checks": null,
+              "description": "Cheap defender away from home"
+            },
+            "premium_forward_form": {
+              "mae": 2.912,
+              "rmse": 2.912,
+              "within_1": 0.0,
+              "within_3": 1.0,
+              "in_expected_range_pct": 1.0,
+              "count": 1,
+              "mean_prediction": 3.91,
+              "mean_actual": 1.0,
+              "checks": null,
+              "description": "Expensive striker in good form"
+            }
+          },
+          "category_mae": 2.117,
+          "total_count": 36
+        },
+        "edge_cases": {
+          "cases": {
+            "player_low_minutes": {
+              "mae": 1.945,
+              "rmse": 2.596,
+              "within_1": 0.32,
+              "within_3": 0.828,
+              "in_expected_range_pct": 0.992,
+              "count": 128,
+              "mean_prediction": 2.57,
+              "mean_actual": 2.44,
+              "checks": null,
+              "description": "Player averaging <60 mins \u2014 rotation risk"
+            },
+            "player_on_hot_streak": {
+              "mae": 3.287,
+              "rmse": 3.924,
+              "within_1": 0.0,
+              "within_3": 0.75,
+              "in_expected_range_pct": 0.5,
+              "count": 4,
+              "mean_prediction": 4.08,
+              "mean_actual": 5.0,
+              "checks": null,
+              "description": "Player with 7+ form \u2014 on a hot streak"
+            },
+            "struggling_team": {
+              "mae": 1.768,
+              "rmse": 2.167,
+              "within_1": 0.242,
+              "within_3": 0.887,
+              "in_expected_range_pct": 1.0,
+              "count": 62,
+              "mean_prediction": 2.91,
+              "mean_actual": 2.35,
+              "checks": null,
+              "description": "Player from a team conceding heavily"
+            },
+            "cold_player": {
+              "mae": 1.645,
+              "rmse": 2.215,
+              "within_1": 0.424,
+              "within_3": 0.882,
+              "in_expected_range_pct": 0.965,
+              "count": 85,
+              "mean_prediction": 2.48,
+              "mean_actual": 2.15,
+              "checks": null,
+              "description": "Player with very low recent form"
+            }
+          },
+          "category_mae": 1.834,
+          "total_count": 279
+        },
+        "high_value": {
+          "cases": {
+            "captain_candidates": {
+              "mae": 4.281,
+              "rmse": 4.673,
+              "within_1": 0.0,
+              "within_3": 0.667,
+              "in_expected_range_pct": 0.667,
+              "count": 3,
+              "mean_prediction": 4.99,
+              "mean_actual": 5.33,
+              "checks": null,
+              "description": "Players you'd consider captaining \u2014 highest stakes prediction"
+            },
+            "budget_enablers": {
+              "mae": 2.287,
+              "rmse": 3.144,
+              "within_1": 0.238,
+              "within_3": 0.881,
+              "in_expected_range_pct": 1.0,
+              "count": 42,
+              "mean_prediction": 3.06,
+              "mean_actual": 3.55,
+              "checks": null,
+              "description": "Cheap players who might return \u2014 bench/rotation decisions"
+            }
+          },
+          "category_mae": 2.42,
+          "total_count": 45
+        }
+      },
+      "overall": {
+        "mae": 2.106,
+        "rmse": 2.806,
+        "within_1": 0.267,
+        "within_3": 0.823,
+        "total_predictions": 243
+      },
+      "checks": {}
+    },
+    "llm_zero_shot": {
+      "categories": {
+        "fixture_context": {
+          "cases": {
+            "home_vs_away_all": {
+              "mae": 12.408,
+              "rmse": 14.838,
+              "within_1": 0.016,
+              "within_3": 0.168,
+              "in_expected_range_pct": 0.528,
+              "count": 125,
+              "mean_prediction": 15.3,
+              "mean_actual": 3.26,
+              "checks": {
+                "total": 125,
+                "failures": 59,
+                "warnings": 0
+              },
+              "description": "All home players vs all away players"
+            }
+          },
+          "category_mae": 12.408,
+          "total_count": 125
+        },
+        "positional": {
+          "cases": {
+            "goalkeeper_home": {
+              "mae": 7.25,
+              "rmse": 10.512,
+              "within_1": 0.25,
+              "within_3": 0.5,
+              "in_expected_range_pct": 0.75,
+              "count": 8,
+              "mean_prediction": 10.88,
+              "mean_actual": 3.88,
+              "checks": {
+                "total": 8,
+                "failures": 2,
+                "warnings": 0
+              },
+              "description": "GK at home \u2014 clean sheet opportunity"
+            },
+            "budget_defender_away": {
+              "mae": 5.704,
+              "rmse": 6.966,
+              "within_1": 0.0,
+              "within_3": 0.296,
+              "in_expected_range_pct": 0.296,
+              "count": 27,
+              "mean_prediction": 7.59,
+              "mean_actual": 2.85,
+              "checks": {
+                "total": 27,
+                "failures": 19,
+                "warnings": 0
+              },
+              "description": "Cheap defender away from home"
+            },
+            "premium_forward_form": {
+              "mae": 23.0,
+              "rmse": 23.0,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 0.0,
+              "count": 1,
+              "mean_prediction": 24.0,
+              "mean_actual": 1.0,
+              "checks": {
+                "total": 1,
+                "failures": 1,
+                "warnings": 0
+              },
+              "description": "Expensive striker in good form"
+            }
+          },
+          "category_mae": 6.528,
+          "total_count": 36
+        },
+        "edge_cases": {
+          "cases": {
+            "player_low_minutes": {
+              "mae": 10.609,
+              "rmse": 13.497,
+              "within_1": 0.039,
+              "within_3": 0.242,
+              "in_expected_range_pct": 0.125,
+              "count": 128,
+              "mean_prediction": 12.73,
+              "mean_actual": 2.44,
+              "checks": {
+                "total": 128,
+                "failures": 112,
+                "warnings": 0
+              },
+              "description": "Player averaging <60 mins \u2014 rotation risk"
+            },
+            "player_on_hot_streak": {
+              "mae": 19.0,
+              "rmse": 19.583,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 0.0,
+              "count": 4,
+              "mean_prediction": 24.0,
+              "mean_actual": 5.0,
+              "checks": {
+                "total": 4,
+                "failures": 4,
+                "warnings": 0
+              },
+              "description": "Player with 7+ form \u2014 on a hot streak"
+            },
+            "struggling_team": {
+              "mae": 9.806,
+              "rmse": 12.341,
+              "within_1": 0.016,
+              "within_3": 0.21,
+              "in_expected_range_pct": 0.161,
+              "count": 62,
+              "mean_prediction": 12.1,
+              "mean_actual": 2.35,
+              "checks": {
+                "total": 62,
+                "failures": 52,
+                "warnings": 0
+              },
+              "description": "Player from a team conceding heavily"
+            },
+            "cold_player": {
+              "mae": 10.224,
+              "rmse": 13.024,
+              "within_1": 0.035,
+              "within_3": 0.235,
+              "in_expected_range_pct": 0.176,
+              "count": 85,
+              "mean_prediction": 12.24,
+              "mean_actual": 2.15,
+              "checks": {
+                "total": 85,
+                "failures": 70,
+                "warnings": 0
+              },
+              "description": "Player with very low recent form"
+            }
+          },
+          "category_mae": 10.434,
+          "total_count": 279
+        },
+        "high_value": {
+          "cases": {
+            "captain_candidates": {
+              "mae": 13.333,
+              "rmse": 15.122,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 0.333,
+              "count": 3,
+              "mean_prediction": 18.67,
+              "mean_actual": 5.33,
+              "checks": {
+                "total": 3,
+                "failures": 2,
+                "warnings": 0
+              },
+              "description": "Players you'd consider captaining \u2014 highest stakes prediction"
+            },
+            "budget_enablers": {
+              "mae": 10.69,
+              "rmse": 13.44,
+              "within_1": 0.024,
+              "within_3": 0.214,
+              "in_expected_range_pct": 0.595,
+              "count": 42,
+              "mean_prediction": 13.57,
+              "mean_actual": 3.55,
+              "checks": {
+                "total": 42,
+                "failures": 17,
+                "warnings": 0
+              },
+              "description": "Cheap players who might return \u2014 bench/rotation decisions"
+            }
+          },
+          "category_mae": 10.866,
+          "total_count": 45
+        }
+      },
+      "overall": {
+        "mae": 11.539,
+        "rmse": 14.221,
+        "within_1": 0.033,
+        "within_3": 0.21,
+        "total_predictions": 243
+      },
+      "checks": {
+        "distribution": {
+          "pass": true,
+          "check": "distribution",
+          "unique_values": 5,
+          "values": [
+            4,
+            5,
+            8,
+            11,
+            24
+          ],
+          "error": null
+        }
+      }
+    },
+    "llm_few_shot": {
+      "categories": {
+        "fixture_context": {
+          "cases": {
+            "home_vs_away_all": {
+              "mae": 2.224,
+              "rmse": 3.401,
+              "within_1": 0.56,
+              "within_3": 0.744,
+              "in_expected_range_pct": 0.92,
+              "count": 125,
+              "mean_prediction": 1.81,
+              "mean_actual": 3.26,
+              "checks": {
+                "total": 125,
+                "failures": 10,
+                "warnings": 0
+              },
+              "description": "All home players vs all away players"
+            }
+          },
+          "category_mae": 2.224,
+          "total_count": 125
+        },
+        "positional": {
+          "cases": {
+            "goalkeeper_home": {
+              "mae": 2.25,
+              "rmse": 3.202,
+              "within_1": 0.5,
+              "within_3": 0.625,
+              "in_expected_range_pct": 0.625,
+              "count": 8,
+              "mean_prediction": 2.12,
+              "mean_actual": 3.88,
+              "checks": {
+                "total": 8,
+                "failures": 3,
+                "warnings": 0
+              },
+              "description": "GK at home \u2014 clean sheet opportunity"
+            },
+            "budget_defender_away": {
+              "mae": 1.926,
+              "rmse": 3.712,
+              "within_1": 0.593,
+              "within_3": 0.889,
+              "in_expected_range_pct": 0.926,
+              "count": 27,
+              "mean_prediction": 1.37,
+              "mean_actual": 2.85,
+              "checks": {
+                "total": 27,
+                "failures": 2,
+                "warnings": 0
+              },
+              "description": "Cheap defender away from home"
+            },
+            "premium_forward_form": {
+              "mae": 4.0,
+              "rmse": 4.0,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 1.0,
+              "count": 1,
+              "mean_prediction": 5.0,
+              "mean_actual": 1.0,
+              "checks": {
+                "total": 1,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Expensive striker in good form"
+            }
+          },
+          "category_mae": 2.056,
+          "total_count": 36
+        },
+        "edge_cases": {
+          "cases": {
+            "player_low_minutes": {
+              "mae": 1.773,
+              "rmse": 3.068,
+              "within_1": 0.68,
+              "within_3": 0.812,
+              "in_expected_range_pct": 0.984,
+              "count": 128,
+              "mean_prediction": 1.12,
+              "mean_actual": 2.44,
+              "checks": {
+                "total": 128,
+                "failures": 2,
+                "warnings": 0
+              },
+              "description": "Player averaging <60 mins \u2014 rotation risk"
+            },
+            "player_on_hot_streak": {
+              "mae": 3.75,
+              "rmse": 4.33,
+              "within_1": 0.25,
+              "within_3": 0.5,
+              "in_expected_range_pct": 0.75,
+              "count": 4,
+              "mean_prediction": 6.25,
+              "mean_actual": 5.0,
+              "checks": {
+                "total": 4,
+                "failures": 1,
+                "warnings": 0
+              },
+              "description": "Player with 7+ form \u2014 on a hot streak"
+            },
+            "struggling_team": {
+              "mae": 1.677,
+              "rmse": 2.627,
+              "within_1": 0.645,
+              "within_3": 0.806,
+              "in_expected_range_pct": 1.0,
+              "count": 62,
+              "mean_prediction": 1.45,
+              "mean_actual": 2.35,
+              "checks": {
+                "total": 62,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player from a team conceding heavily"
+            },
+            "cold_player": {
+              "mae": 1.424,
+              "rmse": 2.574,
+              "within_1": 0.765,
+              "within_3": 0.847,
+              "in_expected_range_pct": 1.0,
+              "count": 85,
+              "mean_prediction": 0.82,
+              "mean_actual": 2.15,
+              "checks": {
+                "total": 85,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player with very low recent form"
+            }
+          },
+          "category_mae": 1.674,
+          "total_count": 279
+        },
+        "high_value": {
+          "cases": {
+            "captain_candidates": {
+              "mae": 5.0,
+              "rmse": 5.196,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 1.0,
+              "count": 3,
+              "mean_prediction": 7.67,
+              "mean_actual": 5.33,
+              "checks": {
+                "total": 3,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Players you'd consider captaining \u2014 highest stakes prediction"
+            },
+            "budget_enablers": {
+              "mae": 2.333,
+              "rmse": 3.519,
+              "within_1": 0.452,
+              "within_3": 0.786,
+              "in_expected_range_pct": 0.738,
+              "count": 42,
+              "mean_prediction": 2.45,
+              "mean_actual": 3.55,
+              "checks": {
+                "total": 42,
+                "failures": 11,
+                "warnings": 0
+              },
+              "description": "Cheap players who might return \u2014 bench/rotation decisions"
+            }
+          },
+          "category_mae": 2.511,
+          "total_count": 45
+        }
+      },
+      "overall": {
+        "mae": 2.165,
+        "rmse": 3.32,
+        "within_1": 0.556,
+        "within_3": 0.761,
+        "total_predictions": 243
+      },
+      "checks": {
+        "distribution": {
+          "pass": true,
+          "check": "distribution",
+          "unique_values": 7,
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            9
+          ],
+          "error": null
+        }
+      }
+    },
+    "llm_chain_of_thought": {
+      "categories": {
+        "fixture_context": {
+          "cases": {
+            "home_vs_away_all": {
+              "mae": 2.384,
+              "rmse": 3.816,
+              "within_1": 0.576,
+              "within_3": 0.696,
+              "in_expected_range_pct": 0.992,
+              "count": 125,
+              "mean_prediction": 0.99,
+              "mean_actual": 3.26,
+              "checks": {
+                "total": 125,
+                "failures": 1,
+                "warnings": 0
+              },
+              "description": "All home players vs all away players"
+            }
+          },
+          "category_mae": 2.384,
+          "total_count": 125
+        },
+        "positional": {
+          "cases": {
+            "goalkeeper_home": {
+              "mae": 2.875,
+              "rmse": 3.482,
+              "within_1": 0.375,
+              "within_3": 0.625,
+              "in_expected_range_pct": 0.0,
+              "count": 8,
+              "mean_prediction": 1.0,
+              "mean_actual": 3.88,
+              "checks": {
+                "total": 8,
+                "failures": 8,
+                "warnings": 0
+              },
+              "description": "GK at home \u2014 clean sheet opportunity"
+            },
+            "budget_defender_away": {
+              "mae": 2.111,
+              "rmse": 3.93,
+              "within_1": 0.63,
+              "within_3": 0.778,
+              "in_expected_range_pct": 0.963,
+              "count": 27,
+              "mean_prediction": 0.96,
+              "mean_actual": 2.85,
+              "checks": {
+                "total": 27,
+                "failures": 1,
+                "warnings": 0
+              },
+              "description": "Cheap defender away from home"
+            },
+            "premium_forward_form": {
+              "mae": 0.0,
+              "rmse": 0.0,
+              "within_1": 1.0,
+              "within_3": 1.0,
+              "in_expected_range_pct": 0.0,
+              "count": 1,
+              "mean_prediction": 1.0,
+              "mean_actual": 1.0,
+              "checks": {
+                "total": 1,
+                "failures": 1,
+                "warnings": 0
+              },
+              "description": "Expensive striker in good form"
+            }
+          },
+          "category_mae": 2.222,
+          "total_count": 36
+        },
+        "edge_cases": {
+          "cases": {
+            "player_low_minutes": {
+              "mae": 1.625,
+              "rmse": 3.064,
+              "within_1": 0.727,
+              "within_3": 0.812,
+              "in_expected_range_pct": 1.0,
+              "count": 128,
+              "mean_prediction": 0.97,
+              "mean_actual": 2.44,
+              "checks": {
+                "total": 128,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player averaging <60 mins \u2014 rotation risk"
+            },
+            "player_on_hot_streak": {
+              "mae": 4.0,
+              "rmse": 6.205,
+              "within_1": 0.5,
+              "within_3": 0.75,
+              "in_expected_range_pct": 0.0,
+              "count": 4,
+              "mean_prediction": 1.0,
+              "mean_actual": 5.0,
+              "checks": {
+                "total": 4,
+                "failures": 4,
+                "warnings": 0
+              },
+              "description": "Player with 7+ form \u2014 on a hot streak"
+            },
+            "struggling_team": {
+              "mae": 1.548,
+              "rmse": 2.664,
+              "within_1": 0.71,
+              "within_3": 0.806,
+              "in_expected_range_pct": 1.0,
+              "count": 62,
+              "mean_prediction": 0.97,
+              "mean_actual": 2.35,
+              "checks": {
+                "total": 62,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player from a team conceding heavily"
+            },
+            "cold_player": {
+              "mae": 1.341,
+              "rmse": 2.621,
+              "within_1": 0.753,
+              "within_3": 0.847,
+              "in_expected_range_pct": 1.0,
+              "count": 85,
+              "mean_prediction": 0.95,
+              "mean_actual": 2.15,
+              "checks": {
+                "total": 85,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player with very low recent form"
+            }
+          },
+          "category_mae": 1.555,
+          "total_count": 279
+        },
+        "high_value": {
+          "cases": {
+            "captain_candidates": {
+              "mae": 4.333,
+              "rmse": 6.952,
+              "within_1": 0.667,
+              "within_3": 0.667,
+              "in_expected_range_pct": 0.0,
+              "count": 3,
+              "mean_prediction": 1.0,
+              "mean_actual": 5.33,
+              "checks": {
+                "total": 3,
+                "failures": 3,
+                "warnings": 0
+              },
+              "description": "Players you'd consider captaining \u2014 highest stakes prediction"
+            },
+            "budget_enablers": {
+              "mae": 2.738,
+              "rmse": 4.039,
+              "within_1": 0.452,
+              "within_3": 0.667,
+              "in_expected_range_pct": 0.0,
+              "count": 42,
+              "mean_prediction": 1.0,
+              "mean_actual": 3.55,
+              "checks": {
+                "total": 42,
+                "failures": 42,
+                "warnings": 0
+              },
+              "description": "Cheap players who might return \u2014 bench/rotation decisions"
+            }
+          },
+          "category_mae": 2.844,
+          "total_count": 45
+        }
+      },
+      "overall": {
+        "mae": 2.198,
+        "rmse": 3.597,
+        "within_1": 0.601,
+        "within_3": 0.737,
+        "total_predictions": 243
+      },
+      "checks": {
+        "distribution": {
+          "pass": true,
+          "check": "distribution",
+          "unique_values": 2,
+          "values": [
+            0,
+            1
+          ],
+          "error": null
+        }
+      }
+    },
+    "llm_fine_tuned": {
+      "categories": {
+        "fixture_context": {
+          "cases": {
+            "home_vs_away_all": {
+              "mae": 3.472,
+              "rmse": 4.568,
+              "within_1": 0.376,
+              "within_3": 0.64,
+              "in_expected_range_pct": 0.784,
+              "count": 125,
+              "mean_prediction": 4.34,
+              "mean_actual": 3.26,
+              "checks": {
+                "total": 125,
+                "failures": 27,
+                "warnings": 0
+              },
+              "description": "All home players vs all away players"
+            }
+          },
+          "category_mae": 3.472,
+          "total_count": 125
+        },
+        "positional": {
+          "cases": {
+            "goalkeeper_home": {
+              "mae": 2.375,
+              "rmse": 2.806,
+              "within_1": 0.25,
+              "within_3": 0.875,
+              "in_expected_range_pct": 0.75,
+              "count": 8,
+              "mean_prediction": 2.75,
+              "mean_actual": 3.88,
+              "checks": {
+                "total": 8,
+                "failures": 2,
+                "warnings": 0
+              },
+              "description": "GK at home \u2014 clean sheet opportunity"
+            },
+            "budget_defender_away": {
+              "mae": 2.148,
+              "rmse": 3.569,
+              "within_1": 0.593,
+              "within_3": 0.889,
+              "in_expected_range_pct": 0.444,
+              "count": 27,
+              "mean_prediction": 1.3,
+              "mean_actual": 2.85,
+              "checks": {
+                "total": 27,
+                "failures": 15,
+                "warnings": 0
+              },
+              "description": "Cheap defender away from home"
+            },
+            "premium_forward_form": {
+              "mae": 9.0,
+              "rmse": 9.0,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 1.0,
+              "count": 1,
+              "mean_prediction": 10.0,
+              "mean_actual": 1.0,
+              "checks": {
+                "total": 1,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Expensive striker in good form"
+            }
+          },
+          "category_mae": 2.389,
+          "total_count": 36
+        },
+        "edge_cases": {
+          "cases": {
+            "player_low_minutes": {
+              "mae": 2.945,
+              "rmse": 4.207,
+              "within_1": 0.492,
+              "within_3": 0.758,
+              "in_expected_range_pct": 0.852,
+              "count": 128,
+              "mean_prediction": 2.32,
+              "mean_actual": 2.44,
+              "checks": {
+                "total": 128,
+                "failures": 19,
+                "warnings": 0
+              },
+              "description": "Player averaging <60 mins \u2014 rotation risk"
+            },
+            "player_on_hot_streak": {
+              "mae": 6.25,
+              "rmse": 6.5,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 1.0,
+              "count": 4,
+              "mean_prediction": 9.25,
+              "mean_actual": 5.0,
+              "checks": {
+                "total": 4,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Player with 7+ form \u2014 on a hot streak"
+            },
+            "struggling_team": {
+              "mae": 2.855,
+              "rmse": 3.9,
+              "within_1": 0.484,
+              "within_3": 0.726,
+              "in_expected_range_pct": 0.806,
+              "count": 62,
+              "mean_prediction": 2.66,
+              "mean_actual": 2.35,
+              "checks": {
+                "total": 62,
+                "failures": 12,
+                "warnings": 0
+              },
+              "description": "Player from a team conceding heavily"
+            },
+            "cold_player": {
+              "mae": 2.224,
+              "rmse": 3.421,
+              "within_1": 0.659,
+              "within_3": 0.824,
+              "in_expected_range_pct": 0.929,
+              "count": 85,
+              "mean_prediction": 1.34,
+              "mean_actual": 2.15,
+              "checks": {
+                "total": 85,
+                "failures": 6,
+                "warnings": 0
+              },
+              "description": "Player with very low recent form"
+            }
+          },
+          "category_mae": 2.753,
+          "total_count": 279
+        },
+        "high_value": {
+          "cases": {
+            "captain_candidates": {
+              "mae": 7.0,
+              "rmse": 7.326,
+              "within_1": 0.0,
+              "within_3": 0.0,
+              "in_expected_range_pct": 1.0,
+              "count": 3,
+              "mean_prediction": 9.67,
+              "mean_actual": 5.33,
+              "checks": {
+                "total": 3,
+                "failures": 0,
+                "warnings": 0
+              },
+              "description": "Players you'd consider captaining \u2014 highest stakes prediction"
+            },
+            "budget_enablers": {
+              "mae": 4.024,
+              "rmse": 4.921,
+              "within_1": 0.238,
+              "within_3": 0.524,
+              "in_expected_range_pct": 0.405,
+              "count": 42,
+              "mean_prediction": 4.57,
+              "mean_actual": 3.55,
+              "checks": {
+                "total": 42,
+                "failures": 25,
+                "warnings": 0
+              },
+              "description": "Cheap players who might return \u2014 bench/rotation decisions"
+            }
+          },
+          "category_mae": 4.222,
+          "total_count": 45
+        }
+      },
+      "overall": {
+        "mae": 3.35,
+        "rmse": 4.458,
+        "within_1": 0.391,
+        "within_3": 0.658,
+        "total_predictions": 243
+      },
+      "checks": {
+        "distribution": {
+          "pass": true,
+          "check": "distribution",
+          "unique_values": 6,
+          "values": [
+            0,
+            1,
+            2,
+            4,
+            9,
+            10
+          ],
+          "error": null
+        }
+      }
+    }
+  }
+}

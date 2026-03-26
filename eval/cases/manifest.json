@@ -1,0 +1,122 @@
+[
+  {
+    "name": "home_vs_away_all",
+    "category": "fixture_context",
+    "description": "All home players vs all away players",
+    "criteria": "Home predictions should average higher than away",
+    "expected_range": [
+      1,
+      15
+    ],
+    "count": 125,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/home_vs_away_all.jsonl"
+  },
+  {
+    "name": "goalkeeper_home",
+    "category": "positional",
+    "description": "GK at home \u2014 clean sheet opportunity",
+    "criteria": "",
+    "expected_range": [
+      2,
+      8
+    ],
+    "count": 8,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/goalkeeper_home.jsonl"
+  },
+  {
+    "name": "budget_defender_away",
+    "category": "positional",
+    "description": "Cheap defender away from home",
+    "criteria": "",
+    "expected_range": [
+      1,
+      5
+    ],
+    "count": 27,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/budget_defender_away.jsonl"
+  },
+  {
+    "name": "premium_forward_form",
+    "category": "positional",
+    "description": "Expensive striker in good form",
+    "criteria": "",
+    "expected_range": [
+      3,
+      12
+    ],
+    "count": 1,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/premium_forward_form.jsonl"
+  },
+  {
+    "name": "player_low_minutes",
+    "category": "edge_cases",
+    "description": "Player averaging <60 mins \u2014 rotation risk",
+    "criteria": "Should predict lower to account for sub/bench risk",
+    "expected_range": [
+      0,
+      4
+    ],
+    "count": 128,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/player_low_minutes.jsonl"
+  },
+  {
+    "name": "player_on_hot_streak",
+    "category": "edge_cases",
+    "description": "Player with 7+ form \u2014 on a hot streak",
+    "criteria": "Should predict high but not extrapolate blindly",
+    "expected_range": [
+      4,
+      15
+    ],
+    "count": 4,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/player_on_hot_streak.jsonl"
+  },
+  {
+    "name": "struggling_team",
+    "category": "edge_cases",
+    "description": "Player from a team conceding heavily",
+    "criteria": "Less likely to keep clean sheets or get bonus",
+    "expected_range": [
+      0,
+      6
+    ],
+    "count": 62,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/struggling_team.jsonl"
+  },
+  {
+    "name": "cold_player",
+    "category": "edge_cases",
+    "description": "Player with very low recent form",
+    "criteria": "Should predict low points",
+    "expected_range": [
+      0,
+      4
+    ],
+    "count": 85,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/cold_player.jsonl"
+  },
+  {
+    "name": "captain_candidates",
+    "category": "high_value",
+    "description": "Players you'd consider captaining \u2014 highest stakes prediction",
+    "criteria": "",
+    "expected_range": [
+      4,
+      15
+    ],
+    "count": 3,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/captain_candidates.jsonl"
+  },
+  {
+    "name": "budget_enablers",
+    "category": "high_value",
+    "description": "Cheap players who might return \u2014 bench/rotation decisions",
+    "criteria": "",
+    "expected_range": [
+      2,
+      8
+    ],
+    "count": 42,
+    "file": "/Users/tombarkan/Workspace/FPL-MLprediction-model/eval/cases/budget_enablers.jsonl"
+  }
+]
