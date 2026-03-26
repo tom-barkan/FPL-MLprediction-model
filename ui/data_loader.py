@@ -190,13 +190,13 @@ def get_enriched_predictions():
         lambda pid: last3_map.get(pid, "-")
     )
 
-    # Add player photo URLs (local static files, fallback to CDN)
+    # Add player photo URLs (local static files only, None if missing)
     def _photo_url(pid):
         code = players_meta.get(pid, {}).get("code", 0)
         local_path = os.path.join(PHOTOS_DIR, f"p{code}.png")
         if os.path.exists(local_path):
             return PLAYER_PHOTO_URL_LOCAL.format(code=code)
-        return PLAYER_PHOTO_URL_CDN.format(code=code)
+        return None
 
     df["photo_url"] = df["player_id"].map(_photo_url)
 
