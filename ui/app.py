@@ -4,6 +4,12 @@ FPL Points Predictor — Multi-Page Dashboard
 Run with: streamlit run ui/app.py
 """
 
+import os
+import sys
+
+# Ensure project root is on the path so `from ui.xxx` imports work
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import streamlit as st
 
 st.set_page_config(
