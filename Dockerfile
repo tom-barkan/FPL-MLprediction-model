@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements-ui.txt
 
 COPY . .
 
-ENV PORT=8501
+RUN chmod +x start.sh
 
-CMD sh -c "streamlit run ui/app.py --server.port=${PORT} --server.address=0.0.0.0 --server.headless=true"
+CMD ["./start.sh"]
