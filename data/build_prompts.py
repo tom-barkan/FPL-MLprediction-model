@@ -11,6 +11,7 @@ Validation (for MLX): GW 28-30 sliced from training data
 
 import json
 import os
+import numpy as np
 import pandas as pd
 
 PROCESSED_DIR = os.path.join(os.path.dirname(__file__), "processed")
@@ -80,6 +81,63 @@ def build_mlx_prompts(df, output_path):
     print(f"  → {len(df)} prompts written to {output_path}")
 
 
+def balance_training_data(df):
+    """
+    Balance training data so the model sees roughly equal examples across
+    point ranges, preventing mode collapse to the most common value.
+
+    Groups points into buckets and oversamples underrepresented buckets.
+    """
+    df = df.copy()
+
+    # Group into buckets: <=0, 1, 2, 3-4, 5-6, 7-9, 10+
+    def bucket(pts):
+        if pts <= 0:
+            return "neg"
+        elif pts <= 2:
+            return "low"
+        elif pts <= 4:
+            return "mid"
+        elif pts <= 6:
+            return "mid_high"
+        else:
+            return "high"
+
+    df["_bucket"] = df["target_points"].apply(bucket)
+
+    # Target: each bucket should have roughly the same number of samples
+    bucket_counts = df["_bucket"].value_counts()
+    target_per_bucket = int(bucket_counts.median())
+
+    print(f"\nBalancing training data:")
+    print(f"  Before: {dict(bucket_counts)}")
+    print(f"  Target per bucket: ~{target_per_bucket}")
+
+    balanced_parts = []
+    for bucket_name, group in df.groupby("_bucket"):
+        if len(group) >= target_per_bucket:
+            # Downsample overrepresented buckets (but not too aggressively)
+            keep = max(target_per_bucket, len(group) // 2)
+            balanced_parts.append(group.sample(n=keep, random_state=42))
+        else:
+            # Oversample underrepresented buckets
+            repeats = target_per_bucket // len(group)
+            remainder = target_per_bucket % len(group)
+            parts = [group] * repeats
+            if remainder > 0:
+                parts.append(group.sample(n=remainder, random_state=42))
+            balanced_parts.append(pd.concat(parts))
+
+    result = pd.concat(balanced_parts).drop(columns=["_bucket"])
+    result = result.sample(frac=1, random_state=42).reset_index(drop=True)  # shuffle
+
+    print(f"  After: {len(result)} rows")
+    after_dist = result["target_points"].apply(bucket).value_counts()
+    print(f"  Distribution: {dict(after_dist)}")
+
+    return result
+
+
 def main():
     os.makedirs(PROCESSED_DIR, exist_ok=True)
     os.makedirs(MLX_DIR, exist_ok=True)
@@ -97,11 +155,15 @@ def main():
     test = df[df["gameweek"] > 30]
 
     # Validation split for MLX: GW 28-30 from training data
-    train_mlx = train_full[train_full["gameweek"] <= 27]
+    train_mlx_raw = train_full[train_full["gameweek"] <= 27]
     valid_mlx = train_full[train_full["gameweek"].between(28, 30)]
 
+    # Balance the MLX training set: oversample underrepresented point values
+    # so the model learns to differentiate rather than always predicting the mode
+    train_mlx = balance_training_data(train_mlx_raw)
+
     print(f"\nSplit sizes:")
-    print(f"  Train (GW 4-27 for MLX): {len(train_mlx)} rows")
+    print(f"  Train (GW 4-27 for MLX, balanced): {len(train_mlx)} rows")
     print(f"  Valid (GW 28-30 for MLX): {len(valid_mlx)} rows")
     print(f"  Train full (GW 4-30):    {len(train_full)} rows")
     print(f"  Test (GW 31+):           {len(test)} rows")
@@ -111,8 +173,8 @@ def main():
     build_simple_prompts(train_full, os.path.join(PROCESSED_DIR, "train_prompts.jsonl"))
     build_simple_prompts(test, os.path.join(PROCESSED_DIR, "test_prompts.jsonl"))
 
-    # MLX chat format
-    print("\nBuilding MLX chat prompts...")
+    # MLX chat format (balanced training data)
+    print("\nBuilding MLX chat prompts (balanced)...")
     build_mlx_prompts(train_mlx, os.path.join(MLX_DIR, "train.jsonl"))
     build_mlx_prompts(valid_mlx, os.path.join(MLX_DIR, "valid.jsonl"))
     build_mlx_prompts(test, os.path.join(MLX_DIR, "test.jsonl"))

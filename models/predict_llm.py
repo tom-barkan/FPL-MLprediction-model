@@ -18,7 +18,7 @@ from mlx_lm import load, generate
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR = os.path.join(ROOT, "models", "llama-3.2-3b")
-ADAPTER_DIR = os.path.join(ROOT, "models", "fpl-lora-adapter")
+ADAPTER_DIR = os.path.join(ROOT, "models", "fpl-lora-adapter-v2")
 MLX_DIR = os.path.join(ROOT, "data", "mlx")
 EVAL_DIR = os.path.join(ROOT, "eval")
 

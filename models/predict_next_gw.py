@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FEATURES_PATH = os.path.join(ROOT, "data", "processed", "features.csv")
 MODEL_PATH = os.path.join(ROOT, "models", "xgboost_fpl.json")
 LLM_DIR = os.path.join(ROOT, "models", "llama-3.2-3b")
-ADAPTER_DIR = os.path.join(ROOT, "models", "fpl-lora-adapter")
+ADAPTER_DIR = os.path.join(ROOT, "models", "fpl-lora-adapter-v2")
 RAW_DIR = os.path.join(ROOT, "data", "raw")
 OUTPUT_PATH = os.path.join(ROOT, "data", "processed", "next_gw_predictions.csv")
 
