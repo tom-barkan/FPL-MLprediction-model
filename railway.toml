@@ -3,6 +3,10 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-healthcheckPath = "/"
+healthcheckPath = "/_stcore/health"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
+
+[[deploy.environmentVariables]]
+name = "PORT"
+value = "8501"
