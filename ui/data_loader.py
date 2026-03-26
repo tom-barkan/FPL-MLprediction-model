@@ -13,6 +13,7 @@ PREDICTIONS_PATH = os.path.join(ROOT, "data", "processed", "next_gw_predictions.
 FIXTURES_PATH = os.path.join(ROOT, "data", "raw", "fixtures.json")
 TEAMS_PATH = os.path.join(ROOT, "data", "raw", "teams.json")
 PLAYERS_PATH = os.path.join(ROOT, "data", "raw", "players.json")
+HISTORIES_DIR = os.path.join(ROOT, "data", "raw", "player_histories")
 
 
 @st.cache_data
@@ -94,6 +95,40 @@ def load_fixture_lookahead(current_gw, num_gws=2):
 
 
 @st.cache_data
+def load_last_n_gw_points(next_gw, n=3):
+    """
+    Load the last N completed gameweek points for each player.
+
+    Returns: {player_id: "7, 2, 5"} (most recent last)
+    """
+    target_gws = list(range(next_gw - n, next_gw))  # e.g. [29, 30, 31] for next_gw=32
+    result = {}
+
+    if not os.path.isdir(HISTORIES_DIR):
+        return result
+
+    for filename in os.listdir(HISTORIES_DIR):
+        if not filename.endswith(".json"):
+            continue
+        player_id = int(filename.replace(".json", ""))
+        filepath = os.path.join(HISTORIES_DIR, filename)
+        with open(filepath) as f:
+            data = json.load(f)
+
+        history = data.get("history", []) if isinstance(data, dict) else data
+        gw_pts = {}
+        for entry in history:
+            if entry["round"] in target_gws:
+                gw_pts[entry["round"]] = entry["total_points"]
+
+        if gw_pts:
+            pts_list = [str(gw_pts.get(gw, "-")) for gw in target_gws]
+            result[player_id] = ", ".join(pts_list)
+
+    return result
+
+
+@st.cache_data
 def get_enriched_predictions():
     """
     Load predictions and merge with fixture lookahead data.
@@ -141,6 +176,12 @@ def get_enriched_predictions():
     # Add ownership data
     df["ownership"] = df["player_id"].map(
         lambda pid: players_meta.get(pid, {}).get("selected_by_percent", 0)
+    )
+
+    # Add last 3 GW points
+    last3_map = load_last_n_gw_points(current_gw, n=3)
+    df["last_3_pts"] = df["player_id"].map(
+        lambda pid: last3_map.get(pid, "-")
     )
 
     return df
