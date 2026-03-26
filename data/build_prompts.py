@@ -83,44 +83,30 @@ def build_mlx_prompts(df, output_path):
 
 def balance_training_data(df):
     """
-    Balance training data so the model sees roughly equal examples across
-    point ranges, preventing mode collapse to the most common value.
+    Balance training data at the individual point level so the model
+    learns to predict the full range of scores (0-10+), not just the mode.
 
-    Groups points into buckets and oversamples underrepresented buckets.
+    Each point value gets roughly equal representation.
     """
     df = df.copy()
 
-    # Group into buckets: <=0, 1, 2, 3-4, 5-6, 7-9, 10+
-    def bucket(pts):
-        if pts <= 0:
-            return "neg"
-        elif pts <= 2:
-            return "low"
-        elif pts <= 4:
-            return "mid"
-        elif pts <= 6:
-            return "mid_high"
-        else:
-            return "high"
+    # Clip to buckets: each individual point value 0 through 10, plus 11+
+    df["_pts_bucket"] = df["target_points"].clip(lower=0, upper=11)
 
-    df["_bucket"] = df["target_points"].apply(bucket)
-
-    # Target: each bucket should have roughly the same number of samples
-    bucket_counts = df["_bucket"].value_counts()
+    bucket_counts = df["_pts_bucket"].value_counts().sort_index()
     target_per_bucket = int(bucket_counts.median())
 
-    print(f"\nBalancing training data:")
+    print(f"\nBalancing training data (per-point-value):")
     print(f"  Before: {dict(bucket_counts)}")
     print(f"  Target per bucket: ~{target_per_bucket}")
 
     balanced_parts = []
-    for bucket_name, group in df.groupby("_bucket"):
+    for pts_val, group in df.groupby("_pts_bucket"):
         if len(group) >= target_per_bucket:
-            # Downsample overrepresented buckets (but not too aggressively)
-            keep = max(target_per_bucket, len(group) // 2)
-            balanced_parts.append(group.sample(n=keep, random_state=42))
+            # Downsample but keep at least target_per_bucket
+            balanced_parts.append(group.sample(n=target_per_bucket, random_state=42))
         else:
-            # Oversample underrepresented buckets
+            # Oversample to reach target
             repeats = target_per_bucket // len(group)
             remainder = target_per_bucket % len(group)
             parts = [group] * repeats
@@ -128,11 +114,11 @@ def balance_training_data(df):
                 parts.append(group.sample(n=remainder, random_state=42))
             balanced_parts.append(pd.concat(parts))
 
-    result = pd.concat(balanced_parts).drop(columns=["_bucket"])
-    result = result.sample(frac=1, random_state=42).reset_index(drop=True)  # shuffle
+    result = pd.concat(balanced_parts).drop(columns=["_pts_bucket"])
+    result = result.sample(frac=1, random_state=42).reset_index(drop=True)
 
     print(f"  After: {len(result)} rows")
-    after_dist = result["target_points"].apply(bucket).value_counts()
+    after_dist = result["target_points"].clip(lower=0, upper=11).value_counts().sort_index()
     print(f"  Distribution: {dict(after_dist)}")
 
     return result
