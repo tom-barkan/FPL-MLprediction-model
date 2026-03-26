@@ -4,10 +4,21 @@ My Team Page — Squad builder + multi-transfer planner.
 Two-column layout: pitch on left, transfer planner on right.
 """
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import streamlit as st
 import pandas as pd
 
 from ui.data_loader import get_enriched_predictions, load_fixture_lookahead
+
+# Ensure session state is initialized (needed when navigating directly to this page)
+if "squad" not in st.session_state:
+    st.session_state.squad = []
+if "budget" not in st.session_state:
+    st.session_state.budget = 100.0
 from ui.components import (
     fixture_badge_html,
     fixture_run_html,
@@ -308,13 +319,13 @@ def run():
             formation = f"{xi_pos.get('DEF', 0)}-{xi_pos.get('MID', 0)}-{xi_pos.get('FWD', 0)}"
             total_pts = (xi_df["xgb_predicted_pts"] + xi_df["llm_predicted_pts"]).sum() / 2
 
-            info_html = f"""
-            <div class="mc-row" style="margin-top:12px;">
-                {metric_card_compact_html("Formation", formation)}
-                {metric_card_compact_html("XI Predicted Pts", f"{total_pts:.1f}")}
-                {metric_card_compact_html("Captain", captain_name)}
-            </div>
-            """
+            info_html = (
+                f'<div class="mc-row" style="margin-top:12px;">'
+                f'{metric_card_compact_html("Formation", formation)}'
+                f'{metric_card_compact_html("XI Predicted Pts", f"{total_pts:.1f}")}'
+                f'{metric_card_compact_html("Captain", captain_name)}'
+                f'</div>'
+            )
             st.markdown(info_html, unsafe_allow_html=True)
 
             if not bench.empty:
@@ -339,14 +350,12 @@ def run():
             help="Plan 1-3 transfers. Points hit: -4 per extra transfer beyond your free transfer.",
         )
 
-        budget_html = f"""
-        <div class="budget-bar">
-            <div><span class="budget-label">Squad Value</span><br>
-                <span class="budget-value">{total_cost:.1f}m</span></div>
-            <div><span class="budget-label">Budget Remaining</span><br>
-                <span class="budget-value">{remaining:.1f}m</span></div>
-        </div>
-        """
+        budget_html = (
+            f'<div class="budget-bar">'
+            f'<div><span class="budget-label">Squad Value</span><br><span class="budget-value">{total_cost:.1f}m</span></div>'
+            f'<div><span class="budget-label">Budget Remaining</span><br><span class="budget-value">{remaining:.1f}m</span></div>'
+            f'</div>'
+        )
         st.markdown(budget_html, unsafe_allow_html=True)
 
         # Sort squad by worst performers for the dropdown
@@ -385,14 +394,12 @@ def run():
             fix_badges = fixture_run_html(out_fixtures) if out_fixtures else ""
 
             st.markdown(
-                f"""<div class="tp-out-banner">
-                    <span class="out-pill">OUT</span>
-                    <span class="out-name">{player_out['player_name']}</span>
-                    <span style="color:#888;font-size:0.85em;">
-                        Next Fixtures:
-                    </span>
-                    <span class="out-fixtures">{fix_badges}</span>
-                </div>""",
+                f'<div class="tp-out-banner">'
+                f'<span class="out-pill">OUT</span>'
+                f'<span class="out-name">{player_out["player_name"]}</span>'
+                f'<span style="color:#888;font-size:0.85em;">Next Fixtures:</span>'
+                f'<span class="out-fixtures">{fix_badges}</span>'
+                f'</div>',
                 unsafe_allow_html=True,
             )
 

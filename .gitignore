@@ -3,8 +3,10 @@ models/llama-3.2-3b/
 models/fpl-lora-adapter/
 models/xgboost_fpl.json
 
-# Raw data (re-fetchable from API)
-data/raw/
+# Raw data not needed by UI
+data/raw/bootstrap.json
+data/raw/gameweeks.json
+data/raw/element_types.json
 
 # Python
 .venv/

@@ -28,15 +28,15 @@ FDR_BG_COLORS = {
     5: "#ffebee",
 }
 
-# Team colors for dot on pitch cards
+# Team colors for dot on pitch cards (keyed by short_name from CSV)
 TEAM_COLORS = {
-    "Arsenal": "#EF0107", "Aston Villa": "#95BFE5", "Bournemouth": "#DA291C",
-    "Brentford": "#e30613", "Brighton": "#0057B8", "Chelsea": "#034694",
-    "Crystal Palace": "#1B458F", "Everton": "#003399", "Fulham": "#000000",
-    "Ipswich": "#0044AA", "Leicester": "#003090", "Liverpool": "#C8102E",
-    "Man City": "#6CABDD", "Man Utd": "#DA291C", "Newcastle": "#241F20",
-    "Nott'm Forest": "#DD0000", "Southampton": "#D71920", "Spurs": "#132257",
-    "West Ham": "#7A263A", "Wolves": "#FDB913",
+    "ARS": "#EF0107", "AVL": "#95BFE5", "BOU": "#DA291C",
+    "BRE": "#e30613", "BHA": "#0057B8", "CHE": "#034694",
+    "CRY": "#1B458F", "EVE": "#003399", "FUL": "#000000",
+    "LEE": "#005DAA", "LIV": "#C8102E",
+    "MCI": "#6CABDD", "MUN": "#DA291C", "NEW": "#241F20",
+    "NFO": "#DD0000", "SUN": "#EB172B", "TOT": "#132257",
+    "WHU": "#7A263A", "WOL": "#FDB913", "BUR": "#6C1D45",
 }
 
 CSS = """
@@ -44,7 +44,6 @@ CSS = """
     /* ---- Global ---- */
     .block-container {
         padding-top: 1rem;
-        max-width: 1200px;
     }
     .stApp {
         background: #f5f0f7;

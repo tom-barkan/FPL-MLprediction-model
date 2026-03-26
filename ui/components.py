@@ -84,14 +84,15 @@ def player_card_html(name, team, price, pts, fixtures_list=None):
     if fixtures_list:
         fixtures_str = fixture_run_html(fixtures_list)
 
-    return f"""
-    <div class="player-card">
-        <div class="name">{name}</div>
-        <div class="info">{team} &middot; {price:.1f}m</div>
-        <div class="pts">{pts:.1f}</div>
-        {f'<div style="margin-top:4px;">{fixtures_str}</div>' if fixtures_str else ''}
-    </div>
-    """
+    fix_div = f'<div style="margin-top:4px;">{fixtures_str}</div>' if fixtures_str else ''
+    return (
+        f'<div class="player-card">'
+        f'<div class="name">{name}</div>'
+        f'<div class="info">{team} &middot; {price:.1f}m</div>'
+        f'<div class="pts">{pts:.1f}</div>'
+        f'{fix_div}'
+        f'</div>'
+    )
 
 
 def pitch_player_html(name, team_name, price, pts, fixtures_list=None):
@@ -109,17 +110,15 @@ def pitch_player_html(name, team_name, price, pts, fixtures_list=None):
             )
         fixtures_str = " ".join(mini_badges)
 
-    return f"""
-    <div class="pitch-player">
-        <div class="pp-name">
-            <span class="pp-dot" style="background:{team_color};"></span>
-            {name}
-        </div>
-        <div class="pp-meta">{team_name} &middot; {price:.1f}m</div>
-        <div class="pp-pts">{pts:.1f}</div>
-        {f'<div class="pp-fix">{fixtures_str}</div>' if fixtures_str else ''}
-    </div>
-    """
+    fix_div = f'<div class="pp-fix">{fixtures_str}</div>' if fixtures_str else ''
+    return (
+        f'<div class="pitch-player">'
+        f'<div class="pp-name"><span class="pp-dot" style="background:{team_color};"></span>{name}</div>'
+        f'<div class="pp-meta">{team_name} &middot; {price:.1f}m</div>'
+        f'<div class="pp-pts">{pts:.1f}</div>'
+        f'{fix_div}'
+        f'</div>'
+    )
 
 
 def pitch_html(position_rows):
@@ -128,25 +127,28 @@ def pitch_html(position_rows):
 
     position_rows: list of (pos_label, [card_html, ...]) tuples,
     ordered top-to-bottom (FWD first, GK last).
+
+    IMPORTANT: All HTML must be on single lines (no leading indentation)
+    or Streamlit's markdown parser treats indented HTML as code blocks.
     """
     rows_html = ""
     for pos_label, cards in position_rows:
-        cards_joined = "\n".join(cards)
-        rows_html += f"""
-        <div class="pitch-pos-label">{pos_label}</div>
-        <div class="pitch-row-flex">{cards_joined}</div>
-        """
+        cards_joined = "".join(cards)
+        rows_html += (
+            f'<div class="pitch-pos-label">{pos_label}</div>'
+            f'<div class="pitch-row-flex">{cards_joined}</div>'
+        )
 
-    return f"""
-    <div class="pitch-container">
-        <div class="pitch-outline"></div>
-        <div class="pitch-centre-line"></div>
-        <div class="pitch-centre-circle"></div>
-        <div class="pitch-box-top"></div>
-        <div class="pitch-box-bottom"></div>
-        {rows_html}
-    </div>
-    """
+    return (
+        f'<div class="pitch-container">'
+        f'<div class="pitch-outline"></div>'
+        f'<div class="pitch-centre-line"></div>'
+        f'<div class="pitch-centre-circle"></div>'
+        f'<div class="pitch-box-top"></div>'
+        f'<div class="pitch-box-bottom"></div>'
+        f'{rows_html}'
+        f'</div>'
+    )
 
 
 def suggestion_card_html(player_in, player_out, fixtures_list=None):
@@ -188,59 +190,44 @@ def suggestion_card_html(player_in, player_out, fixtures_list=None):
             badges.append(f'<span class="fdr-badge fdr-{fdr}">{fix["opponent"]} ({ha})</span>')
         fix_html = f'<div class="sg-fixtures">{"".join(badges)}</div>'
 
-    return f"""
-    <div class="sg-card">
-        <div class="sg-top">
-            <span class="sg-name">{player_in['player_name']}</span>
-            <span class="sg-pos-badge" style="{pos_style}">{pos_text}</span>
-            <span class="sg-team-price">{player_in['team_name']} &middot; {player_in['price']:.1f}m</span>
-        </div>
-        <div class="sg-stats-row">
-            <div class="sg-stat">
-                <div class="s-label">XGB Pts</div>
-                <div class="s-val">{xgb_pts:.1f}</div>
-                {_delta_span(xgb_delta)}
-            </div>
-            <div class="sg-stat">
-                <div class="s-label">LLM Pts</div>
-                <div class="s-val">{llm_pts:.1f}</div>
-                {_delta_span(llm_delta)}
-            </div>
-            <div class="sg-stat">
-                <div class="s-label">Value</div>
-                <div class="s-val">{value:.2f}</div>
-                {_delta_span(val_delta, ".2f")}
-            </div>
-            <div class="sg-stat">
-                <div class="s-label">Cost</div>
-                <div class="s-val">{cost_sign}{cost_delta:.1f}m</div>
-            </div>
-            {fix_html}
-        </div>
-    </div>
-    """
+    return (
+        f'<div class="sg-card">'
+        f'<div class="sg-top">'
+        f'<span class="sg-name">{player_in["player_name"]}</span>'
+        f'<span class="sg-pos-badge" style="{pos_style}">{pos_text}</span>'
+        f'<span class="sg-team-price">{player_in["team_name"]} &middot; {player_in["price"]:.1f}m</span>'
+        f'</div>'
+        f'<div class="sg-stats-row">'
+        f'<div class="sg-stat"><div class="s-label">XGB Pts</div><div class="s-val">{xgb_pts:.1f}</div>{_delta_span(xgb_delta)}</div>'
+        f'<div class="sg-stat"><div class="s-label">LLM Pts</div><div class="s-val">{llm_pts:.1f}</div>{_delta_span(llm_delta)}</div>'
+        f'<div class="sg-stat"><div class="s-label">Value</div><div class="s-val">{value:.2f}</div>{_delta_span(val_delta, ".2f")}</div>'
+        f'<div class="sg-stat"><div class="s-label">Cost</div><div class="s-val">{cost_sign}{cost_delta:.1f}m</div></div>'
+        f'{fix_html}'
+        f'</div>'
+        f'</div>'
+    )
 
 
 def metric_card_html(label, value, sub=""):
     """Render a summary metric card."""
     sub_html = f'<div class="sub">{sub}</div>' if sub else ""
-    return f"""
-    <div class="metric-card">
-        <div class="label">{label}</div>
-        <div class="value">{value}</div>
-        {sub_html}
-    </div>
-    """
+    return (
+        f'<div class="metric-card">'
+        f'<div class="label">{label}</div>'
+        f'<div class="value">{value}</div>'
+        f'{sub_html}'
+        f'</div>'
+    )
 
 
 def metric_card_compact_html(label, value):
     """Render a small metric card for the My Team header row."""
-    return f"""
-    <div class="mc-item">
-        <div class="mc-label">{label}</div>
-        <div class="mc-value">{value}</div>
-    </div>
-    """
+    return (
+        f'<div class="mc-item">'
+        f'<div class="mc-label">{label}</div>'
+        f'<div class="mc-value">{value}</div>'
+        f'</div>'
+    )
 
 
 def delta_html(value, suffix="pts"):

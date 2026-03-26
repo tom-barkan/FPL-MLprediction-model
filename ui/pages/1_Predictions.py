@@ -2,6 +2,11 @@
 Predictions Page — Redesigned to match Stitch design mockup.
 """
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import streamlit as st
 import pandas as pd
 
@@ -149,15 +154,20 @@ def run():
         unsafe_allow_html=True,
     )
 
+    gw_col = f"GW{gw}"
+    gw2_col = f"GW{gw + 1}"
+
     display_df = filtered[
         [
             "player_name",
             "position",
             "team_name",
             "price",
-            "avg_minutes_3gw",
-            "form_3gw",
             "last_3_pts",
+            gw_col,
+            gw2_col,
+            "form_3gw",
+            "avg_minutes_3gw",
             "xgb_predicted_pts",
             "xgb_confidence",
             "llm_predicted_pts",
@@ -171,9 +181,11 @@ def run():
         "Pos",
         "Team",
         "Price",
-        "Mins",
-        "Form",
         "Last 3 GW",
+        gw_col,
+        gw2_col,
+        "Form",
+        "Mins",
         "XGB Pts",
         "XGB Conf",
         "LLM Pts",
@@ -181,29 +193,18 @@ def run():
         "Value",
     ]
 
+    # Format confidence as "XX%" strings for cleaner display
+    display_df["XGB Conf"] = display_df["XGB Conf"].apply(lambda x: f"{int(x)}%")
+    display_df["LLM Conf"] = display_df["LLM Conf"].apply(lambda x: f"{int(x)}%")
+
     st.dataframe(
-        display_df.style
-        .format(
-            {
-                "Price": "{:.1f}",
-                "Mins": "{:.0f}",
-                "Form": "{:.1f}",
-                "XGB Pts": "{:.1f}",
-                "LLM Pts": "{:.1f}",
-                "Value": "{:.2f}",
-            }
-        )
-        .background_gradient(subset=["XGB Pts", "LLM Pts"], cmap="Greens", vmin=0, vmax=8)
-        .background_gradient(subset=["Value"], cmap="YlOrRd", vmin=0),
+        display_df,
         column_config={
-            "XGB Conf": st.column_config.ProgressColumn(
-                "XGB Conf", min_value=0, max_value=100, format="%d%%"
-            ),
-            "LLM Conf": st.column_config.ProgressColumn(
-                "LLM Conf", min_value=0, max_value=100, format="%d%%"
-            ),
-            "Price": st.column_config.NumberColumn("Price", format="%.1f"),
+            "Price": st.column_config.NumberColumn("Price", format="£%.1f"),
+            "Form": st.column_config.NumberColumn("Form", format="%.1f"),
             "Mins": st.column_config.NumberColumn("Mins", format="%d"),
+            "XGB Pts": st.column_config.NumberColumn("XGB Pts", format="%.1f"),
+            "LLM Pts": st.column_config.NumberColumn("LLM Pts", format="%.1f"),
             "Value": st.column_config.NumberColumn("Value", format="%.2f"),
         },
         use_container_width=True,
