@@ -50,7 +50,9 @@ def load_players_metadata():
     }
 
 
-PLAYER_PHOTO_URL = "https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png"
+PLAYER_PHOTO_URL_CDN = "https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png"
+PLAYER_PHOTO_URL_LOCAL = "app/static/photos/p{code}.png"
+PHOTOS_DIR = os.path.join(ROOT, "ui", "static", "photos")
 
 
 @st.cache_data
@@ -188,11 +190,14 @@ def get_enriched_predictions():
         lambda pid: last3_map.get(pid, "-")
     )
 
-    # Add player photo URLs
-    df["photo_url"] = df["player_id"].map(
-        lambda pid: PLAYER_PHOTO_URL.format(
-            code=players_meta.get(pid, {}).get("code", 0)
-        )
-    )
+    # Add player photo URLs (local static files, fallback to CDN)
+    def _photo_url(pid):
+        code = players_meta.get(pid, {}).get("code", 0)
+        local_path = os.path.join(PHOTOS_DIR, f"p{code}.png")
+        if os.path.exists(local_path):
+            return PLAYER_PHOTO_URL_LOCAL.format(code=code)
+        return PLAYER_PHOTO_URL_CDN.format(code=code)
+
+    df["photo_url"] = df["player_id"].map(_photo_url)
 
     return df
