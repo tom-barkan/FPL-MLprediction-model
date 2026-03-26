@@ -434,7 +434,127 @@
         }
         .insight strong { color: #4a148c; }
 
+        /* Bug/fix callouts */
+        .bug-callout {
+            background: #fce4ec;
+            border-left: 4px solid #e53935;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .bug-callout strong { color: #b71c1c; }
+
+        .fix-callout {
+            background: #e8f5e9;
+            border-left: 4px solid #43a047;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .fix-callout strong { color: #1b5e20; }
+
+        /* Before/after comparison */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .before-after .panel {
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .before-after .before {
+            background: #fce4ec;
+            border: 1px solid #ef9a9a;
+        }
+        .before-after .after {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+        }
+        .before-after h4 {
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .before-after .before h4 { color: #c62828; }
+        .before-after .after h4 { color: #2e7d32; }
+        .before-after table {
+            width: 100%;
+            font-size: 0.9em;
+        }
+        .before-after td {
+            padding: 4px 0;
+        }
+        .before-after td:first-child {
+            color: #666;
+        }
+        .before-after td:last-child {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* Distribution chart */
+        .dist-chart {
+            margin: 20px 0;
+        }
+        .dist-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .dist-label {
+            width: 60px;
+            font-size: 0.85em;
+            color: #666;
+            text-align: right;
+            padding-right: 10px;
+            flex-shrink: 0;
+        }
+        .dist-bar-track {
+            flex: 1;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .dist-bar {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: white;
+        }
+        .dist-bar.skewed { background: #e53935; }
+        .dist-bar.balanced { background: #43a047; }
+
+        /* Dashboard section */
+        .phase-banner.dashboard {
+            background: linear-gradient(135deg, #e65100, #ff8f00);
+        }
+        .phase-banner.bugfix {
+            background: linear-gradient(135deg, #b71c1c, #e53935);
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+        }
+
+        .step-number.bug-step { background: linear-gradient(135deg, #b71c1c, #e53935); }
+        .step-number.dash-step { background: linear-gradient(135deg, #e65100, #ff8f00); }
+
         @media (max-width: 600px) {
+            .before-after { grid-template-columns: 1fr; }
             .strategy-grid { grid-template-columns: 1fr; }
             .bar-label { width: 100px; font-size: 0.8em; }
             header h1 { font-size: 1.8em; }
@@ -453,7 +573,9 @@
     <a href="#phase1" class="done">Data Pipeline</a>
     <a href="#phase2" class="done">XGBoost</a>
     <a href="#phase3" class="done">LLM</a>
-    <a href="#results" class="current">Results</a>
+    <a href="#results" class="done">Results</a>
+    <a href="#bugfix" class="done">Bug Fix</a>
+    <a href="#dashboard" class="current">Dashboard</a>
 </nav>
 
 <div class="container">
@@ -897,6 +1019,219 @@
     </div>
 
 
+    <!-- ============================================ -->
+    <!-- BUG FIX: MODE COLLAPSE -->
+    <!-- ============================================ -->
+    <div class="phase-banner bugfix" id="bugfix">
+        <div class="phase-label">Debugging</div>
+        <h2>The LLM Was Broken (And How We Fixed It)</h2>
+        <div class="phase-desc">Our fine-tuned model predicted "2 points" for every single player &mdash; from Salah to a third-choice goalkeeper. Here's why, and what we did about it.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number bug-step">1</div>
+        <h3>The Problem: Mode Collapse</h3>
+        <div class="subtitle">The AI found a cheat code &mdash; and it backfired</div>
+
+        <p>When we pointed our fine-tuned LLM at 344 real players to predict their next gameweek, something odd happened: <strong>every single player got the same prediction &mdash; 2 points.</strong> Mo Salah at home against a relegation side? 2 points. A backup defender away at City? 2 points.</p>
+
+        <div class="bug-callout">
+            <strong>What went wrong:</strong> The model discovered that "2" is the safest answer. In FPL, 2 points is the most common score (you get 2 just for playing 60+ minutes). By always saying "2," the model was technically <em>less wrong on average</em> than if it tried to predict actual highs and lows. It optimised for being "least wrong" instead of being "most useful."
+        </div>
+
+        <p>This is called <strong>"mode collapse"</strong> &mdash; the AI collapses to always predicting the single most common outcome. It's one of the most common problems in AI, and it happens because:</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> Imagine a weather forecaster in London who discovers that saying "cloudy" every day is correct 60% of the time. They'll have a great overall accuracy score &mdash; but they'll never warn you about storms or promise you sunshine. Technically accurate, practically useless.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number bug-step">2</div>
+        <h3>The Root Cause: Lopsided Training Data</h3>
+        <div class="subtitle">When 58% of your examples look the same, the AI learns to always give the same answer</div>
+
+        <p>We looked at our training data and the problem was obvious. Here's what the model was learning from:</p>
+
+        <h4 style="margin: 16px 0 8px; color: #c62828;">Before: Skewed Training Data</h4>
+        <div class="dist-chart">
+            <div class="dist-row">
+                <div class="dist-label">0 or less</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 8%;">5%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">1 pt</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 72%;">36%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">2 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 43%;">22%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">3-4 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 30%;">15%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">5-6 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 19%;">9%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">7+ pts</div>
+                <div class="dist-bar-track"><div class="dist-bar skewed" style="width: 22%;">11%</div></div>
+            </div>
+        </div>
+
+        <p>Over half the training data was 1 or 2 points. The model saw so many examples of "the answer is 1 or 2" that it learned the shortcut: <em>just always say 2</em>.</p>
+
+        <div class="analogy">
+            <strong>Think of it like this:</strong> If you're studying for a quiz and 60% of the practice questions have the answer "B," you might start just circling "B" every time. You'd get 60% right on the practice test &mdash; but you'd fail any question where the real answer was A, C, or D.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number bug-step" style="background: linear-gradient(135deg, #1b5e20, #43a047);">3</div>
+        <h3>The Fix: Balanced Training Data</h3>
+        <div class="subtitle">Give the AI equal exposure to all types of outcomes</div>
+
+        <p>We rebalanced the training data by grouping scores into buckets and making sure the model sees roughly the same number of examples from each:</p>
+
+        <h4 style="margin: 16px 0 8px; color: #2e7d32;">After: Balanced Training Data</h4>
+        <div class="dist-chart">
+            <div class="dist-row">
+                <div class="dist-label">0 or less</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">1-2 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 75%;">37%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">3-4 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">5-6 pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+            </div>
+            <div class="dist-row">
+                <div class="dist-label">7+ pts</div>
+                <div class="dist-bar-track"><div class="dist-bar balanced" style="width: 32%;">16%</div></div>
+            </div>
+        </div>
+
+        <p>We also increased the learning rate (how aggressively the model adjusts) from 1e-5 to 2e-5, so it would pick up on the differences faster.</p>
+
+        <div class="fix-callout">
+            <strong>The result:</strong> The retrained model (v2) now differentiates between players. High-form players in easy fixtures get <strong>4 points</strong>. Low-form players in tough fixtures get <strong>1 point</strong>. It's still more conservative than XGBoost (range of 1-4 vs 1.6-7.4), but it's no longer broken.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number bug-step" style="background: linear-gradient(135deg, #1b5e20, #43a047);">4</div>
+        <h3>Before &amp; After</h3>
+        <div class="subtitle">Same players, dramatically different predictions</div>
+
+        <div class="before-after">
+            <div class="panel before">
+                <h4>Before (v1 — broken)</h4>
+                <table>
+                    <tr><td>Salah (form 9.0, home, easy)</td><td>2 pts</td></tr>
+                    <tr><td>Haaland (form 7.5, home, easy)</td><td>2 pts</td></tr>
+                    <tr><td>Watkins (form 5.0, home, mid)</td><td>2 pts</td></tr>
+                    <tr><td>Mykolenko (form 1.3, away, hard)</td><td>1 pt</td></tr>
+                    <tr><td>Raya GK (form 2.0, away, hard)</td><td>2 pts</td></tr>
+                </table>
+                <p style="margin-top: 12px; font-size: 0.85em; color: #c62828;">Everything is 2. Useless.</p>
+            </div>
+            <div class="panel after">
+                <h4>After (v2 — fixed)</h4>
+                <table>
+                    <tr><td>Salah (form 9.0, home, easy)</td><td>4 pts</td></tr>
+                    <tr><td>Haaland (form 7.5, home, easy)</td><td>4 pts</td></tr>
+                    <tr><td>Watkins (form 5.0, home, mid)</td><td>4 pts</td></tr>
+                    <tr><td>Mykolenko (form 1.3, away, hard)</td><td>1 pt</td></tr>
+                    <tr><td>Raya GK (form 2.0, away, hard)</td><td>1 pt</td></tr>
+                </table>
+                <p style="margin-top: 12px; font-size: 0.85em; color: #2e7d32;">Now differentiates high vs low.</p>
+            </div>
+        </div>
+
+        <div class="insight">
+            <strong>Why this matters beyond FPL:</strong> Mode collapse is one of the most common failures in real AI products. The model <em>looks</em> like it's working (low error on average), but it's actually useless for the decisions you care about. This is exactly the kind of failure that aggregate metrics like MAE can hide &mdash; you need to look at individual predictions to catch it.
+        </div>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- DASHBOARD -->
+    <!-- ============================================ -->
+    <div class="phase-banner dashboard" id="dashboard">
+        <div class="phase-label">The App</div>
+        <h2>Live Prediction Dashboard</h2>
+        <div class="phase-desc">A side-by-side comparison of both models predicting every player's next gameweek, ranked by value</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number dash-step">1</div>
+        <h3>What the Dashboard Shows</h3>
+        <div class="subtitle">Built with Streamlit &mdash; an interactive web app from Python code</div>
+
+        <p>We built an interactive dashboard that predicts <strong>GW 32</strong> points for all 344 active players. For each player, you see:</p>
+
+        <ul>
+            <li><strong>XGBoost prediction</strong> &mdash; the "number cruncher" forecast (range: 1.6 to 7.4 pts)</li>
+            <li><strong>LLM prediction</strong> &mdash; the language model's forecast (range: 1 to 4 pts)</li>
+            <li><strong>Confidence level</strong> &mdash; how sure each model is (higher = more reliable)</li>
+            <li><strong>Combined value score</strong> &mdash; predicted points multiplied by confidence, averaged across both models</li>
+        </ul>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> It's like getting two scouts' reports on every player. One scout (XGBoost) gives very precise ratings. The other scout (LLM) gives broader "high/low" assessments. The dashboard lets you see where they agree (high confidence) and where they disagree (proceed with caution).
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number dash-step">2</div>
+        <h3>Dashboard Features</h3>
+        <div class="subtitle">Filter, sort, and explore every prediction</div>
+
+        <ul>
+            <li><strong>Top 30 Value Picks</strong> &mdash; players ranked by combined value score (confidence &times; predicted points). The picks where both models agree on high scores rise to the top.</li>
+            <li><strong>Full Player Table</strong> &mdash; all 344 players with colour-coded heatmaps. Filter by position, max price, confidence, or home/away.</li>
+            <li><strong>Player Deep Dive</strong> &mdash; select any player to see a side-by-side breakdown of both models' predictions with full context (form, ICT, fixture difficulty).</li>
+            <li><strong>Model Agreement Analysis</strong> &mdash; two tabs showing where the models agree most (high-conviction picks) and disagree most (risky calls). When both models agree, you can be more confident. When they disagree, something interesting is happening.</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <div class="step-number dash-step">3</div>
+        <h3>How Confidence Is Calculated</h3>
+        <div class="subtitle">Not all predictions are created equal</div>
+
+        <p>Each model calculates confidence differently:</p>
+
+        <ul>
+            <li><strong>XGBoost confidence</strong> is based on how much its internal "committee of decision trees" agrees. When all the trees give similar answers, confidence is high. When they disagree, it drops.</li>
+            <li><strong>LLM confidence</strong> is based on the input features: consistent recent form (3-game and 5-game averages align), high minutes (the player is a guaranteed starter), clear fixture difficulty (very easy or very hard &mdash; mid-table opponents are hardest to predict), and whether the prediction aligns with recent form.</li>
+        </ul>
+
+        <p style="margin-top: 12px;">The <strong>combined value score</strong> averages both: <code>(XGB pts &times; XGB confidence + LLM pts &times; LLM confidence) / 2</code>. This rewards players where <em>both</em> models are confident <em>and</em> predict high points.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-number dash-step">4</div>
+        <h3>Running the Dashboard</h3>
+        <div class="subtitle">One command to launch</div>
+
+        <div class="what-we-typed">
+            <div class="label">To start the dashboard</div>
+            streamlit run ui/app.py
+        </div>
+
+        <p>This opens a web page at <code>http://localhost:8501</code> in your browser. The data updates when you re-run the prediction script (<code>python models/predict_next_gw.py</code>).</p>
+    </div>
+
+
     <!-- Summary -->
     <div class="summary">
         <h2>Everything We've Built So Far</h2>
@@ -906,9 +1241,12 @@
             <li>Feature engineering: 20 features per player-gameweek (8,468 training rows)</li>
             <li>LLM prompt generation in two formats (simple JSONL + MLX chat)</li>
             <li>XGBoost model trained and evaluated (MAE: 2.11)</li>
-            <li>Llama 3.2 3B downloaded and fine-tuned with LoRA (600 iterations)</li>
+            <li>Llama 3.2 3B downloaded and fine-tuned with LoRA</li>
+            <li>Found and fixed mode collapse bug (LLM predicted "2" for everyone)</li>
+            <li>Retrained with balanced data &mdash; LLM now differentiates 1-4 pts</li>
             <li>Four LLM strategies tested (zero-shot, few-shot, CoT, fine-tuned)</li>
-            <li>Full comparison: fine-tuned LLM wins on MAE (1.96), XGBoost wins on consistency</li>
+            <li>Prediction pipeline for next GW: 344 players, both models, with confidence</li>
+            <li>Interactive Streamlit dashboard with top 30 picks, filters, and deep dives</li>
         </ul>
     </div>
 
@@ -916,8 +1254,7 @@
     <div class="next-up">
         <h2>What Comes Next</h2>
         <ul style="margin: 8px 0 0 20px;">
-            <li><strong>Phase 4: Eval Framework</strong> &mdash; structured test scenarios (fixture context, positional, edge cases) with automatic regression detection</li>
-            <li><strong>Phase 5: Comparison Dashboard</strong> &mdash; interactive Streamlit web app to explore predictions side by side</li>
+            <li><strong>Phase 4: Eval Framework</strong> &mdash; structured test scenarios with automatic regression detection</li>
             <li><strong>Phase 6: Write-Up</strong> &mdash; product-oriented assessment: "Would I ship this? In what form?"</li>
             <li><strong>Phase 7: Notebooks &amp; Docs</strong> &mdash; documented Jupyter experiments and GitHub Pages</li>
         </ul>
@@ -966,6 +1303,14 @@
             <div class="glossary-item">
                 <dt>Zero-Shot / Few-Shot / Chain-of-Thought</dt>
                 <dd><strong>Zero-shot:</strong> ask the AI with no examples. <strong>Few-shot:</strong> show it a few examples first. <strong>Chain-of-thought:</strong> ask it to think step-by-step. These are prompt engineering strategies &mdash; ways to get better results without any training.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Mode Collapse</dt>
+                <dd>When an AI model learns to always give the same answer because that one answer was the most common in its training data. Like a student who discovers "B" is the most common answer on multiple choice tests and just circles B every time. Technically gets the best average score, but useless in practice.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Data Balancing / Oversampling</dt>
+                <dd>Adjusting training data so the AI sees roughly equal numbers of each type of outcome. If 60% of examples are "2 points," the model only learns to say "2." By making the dataset more balanced, the model is forced to learn the actual patterns instead of taking shortcuts.</dd>
             </div>
             <div class="glossary-item">
                 <dt>ICT Index</dt>
