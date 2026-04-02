@@ -411,41 +411,60 @@ CSS = """
     /* ---- Floating sidebar toggle button ---- */
     [data-testid="collapsedControl"] {
         position: fixed !important;
-        top: 12px;
-        left: 12px;
+        top: 12px !important;
+        left: 12px !important;
         z-index: 999999 !important;
         background: #4a0e50 !important;
         border-radius: 50% !important;
         width: 44px !important;
         height: 44px !important;
+        min-width: 44px !important;
+        max-width: 44px !important;
+        min-height: 44px !important;
+        max-height: 44px !important;
         display: flex !important;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 12px rgba(55,0,60,0.35);
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 2px 12px rgba(55,0,60,0.35) !important;
         border: none !important;
+        padding: 0 !important;
+        overflow: hidden !important;
     }
-    /* Hide default Streamlit arrow icon */
-    [data-testid="collapsedControl"] svg {
+    /* Hide ALL default icons/text inside the toggle */
+    [data-testid="collapsedControl"] svg,
+    [data-testid="collapsedControl"] span,
+    [data-testid="collapsedControl"] p,
+    [data-testid="collapsedControl"] i {
         display: none !important;
+        visibility: hidden !important;
     }
-    /* Classic hamburger icon */
-    [data-testid="collapsedControl"] button {
-        color: white !important;
-        position: relative;
-        width: 44px;
-        height: 44px;
+    /* Style the button itself */
+    [data-testid="collapsedControl"] button,
+    [data-testid="collapsedControl"] > div,
+    [data-testid="collapsedControl"] [kind="header"] {
+        background: transparent !important;
+        border: none !important;
+        color: transparent !important;
+        width: 44px !important;
+        height: 44px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        position: relative !important;
+        cursor: pointer !important;
     }
-    [data-testid="collapsedControl"] button::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 20px;
-        height: 2px;
-        background: white;
-        box-shadow: 0 -6px 0 white, 0 6px 0 white;
-        border-radius: 1px;
+    /* Hamburger icon via pseudo-element */
+    [data-testid="collapsedControl"] button::before,
+    [data-testid="collapsedControl"] > div::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 20px !important;
+        height: 2px !important;
+        background: white !important;
+        box-shadow: 0 -6px 0 white, 0 6px 0 white !important;
+        border-radius: 1px !important;
     }
 
     /* ---- Footer ---- */
