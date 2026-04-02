@@ -539,6 +539,39 @@
         .phase-banner.bugfix {
             background: linear-gradient(135deg, #b71c1c, #e53935);
         }
+        .phase-banner.autoresearch {
+            background: linear-gradient(135deg, #1b5e20, #43a047);
+        }
+        .step-number.auto-step { background: linear-gradient(135deg, #1b5e20, #43a047); }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95em;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #555;
+        }
+        .improvement-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
 
         .screenshot-placeholder {
             background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
@@ -579,6 +612,7 @@
     <a href="#smoothing" class="done">Smoothing</a>
     <a href="#lessons" class="done">Lessons</a>
     <a href="#dashboard" class="done">Dashboard</a>
+    <a href="#autoresearch" class="done">Auto-Research</a>
 </nav>
 
 <div class="container">
@@ -1493,6 +1527,166 @@
     </div>
 
 
+    <!-- ============================================ -->
+    <!-- AUTO-RESEARCH -->
+    <!-- ============================================ -->
+    <div class="phase-banner autoresearch" id="autoresearch">
+        <div class="phase-label">New Approach</div>
+        <h2>Auto-Research: AI Training Itself</h2>
+        <div class="phase-desc">Using Claude Code to automatically experiment with model improvements &mdash; and only keeping changes that actually work</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">1</div>
+        <h3>The Problem With How We Trained Before</h3>
+        <div class="subtitle">Manual training is slow and limited by human patience</div>
+
+        <p>In the original setup, we trained the XGBoost model <strong>once</strong> with a fixed set of settings (hyperparameters) and called it done. If we wanted to improve it, we had to:</p>
+
+        <ol>
+            <li>Manually change a setting in the code (e.g., "try 1000 trees instead of 500")</li>
+            <li>Run the training script</li>
+            <li>Check if the result improved</li>
+            <li>If yes, keep the change. If no, undo it and try something else</li>
+        </ol>
+
+        <p>This is tedious. You can only try a few ideas before giving up, and you might miss the combination that actually works best.</p>
+
+        <div class="analogy">
+            <strong>Think of it like tuning a recipe:</strong> Before, we cooked the dish once, tasted it, and served it. Now, we have an assistant that keeps tweaking the recipe &mdash; a pinch more salt, slightly lower heat, a different pan &mdash; tasting each version, and only writing down the recipe when it's genuinely better than the last.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">2</div>
+        <h3>What Auto-Research Does</h3>
+        <div class="subtitle">A loop: tweak &rarr; test &rarr; keep or discard &rarr; repeat</div>
+
+        <p>We built a small, modular system in the <code>autoresearch/</code> folder. Claude Code (the AI coding assistant) acts as the researcher: it reads the current model code, proposes a change to the settings, runs the experiment, and checks whether accuracy improved. If it did &mdash; the change is committed to the codebase with a record of the improvement. If not &mdash; it's thrown away.</p>
+
+        <p>The system has three simple parts:</p>
+
+        <ul>
+            <li><strong>prepare.py</strong> &mdash; loads the player data and splits it into training and test sets, same as before</li>
+            <li><strong>train.py</strong> &mdash; defines the model architecture and settings (the thing being tweaked)</li>
+            <li><strong>run_loop.py</strong> &mdash; trains the model, measures accuracy, compares against the current best, and reports whether it improved</li>
+        </ul>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> It's like A/B testing on a website. You don't guess which button colour gets more clicks &mdash; you test both versions, measure the results, and keep the winner. Auto-research does the same thing, but for AI model settings.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">3</div>
+        <h3>A New Model Architecture</h3>
+        <div class="subtitle">Two-stage prediction instead of one</div>
+
+        <p>One of the biggest discoveries from auto-research was a <strong>two-stage approach</strong> that beats the original single model:</p>
+
+        <ol>
+            <li><strong>Stage 1 &mdash; "Will this player score any points?"</strong><br>
+            A classifier (yes/no model) predicts the probability that a player gets more than zero points. This catches players who didn't play, got injured, or were benched.</li>
+
+            <li><strong>Stage 2 &mdash; "How many points?"</strong><br>
+            A regressor (number-predicting model) estimates the actual point total, just like the original XGBoost.</li>
+
+            <li><strong>Combine</strong><br>
+            The final prediction multiplies the two together: <code>probability_of_playing &times; predicted_points</code>. This naturally pushes bench players towards zero without penalising starters.</li>
+        </ol>
+
+        <div class="analogy">
+            <strong>Think of it like a two-step question:</strong> Before guessing "how many goals will Haaland score?", first ask "is Haaland even playing?" If he's injured, the answer is zero no matter how good he normally is. The old model tried to answer both questions at once. The new model separates them.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">4</div>
+        <h3>What Changed vs. the Original</h3>
+        <div class="subtitle">A direct comparison of old and new</div>
+
+        <table class="comparison-table">
+            <tr>
+                <th></th>
+                <th>Original XGBoost</th>
+                <th>Auto-Research XGBoost</th>
+            </tr>
+            <tr>
+                <td>Architecture</td>
+                <td>Single regressor</td>
+                <td>Classifier + Regressor (two-stage)</td>
+            </tr>
+            <tr>
+                <td>Objective</td>
+                <td>Squared error (penalises big mistakes)</td>
+                <td>Absolute error (treats all mistakes equally)</td>
+            </tr>
+            <tr>
+                <td>Trees</td>
+                <td>500</td>
+                <td>1,500 (regressor) + 500 (classifier)</td>
+            </tr>
+            <tr>
+                <td>Tree depth</td>
+                <td>6 (deep, complex trees)</td>
+                <td>4 (regressor) / 2 (classifier) &mdash; shallower, less overfitting</td>
+            </tr>
+            <tr>
+                <td>Training approach</td>
+                <td>Set once, manually</td>
+                <td>Iteratively improved by AI experiments</td>
+            </tr>
+            <tr>
+                <td>MAE (accuracy)</td>
+                <td>2.22</td>
+                <td><span class="improvement-badge">1.90</span> (14% better)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">5</div>
+        <h3>The Experiment Trail</h3>
+        <div class="subtitle">Every improvement is recorded in git history</div>
+
+        <p>Because each improvement is committed to git with a standardised message, you can see the entire research trail:</p>
+
+        <div class="what-we-typed">
+            <div class="label">Sample commit messages from one session</div>
+[autoresearch] baseline: MAE 2.2243<br>
+[autoresearch] abs error objective: MAE 2.2243 &rarr; 1.9309<br>
+[autoresearch] add classifier + blending: MAE 1.9309 &rarr; 1.9052<br>
+[autoresearch] clf depth 2: MAE 1.9015 &rarr; 1.8996<br>
+[autoresearch] prob^1.2 sharpening: MAE 1.8996 &rarr; 1.8994
+        </div>
+
+        <p>Each line is a single experiment. You can see exactly which change caused which improvement, and the model gets better in small, measurable steps.</p>
+
+        <div class="real-world">
+            <strong>Real-world analogy:</strong> It's like a scientist's lab notebook. Every experiment is dated, described, and the result is recorded. Nothing is lost, and you can always trace back to see why the model ended up the way it did.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">6</div>
+        <h3>Why This Matters</h3>
+        <div class="subtitle">The approach, not just the result</div>
+
+        <p>The specific accuracy number (MAE 1.90 vs 2.22) is nice, but the real takeaway is the <strong>approach</strong>:</p>
+
+        <ul>
+            <li><strong>Systematic</strong> &mdash; instead of random guessing, every change is tested against a baseline</li>
+            <li><strong>Reproducible</strong> &mdash; every experiment is saved in git, so results can be verified</li>
+            <li><strong>Continuous</strong> &mdash; you can run it again any time (new season, new data) and it will keep improving</li>
+            <li><strong>Safe</strong> &mdash; bad ideas are automatically discarded. The model can only get better, never worse</li>
+        </ul>
+
+        <div class="analogy">
+            <strong>Think of it like evolution:</strong> The original training was designing a model from scratch. Auto-research is evolution &mdash; small mutations, keep what works, discard what doesn't. Over many generations, you end up with something much better than any single design attempt.
+        </div>
+    </div>
+
+
     <!-- Summary -->
     <div class="summary">
         <h2>Everything We've Built</h2>
@@ -1510,6 +1704,8 @@
             <li>Eval framework: 14 named test cases across 4 categories with regression detection</li>
             <li>Prediction pipeline for next GW: 344 players, both models, with confidence</li>
             <li>Interactive Streamlit dashboard with predictions table, squad builder, and transfer planner</li>
+            <li>Auto-research loop: Claude Code experiments with model settings, keeping only improvements (MAE 2.22 &rarr; 1.90)</li>
+            <li>Two-stage model architecture: classifier + regressor with probability sharpening</li>
             <li>Product assessment and "would I ship this?" brief with build-vs-buy framework</li>
             <li>5 documented Jupyter notebooks covering every phase of the experiment</li>
         </ul>
@@ -1577,6 +1773,14 @@
             <div class="glossary-item">
                 <dt>Data Balancing / Oversampling</dt>
                 <dd>Adjusting training data so the AI sees roughly equal numbers of each type of outcome. If 60% of examples are "2 points," the model only learns to say "2." By making the dataset more balanced, the model is forced to learn the actual patterns instead of taking shortcuts.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Hyperparameter</dt>
+                <dd>A setting you choose <em>before</em> training a model &mdash; like the number of trees, tree depth, or learning rate. The model can't learn these on its own; you have to pick them. Auto-research automates the picking.</dd>
+            </div>
+            <div class="glossary-item">
+                <dt>Classifier vs Regressor</dt>
+                <dd>A <strong>classifier</strong> answers yes/no questions ("will this player score?"). A <strong>regressor</strong> predicts a number ("how many points?"). The auto-research model uses both: a classifier to filter out non-players, then a regressor for the actual prediction.</dd>
             </div>
             <div class="glossary-item">
                 <dt>ICT Index</dt>
