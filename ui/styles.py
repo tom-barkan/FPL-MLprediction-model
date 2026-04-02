@@ -42,12 +42,12 @@ TEAM_COLORS = {
 CSS = """
 <style>
     /* ---- Global ---- */
-    /* Hide default Streamlit header bar */
+    /* Hide empty white Streamlit header bar */
     [data-testid="stHeader"] {
         display: none !important;
     }
     .block-container {
-        padding-top: 3.5rem;
+        padding-top: 1rem;
     }
     .stApp {
         background: #f5f0f7;
@@ -385,59 +385,28 @@ CSS = """
         margin-bottom: 12px;
     }
 
-    /* ---- Floating Top Nav ---- */
-    /* Hide sidebar toggle — nav is handled by floating bar */
+    /* ---- Floating sidebar toggle button ---- */
     [data-testid="collapsedControl"] {
-        display: none !important;
-    }
-    .floating-nav {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 999999;
-        background: #37003c;
-        border-bottom: 2px solid #00ff87;
-        padding: 0;
-        justify-content: center;
-        gap: 0;
-    }
-    .floating-nav a {
-        display: flex;
+        position: fixed !important;
+        top: 12px;
+        left: 12px;
+        z-index: 999999 !important;
+        background: #37003c !important;
+        border-radius: 50% !important;
+        width: 44px !important;
+        height: 44px !important;
+        display: flex !important;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        padding: 10px 32px;
-        text-decoration: none;
-        color: rgba(255,255,255,0.6);
-        font-size: 0.88em;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        transition: color 0.15s, background 0.15s;
+        box-shadow: 0 2px 12px rgba(55,0,60,0.3);
+        border: 2px solid #00ff87 !important;
     }
-    .floating-nav a:hover {
-        color: #fff;
-        background: rgba(255,255,255,0.08);
+    [data-testid="collapsedControl"] button {
+        color: #00ff87 !important;
     }
-    .floating-nav a.active {
-        color: #00ff87;
-        background: rgba(0,255,135,0.1);
-    }
-    .floating-nav a .nav-icon {
-        font-size: 1.2em;
-    }
-    @media (max-width: 768px) {
-        .floating-nav a {
-            flex: 1;
-            padding: 10px 0;
-            flex-direction: column;
-            gap: 2px;
-            font-size: 0.72em;
-        }
-        .floating-nav a .nav-icon {
-            font-size: 1.5em;
-        }
+    [data-testid="collapsedControl"] svg {
+        fill: #00ff87 !important;
+        stroke: #00ff87 !important;
     }
 
     /* ---- Footer ---- */
