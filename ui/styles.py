@@ -42,9 +42,16 @@ TEAM_COLORS = {
 CSS = """
 <style>
     /* ---- Global ---- */
-    /* Hide empty white Streamlit header bar */
+    /* Make header transparent — removes white bar but keeps toggle button */
     [data-testid="stHeader"] {
-        display: none !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        pointer-events: none;
+    }
+    /* Re-enable clicks on the sidebar toggle inside the header */
+    [data-testid="stHeader"] [data-testid="collapsedControl"] {
+        pointer-events: auto;
     }
     .block-container {
         padding-top: 1rem;
