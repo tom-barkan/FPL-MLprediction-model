@@ -2,7 +2,7 @@ import xgboost as xgb
 import numpy as np
 
 PARAMS = {
-    "n_estimators": 1000, "max_depth": 4, "learning_rate": 0.05,
+    "n_estimators": 1500, "max_depth": 4, "learning_rate": 0.05,
     "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 3,
     "reg_alpha": 0.1, "reg_lambda": 1.0, "objective": "reg:absoluteerror",
     "tree_method": "hist", "random_state": 42,
