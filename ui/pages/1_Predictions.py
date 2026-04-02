@@ -64,8 +64,6 @@ def run():
         st.markdown(metric_card_html("Model Agreement", f"{agreement:.1f}%", sub="within 1.0 pts"), unsafe_allow_html=True)
 
     # ---- Filter Bar ----
-    st.markdown('<div class="filter-bar">', unsafe_allow_html=True)
-
     all_positions = ["GK", "DEF", "MID", "FWD"]
     all_teams = sorted(df["team_name"].unique())
 
@@ -109,8 +107,6 @@ def run():
             sort_options.insert(3, "Claude Predicted Points")
             sort_options.insert(6, "Claude Confidence")
         sort_by = st.selectbox("Sort by", options=sort_options)
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # ---- FDR Legend Strip ----
     st.markdown(fdr_legend_html(), unsafe_allow_html=True)
