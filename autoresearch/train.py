@@ -33,4 +33,4 @@ def predict(model, X_test, feature_cols):
     play_prob = model["clf"].predict_proba(X_te[used_cols])[:, 1]
     reg_pred = model["reg"].predict(X_te[used_cols])
     # Softer blend: 0.8 * reg + 0.2 * (prob * reg)
-    return (0.5 + 0.5 * play_prob) * reg_pred
+    return play_prob * reg_pred
