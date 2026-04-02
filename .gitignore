@@ -19,3 +19,13 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 ui/static/photos/
+
+# Environment / secrets
+.env
+.env.*
+
+# Claude Code local settings (contains local paths)
+.claude/
+
+# Test output
+test-results/
