@@ -123,6 +123,10 @@ CSS = """
         flex: 1;
         box-shadow: 0 2px 8px rgba(55,0,60,0.06);
         transition: box-shadow 0.2s;
+        min-height: 105px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .metric-card:hover {
         box-shadow: 0 4px 16px rgba(55,0,60,0.12);
