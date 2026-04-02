@@ -130,13 +130,15 @@ CSS = """
     }
     /* Force Streamlit column containers to equal height */
     [data-testid="stHorizontalBlock"] {
-        align-items: stretch;
+        align-items: stretch !important;
     }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div {
-        height: 100%;
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] {
+        height: auto !important;
     }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div {
-        height: 100%;
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div,
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div,
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div > div {
+        height: 100% !important;
     }
     .metric-card:hover {
         box-shadow: 0 4px 16px rgba(55,0,60,0.12);
