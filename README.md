@@ -3,13 +3,14 @@
 </p>
 
 <p align="center">
-  <strong>Can a locally fine-tuned open-source LLM compete with XGBoost at predicting Fantasy Premier League player points?</strong>
+  <strong>Four AI approaches to predicting Fantasy Premier League player points — from traditional ML to fine-tuned LLMs, automated research, and Claude Haiku.</strong>
 </p>
 
 <p align="center">
   <a href="#the-experiment">The Experiment</a> ·
   <a href="#how-it-works">How It Works</a> ·
   <a href="#auto-research">Auto-Research</a> ·
+  <a href="#claude-haiku-api-based-predictions">Claude Haiku</a> ·
   <a href="#project-structure">Project Structure</a> ·
   <a href="#current-progress">Progress</a> ·
   <a href="#reproduce-this">Reproduce</a>
@@ -26,13 +27,17 @@
 
 ## The Experiment
 
-Two AI approaches. Same prediction problem. One winner — then an automated research loop that made the winner even better.
+Four AI approaches. Same prediction problem. Each with different trade-offs — and the winner came from an automated research loop that designed its own architecture.
 
-**Approach A — XGBoost (Traditional ML):** Feed structured player stats into a gradient-boosted decision tree. Fast, proven, and the industry standard for tabular prediction tasks.
+**Approach 1 — XGBoost (Traditional ML):** Feed structured player stats into a gradient-boosted decision tree. Fast, proven, and the industry standard for tabular prediction tasks.
 
-**Approach B — Fine-Tuned LLM (Llama 3.2 3B):** Take an open-source language model, fine-tune it with LoRA on natural language descriptions of player stats, and ask it to predict points. Runs entirely on a Mac Mini M4 using Apple's MLX framework — no cloud GPU needed.
+**Approach 2 — Auto-Research XGBoost (AI-Designed):** An automated experimentation loop where Claude Code acts as the researcher — proposing changes, testing them, and only keeping improvements. Discovered a two-stage architecture (classifier + regressor) that beat the hand-tuned original. 76 experiments, 12 committed improvements.
 
-The question isn't just "which is more accurate?" It's: **when does an LLM add value over traditional ML, and what are the real-world trade-offs?**
+**Approach 3 — Fine-Tuned LLM (Llama 3.2 3B):** Take an open-source language model, fine-tune it with LoRA on natural language descriptions of player stats, and ask it to predict points. Runs entirely on a Mac Mini M4 using Apple's MLX framework — no cloud GPU needed.
+
+**Approach 4 — Claude Haiku (API-Based LLM):** Send player stats and other models' predictions to Claude Haiku via the Anthropic API. No fine-tuning — just prompt engineering with structured context. Provides an independent third-party signal plus natural language reasoning for each prediction.
+
+The question isn't just "which is more accurate?" It's: **when does each approach add value, and what are the real-world trade-offs?**
 
 ## How It Works
 
@@ -57,24 +62,25 @@ All rolling features are computed using only **prior gameweeks** — no future d
                               │   training examples         │
                               └──────────┬──────────────────┘
                                          │
-                          ┌──────────────┴──────────────┐
-                          ▼                             ▼
-                 ┌─────────────────┐          ┌─────────────────┐
-                 │    XGBoost      │          │  Llama 3.2 3B   │
-                 │                 │          │  + LoRA adapter  │
-                 │  Tabular CSV    │          │                 │
-                 │  → Regression   │          │  Chat prompts   │
-                 │                 │          │  → Integer pred  │
-                 └────────┬────────┘          └────────┬────────┘
-                          │                            │
-                          └──────────┬─────────────────┘
-                                     ▼
-                          ┌─────────────────────┐
-                          │  Evaluation Harness  │
-                          │  MAE, RMSE, ±1/±3   │
-                          │  Category breakdown  │
-                          │  Regression detect   │
-                          └─────────────────────┘
+              ┌──────────────┬───────────┴──────────┬──────────────┐
+              ▼              ▼                      ▼              ▼
+     ┌──────────────┐ ┌──────────────┐   ┌──────────────┐ ┌──────────────┐
+     │   XGBoost    │ │ Auto-Research│   │ Llama 3.2 3B │ │ Claude Haiku │
+     │  (original)  │ │   XGBoost   │   │ + LoRA v3    │ │  (API)       │
+     │              │ │              │   │              │ │              │
+     │ Single       │ │ Classifier + │   │ Chat prompts │ │ Structured   │
+     │ regressor    │ │ Regressor    │   │ → Int pred   │ │ prompt +     │
+     │              │ │ (2-stage)    │   │ → Smoothed   │ │ reasoning    │
+     └──────┬───────┘ └──────┬───────┘   └──────┬───────┘ └──────┬───────┘
+            │                │                   │                │
+            └────────┬───────┴───────────┬───────┘                │
+                     │                   └────────────────┬───────┘
+                     ▼                                    ▼
+           ┌─────────────────────┐              ┌──────────────────┐
+           │  Evaluation Harness │              │  Combined Value  │
+           │  MAE, RMSE, ±1/±3  │              │  Score (avg of   │
+           │  Category breakdown │              │  all 4 models)   │
+           └─────────────────────┘              └──────────────────┘
 ```
 
 ### Evaluation Framework
@@ -102,7 +108,10 @@ Evaluated on 243 player-gameweeks from GW31+ (held-out test set):
 | Few-Shot LLM (3 examples) | 2.16 | 3.32 | 55.6% | 76.1% | 370s |
 | Chain-of-Thought LLM | 2.20 | 3.60 | 60.1% | 73.7% | 845s |
 | Fine-Tuned LLM v3 | 3.35 | 4.46 | 39.1% | 65.8% | 148s |
+| Claude Haiku (API) | — | — | — | — | ~60s |
 | Zero-Shot LLM (baseline) | 11.54 | 14.22 | 2.1% | 10.3% | 133s |
+
+> **Note:** Claude Haiku eval metrics are not directly comparable as it receives other models' predictions as context. Its value is as an independent signal with natural language reasoning, not as a standalone predictor.
 
 **XGBoost by position:**
 
@@ -117,10 +126,11 @@ Evaluated on 243 player-gameweeks from GW31+ (held-out test set):
   MAE comparison (lower is better)
   ─────────────────────────────────────────────────────────
 
-  XGBoost (auto)   ████████████████████ 1.90  <-- winner
+  Auto-Research    ████████████████████ 1.90  <-- winner (AI-designed)
   XGBoost (orig)   ██████████████████████ 2.11
   Few-Shot LLM     ██████████████████████▌ 2.16
   Chain-of-Thought ███████████████████████ 2.20
+  Claude Haiku     (uses other models as context — not standalone)
   Fine-Tuned v3    ███████████████████████████████████▌ 3.35
   Zero-Shot        ████████████████████████████████████████████████████████████ 11.54
                    0         2         4         6         8        10        12
@@ -324,8 +334,10 @@ The most unexpected result: giving the base model (no fine-tuning) just **3 exam
 
 **Implication for the "build vs prompt" decision:**
 - If you need **quick, good-enough predictions**: few-shot prompting gets you 97% of XGBoost's accuracy with zero training.
-- If you need **best possible accuracy**: XGBoost wins on MAE and is 370x faster at inference.
+- If you need **best possible accuracy**: Auto-Research XGBoost wins on MAE (1.90) and is 370x faster than any LLM at inference.
 - If you need **player ranking/differentiation**: fine-tuned LLM provides the widest prediction range.
+- If you need **explainability**: Claude Haiku provides natural language reasoning for each prediction.
+- If you want **the most robust signal**: combine all four — the dashboard averages their value scores, and model agreement highlights high-conviction picks.
 
 ---
 
@@ -376,10 +388,13 @@ It also discovered that switching from squared error to absolute error, using sh
 
 | | Original XGBoost | Auto-Research XGBoost |
 |:---|:---|:---|
-| Architecture | Single regressor | Classifier + Regressor |
+| Architecture | Single regressor | Classifier + Regressor (two-stage) |
 | Objective | `reg:squarederror` | `reg:absoluteerror` |
+| Trees | 500 | 1,500 (reg) + 500 (clf) |
 | Tree depth | 6 | 4 (reg) / 2 (clf) |
-| **MAE** | **2.22** | **1.90** (14% better) |
+| Prediction formula | `predict(X)` | `play_prob^1.2 × predict(X)` |
+| **MAE** | **2.22** | **1.90** (14.6% better) |
+| Experiments run | — | 76 (12 improvements committed) |
 
 The full experiment trail is preserved in git history — every commit tagged `[autoresearch]` shows exactly which change caused which improvement.
 
@@ -395,6 +410,23 @@ Three small modules in `autoresearch/`:
 
 ---
 
+## Claude Haiku (API-Based Predictions)
+
+The fourth prediction model uses Claude Haiku via the Anthropic API. Unlike the other models, Claude receives **other models' predictions as context** alongside the player stats — making it a meta-predictor that can synthesise signals from XGBoost and the LLM.
+
+### What Makes It Different
+
+- **No training required** — pure prompt engineering with structured player data
+- **Natural language reasoning** — each prediction comes with an explanation (e.g. "High form at home against a leaky defence, but rotation risk due to midweek fixture")
+- **Independent signal** — trained on different data from the other models, so disagreements are informative
+- **Batch or individual** — can predict 15 players at once or one at a time
+
+### How It Integrates
+
+Claude predictions are generated separately (`python models/predict_claude.py`) and merged into the main predictions CSV. The dashboard shows Claude alongside the other three models, and the combined value score averages all available models.
+
+---
+
 ## Current Progress
 
 - [x] **Phase 1: Data Pipeline** — FPL API fetcher, feature engineering (20 features), prompt generation
@@ -404,7 +436,8 @@ Three small modules in `autoresearch/`:
 - [x] **Phase 5: Comparison Dashboard** — Multi-page Streamlit app with predictions table, fixture lookahead, squad builder, and transfer advisor
 - [x] **Phase 6: Write-Up** — Product assessment, "would I ship this?" brief, build-vs-buy-vs-prompt framework
 - [x] **Phase 7: Notebooks & Docs** — 5 documented Jupyter notebooks covering data exploration, training, fine-tuning, evals, and final comparison
-- [x] **Phase 8: Auto-Research** — Automated experimentation loop using Claude Code. Two-stage classifier+regressor architecture, MAE improved from 2.22 to 1.90 (14% gain)
+- [x] **Phase 8: Auto-Research** — Automated experimentation loop using Claude Code. Two-stage classifier+regressor architecture, 76 experiments, MAE improved from 2.22 to 1.90 (14.6% gain)
+- [x] **Phase 9: Claude Haiku** — API-based predictions with natural language reasoning. Independent signal that enriches the combined value score across all 4 models
 
 ## Project Structure
 
@@ -418,7 +451,8 @@ data/
   raw/                        Raw JSON from FPL API (players, fixtures, teams, gameweeks)
 models/
   train_xgboost.py            XGBoost training script
-  predict_next_gw.py          Next-GW prediction pipeline (XGBoost + LLM + smoothing)
+  predict_next_gw.py          Next-GW prediction pipeline (XGBoost + Auto-Research + LLM)
+  predict_claude.py           Claude Haiku predictions via Anthropic API
   predict_llm.py              LLM evaluation harness (4 strategies)
   xgboost_fpl.json            Pre-trained XGBoost model
   llama-3.2-3b/               Base model (4-bit quantised)
@@ -483,8 +517,11 @@ pip install mlx mlx-lm
 huggingface-cli download mlx-community/Llama-3.2-3B-Instruct-4bit --local-dir models/llama-3.2-3b
 mlx_lm.lora --model models/llama-3.2-3b --data data/mlx --train --iters 600 --adapter-path models/fpl-lora-adapter-v2
 
-# Generate next-GW predictions (both models)
+# Generate next-GW predictions (XGBoost + Auto-Research + LLM)
 python models/predict_next_gw.py
+
+# Add Claude Haiku predictions (requires ANTHROPIC_API_KEY)
+python models/predict_claude.py
 
 # Launch the dashboard
 streamlit run ui/app.py
@@ -494,11 +531,11 @@ streamlit run ui/app.py
 
 The Streamlit dashboard has two pages:
 
-**Predictions** — The main page with a sortable/filterable table showing XGBoost and LLM predictions for all 344 players. Includes next 2 fixtures with fixture difficulty ratings, confidence progress bars, player deep dive, and model agreement analysis.
+**Predictions** — The main page with a sortable/filterable table showing all 4 models' predictions for 344 players. Includes a model filter toggle, next 2 fixtures with difficulty ratings, player deep dive with per-model cards, and model agreement/disagreement analysis across all selected models.
 
 **My Team** — Build your 15-player FPL squad and get transfer recommendations. Features squad validation (position limits, max 3 per team, 100m budget), auto-picked starting XI, and a multi-transfer planner with four strategy tabs:
-- **Safe** — High confidence from both models
-- **Differential** — High points, lower confidence (risk/reward)
+- **Safe** — High average confidence across all models
+- **Differential** — High predicted points but lower confidence (risk/reward)
 - **Form** — Players trending up in recent gameweeks
 - **Fixture** — Easiest upcoming fixtures
 
@@ -518,7 +555,8 @@ The Streamlit dashboard has two pages:
 |:---|:---|
 | **MLX + mlx-lm** | Local LLM fine-tuning and inference on Apple Silicon |
 | **Llama 3.2 3B** | Base model for fine-tuning (4-bit quantised, ~2GB) |
-| **XGBoost** | Traditional ML baseline + auto-research optimised model |
+| **XGBoost** | Traditional ML baseline + auto-research optimised two-stage model |
+| **Claude Haiku** | API-based predictions with natural language reasoning |
 | **Claude Code** | Automated research loop — proposes, tests, and commits model improvements |
 | **FPL API** | Free, public source for all player and fixture data |
 | **Streamlit** | Comparison dashboard |
