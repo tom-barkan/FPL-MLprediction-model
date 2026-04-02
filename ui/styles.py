@@ -123,10 +123,20 @@ CSS = """
         flex: 1;
         box-shadow: 0 2px 8px rgba(55,0,60,0.06);
         transition: box-shadow 0.2s;
-        min-height: 105px;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+    /* Force Streamlit column containers to equal height */
+    [data-testid="stHorizontalBlock"] {
+        align-items: stretch;
+    }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div {
+        height: 100%;
+    }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div {
+        height: 100%;
     }
     .metric-card:hover {
         box-shadow: 0 4px 16px rgba(55,0,60,0.12);
