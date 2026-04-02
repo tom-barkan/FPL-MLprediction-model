@@ -42,17 +42,6 @@ TEAM_COLORS = {
 CSS = """
 <style>
     /* ---- Global ---- */
-    /* Make header transparent — removes white bar but keeps toggle button */
-    [data-testid="stHeader"] {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        pointer-events: none;
-    }
-    /* Re-enable clicks on the sidebar toggle inside the header */
-    [data-testid="stHeader"] [data-testid="collapsedControl"] {
-        pointer-events: auto;
-    }
     .block-container {
         padding-top: 1rem;
     }
@@ -123,22 +112,6 @@ CSS = """
         flex: 1;
         box-shadow: 0 2px 8px rgba(55,0,60,0.06);
         transition: box-shadow 0.2s;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    /* Force Streamlit column containers to equal height */
-    [data-testid="stHorizontalBlock"] {
-        align-items: stretch !important;
-    }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] {
-        height: auto !important;
-    }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div,
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div,
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"] > div > div > div {
-        height: 100% !important;
     }
     .metric-card:hover {
         box-shadow: 0 4px 16px rgba(55,0,60,0.12);
@@ -408,57 +381,6 @@ CSS = """
         margin-bottom: 12px;
     }
 
-    /* ---- Floating sidebar toggle button ---- */
-    /* Position Streamlit's open-sidebar button behind our hamburger — invisible but clickable */
-    [data-testid="collapsedControl"] {
-        position: fixed !important;
-        top: 12px !important;
-        left: 12px !important;
-        z-index: 1000000 !important;
-        width: 44px !important;
-        height: 44px !important;
-        opacity: 0 !important;
-    }
-    /* Hide the close button inside the sidebar */
-    [data-testid="stSidebar"] [data-testid="stBaseButton-header"] {
-        display: none !important;
-    }
-    /* Custom hamburger button */
-    .hamburger-btn {
-        position: fixed;
-        top: 12px;
-        left: 12px;
-        z-index: 999999;
-        width: 44px;
-        height: 44px;
-        background: #4a0e50;
-        border-radius: 50%;
-        border: none;
-        box-shadow: 0 2px 12px rgba(55,0,60,0.35);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none;
-    }
-    .hamburger-btn .bar {
-        width: 20px;
-        height: 2px;
-        background: white;
-        border-radius: 1px;
-        position: relative;
-    }
-    .hamburger-btn .bar::before,
-    .hamburger-btn .bar::after {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 2px;
-        background: white;
-        border-radius: 1px;
-        left: 0;
-    }
-    .hamburger-btn .bar::before { top: -6px; }
-    .hamburger-btn .bar::after { top: 6px; }
 
     /* ---- Footer ---- */
     .fpl-footer {
