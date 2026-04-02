@@ -41,27 +41,8 @@ def run():
     # ---- Check if Claude predictions exist ----
     has_claude = "claude_predicted_pts" in df.columns and df["claude_predicted_pts"].notna().any()
 
-    # ---- Summary Metric Cards ----
-    total_players = len(df)
-    model_cols = ["xgb_predicted_pts", "llm_predicted_pts"]
-    if has_claude:
-        model_cols.append("claude_predicted_pts")
-    avg_pts = df[model_cols].mean(axis=1).mean()
-    top_player = df.loc[df["combined_value_score"].idxmax()]
-    agreement = (abs(df["xgb_predicted_pts"] - df["llm_predicted_pts"]) < 1.0).mean() * 100
-
-    cols = st.columns(4)
-    with cols[0]:
-        st.markdown(metric_card_html("Players Analyzed", total_players), unsafe_allow_html=True)
-    with cols[1]:
-        st.markdown(metric_card_html("Avg Predicted Pts", f"{avg_pts:.1f}"), unsafe_allow_html=True)
-    with cols[2]:
-        st.markdown(
-            metric_card_html("Top Pick", f"{top_player['player_name']}", sub=f"{top_player['combined_value_score']:.2f} value"),
-            unsafe_allow_html=True,
-        )
-    with cols[3]:
-        st.markdown(metric_card_html("Model Agreement", f"{agreement:.1f}%", sub="within 1.0 pts"), unsafe_allow_html=True)
+    # Metric cards placeholder — rendered after model filter is known
+    metric_cards_spot = st.container()
 
     # ---- Filter Bar ----
     all_positions = ["GK", "DEF", "MID", "FWD"]
@@ -91,22 +72,68 @@ def run():
     with fc5:
         home_away = st.radio("Fixture", ["All", "Home", "Away"], horizontal=True)
 
-    # Sort control
-    sort_col1, sort_col2 = st.columns([2, 7])
-    with sort_col1:
-        sort_options = [
-            "Combined Value Score",
-            "XGBoost Predicted Points",
-            "LLM Predicted Points",
-            "XGBoost Confidence",
-            "LLM Confidence",
-            "Price (low to high)",
-            "Form (3GW)",
-        ]
+    # Model filter and Sort control
+    mf_col, sort_col1, sort_col2 = st.columns([2, 2, 5])
+    with mf_col:
+        all_models = ["XGBoost", "LLM"]
         if has_claude:
-            sort_options.insert(3, "Claude Predicted Points")
-            sort_options.insert(6, "Claude Confidence")
+            all_models.append("Claude")
+        selected_models = st.multiselect("Models", options=all_models, default=all_models)
+    with sort_col1:
+        sort_options = ["Combined Value Score", "Price (low to high)", "Form (3GW)"]
+        if "XGBoost" in selected_models:
+            sort_options.insert(1, "XGBoost Predicted Points")
+            sort_options.append("XGBoost Confidence")
+        if "LLM" in selected_models:
+            idx = sort_options.index("Price (low to high)")
+            sort_options.insert(idx, "LLM Predicted Points")
+            sort_options.append("LLM Confidence")
+        if "Claude" in selected_models:
+            idx = sort_options.index("Price (low to high)")
+            sort_options.insert(idx, "Claude Predicted Points")
+            sort_options.append("Claude Confidence")
         sort_by = st.selectbox("Sort by", options=sort_options)
+
+    # ---- Recalculate combined value score based on selected models ----
+    MODEL_MAP = {
+        "XGBoost": ("xgb_value_score", "xgb_predicted_pts", "xgb_confidence"),
+        "LLM": ("llm_value_score", "llm_predicted_pts", "llm_confidence"),
+        "Claude": ("claude_value_score", "claude_predicted_pts", "claude_confidence"),
+    }
+
+    if selected_models:
+        value_cols = [MODEL_MAP[m][0] for m in selected_models if MODEL_MAP[m][0] in df.columns]
+        if value_cols:
+            df["combined_value_score"] = df[value_cols].mean(axis=1).round(2)
+
+    # ---- Render Metric Cards (into the placeholder above filters) ----
+    with metric_cards_spot:
+        pts_cols = [MODEL_MAP[m][1] for m in selected_models if MODEL_MAP[m][1] in df.columns]
+        avg_pts = df[pts_cols].mean(axis=1).mean() if pts_cols else 0
+        top_player = df.loc[df["combined_value_score"].idxmax()]
+
+        # Agreement: only if 2+ models selected
+        if len(pts_cols) >= 2:
+            from itertools import combinations
+            diffs = [abs(df[a] - df[b]) for a, b in combinations(pts_cols, 2)]
+            agreement = (sum(d < 1.0 for d in diffs) / len(diffs)).mean() * 100
+            agreement_sub = "within 1.0 pts"
+        else:
+            agreement = 100.0
+            agreement_sub = "single model"
+
+        cols = st.columns(4)
+        with cols[0]:
+            st.markdown(metric_card_html("Players Analyzed", len(df)), unsafe_allow_html=True)
+        with cols[1]:
+            st.markdown(metric_card_html("Avg Predicted Pts", f"{avg_pts:.1f}"), unsafe_allow_html=True)
+        with cols[2]:
+            st.markdown(
+                metric_card_html("Top Pick", f"{top_player['player_name']}", sub=f"{top_player['combined_value_score']:.2f} value"),
+                unsafe_allow_html=True,
+            )
+        with cols[3]:
+            st.markdown(metric_card_html("Model Agreement", f"{agreement:.1f}%", sub=agreement_sub), unsafe_allow_html=True)
 
     # ---- FDR Legend Strip ----
     st.markdown(fdr_legend_html(), unsafe_allow_html=True)
@@ -120,10 +147,13 @@ def run():
     filtered = filtered[
         (filtered["price"] >= price_range[0]) & (filtered["price"] <= price_range[1])
     ]
-    conf_mask = (filtered["xgb_confidence"] >= min_confidence) | (filtered["llm_confidence"] >= min_confidence)
-    if has_claude:
-        conf_mask = conf_mask | (filtered["claude_confidence"] >= min_confidence)
-    filtered = filtered[conf_mask]
+
+    # Confidence filter: pass if ANY selected model meets threshold
+    if selected_models:
+        conf_cols = [MODEL_MAP[m][2] for m in selected_models if MODEL_MAP[m][2] in filtered.columns]
+        if conf_cols:
+            conf_mask = filtered[conf_cols].ge(min_confidence).any(axis=1)
+            filtered = filtered[conf_mask]
 
     if home_away == "Home":
         filtered = filtered[filtered["was_home"] == 1]
@@ -162,20 +192,23 @@ def run():
     gw_col = f"GW{gw}"
     gw2_col = f"GW{gw + 1}"
 
+    # Build table columns dynamically based on selected models
     table_cols = [
         "photo_url", "player_name", "position", "team_name", "price",
         "last_3_pts", gw_col, gw2_col, "form_3gw", "avg_minutes_3gw",
-        "xgb_predicted_pts", "xgb_confidence",
-        "llm_predicted_pts", "llm_confidence",
     ]
     col_names = [
         "Photo", "Player", "Pos", "Team", "Price",
         "Last 3 GW", gw_col, gw2_col, "Form", "Mins",
-        "XGB Pts", "XGB Conf",
-        "LLM Pts", "LLM Conf",
     ]
 
-    if has_claude:
+    if "XGBoost" in selected_models:
+        table_cols.extend(["xgb_predicted_pts", "xgb_confidence"])
+        col_names.extend(["XGB Pts", "XGB Conf"])
+    if "LLM" in selected_models:
+        table_cols.extend(["llm_predicted_pts", "llm_confidence"])
+        col_names.extend(["LLM Pts", "LLM Conf"])
+    if "Claude" in selected_models and has_claude:
         table_cols.extend(["claude_predicted_pts", "claude_confidence"])
         col_names.extend(["Claude Pts", "Claude Conf"])
 
@@ -185,10 +218,12 @@ def run():
     display_df = filtered[table_cols].copy()
     display_df.columns = col_names
 
-    # Format confidence as "XX%" strings for cleaner display
-    display_df["XGB Conf"] = display_df["XGB Conf"].apply(lambda x: f"{int(x)}%")
-    display_df["LLM Conf"] = display_df["LLM Conf"].apply(lambda x: f"{int(x)}%")
-    if has_claude:
+    # Format confidence as "XX%" strings
+    if "XGB Conf" in display_df.columns:
+        display_df["XGB Conf"] = display_df["XGB Conf"].apply(lambda x: f"{int(x)}%")
+    if "LLM Conf" in display_df.columns:
+        display_df["LLM Conf"] = display_df["LLM Conf"].apply(lambda x: f"{int(x)}%")
+    if "Claude Conf" in display_df.columns:
         display_df["Claude Conf"] = display_df["Claude Conf"].apply(lambda x: f"{int(x)}%")
 
     col_config = {
@@ -196,11 +231,13 @@ def run():
         "Price": st.column_config.NumberColumn("Price", format="£%.1f"),
         "Form": st.column_config.NumberColumn("Form", format="%.1f"),
         "Mins": st.column_config.NumberColumn("Mins", format="%d"),
-        "XGB Pts": st.column_config.NumberColumn("XGB Pts", format="%.1f"),
-        "LLM Pts": st.column_config.NumberColumn("LLM Pts", format="%.1f"),
         "Value": st.column_config.NumberColumn("Value", format="%.2f"),
     }
-    if has_claude:
+    if "XGB Pts" in display_df.columns:
+        col_config["XGB Pts"] = st.column_config.NumberColumn("XGB Pts", format="%.1f")
+    if "LLM Pts" in display_df.columns:
+        col_config["LLM Pts"] = st.column_config.NumberColumn("LLM Pts", format="%.1f")
+    if "Claude Pts" in display_df.columns:
         col_config["Claude Pts"] = st.column_config.NumberColumn("Claude Pts", format="%.1f")
 
     st.dataframe(
