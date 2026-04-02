@@ -398,22 +398,38 @@ CSS = """
         top: 12px;
         left: 12px;
         z-index: 999999 !important;
-        background: #37003c !important;
+        background: #4a0e50 !important;
         border-radius: 50% !important;
         width: 44px !important;
         height: 44px !important;
         display: flex !important;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 12px rgba(55,0,60,0.3);
-        border: 2px solid #00ff87 !important;
+        box-shadow: 0 2px 12px rgba(55,0,60,0.35);
+        border: none !important;
     }
-    [data-testid="collapsedControl"] button {
-        color: #00ff87 !important;
-    }
+    /* Hide default Streamlit arrow icon */
     [data-testid="collapsedControl"] svg {
-        fill: #00ff87 !important;
-        stroke: #00ff87 !important;
+        display: none !important;
+    }
+    /* Classic hamburger icon */
+    [data-testid="collapsedControl"] button {
+        color: white !important;
+        position: relative;
+        width: 44px;
+        height: 44px;
+    }
+    [data-testid="collapsedControl"] button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 2px;
+        background: white;
+        box-shadow: 0 -6px 0 white, 0 6px 0 white;
+        border-radius: 1px;
     }
 
     /* ---- Footer ---- */
