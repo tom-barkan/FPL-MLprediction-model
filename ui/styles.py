@@ -381,6 +381,58 @@ CSS = """
         margin-bottom: 12px;
     }
 
+    /* ---- Mobile Bottom Nav ---- */
+    .mobile-nav {
+        display: none;
+    }
+    @media (max-width: 768px) {
+        /* Hide sidebar toggle on mobile */
+        [data-testid="collapsedControl"] {
+            display: none !important;
+        }
+        /* Add bottom padding so content isn't hidden behind nav */
+        .block-container {
+            padding-bottom: 70px !important;
+        }
+        .mobile-nav {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999999;
+            background: #37003c;
+            border-top: 2px solid #00ff87;
+            padding: 0;
+            justify-content: stretch;
+        }
+        .mobile-nav a {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.72em;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: color 0.15s, background 0.15s;
+        }
+        .mobile-nav a:hover {
+            color: #fff;
+        }
+        .mobile-nav a.active {
+            color: #00ff87;
+            background: rgba(0,255,135,0.1);
+        }
+        .mobile-nav a .nav-icon {
+            font-size: 1.6em;
+            margin-bottom: 2px;
+        }
+    }
+
     /* ---- Footer ---- */
     .fpl-footer {
         text-align: center;

@@ -35,4 +35,29 @@ predictions_page = st.Page("pages/1_Predictions.py", title="Predictions", icon="
 my_team_page = st.Page("pages/2_My_Team.py", title="My Team", icon="\u26bd")
 
 pg = st.navigation([predictions_page, my_team_page])
+
+# Mobile bottom tab bar — highlights current page via JS
+st.markdown("""
+<div class="mobile-nav" id="mobile-nav">
+    <a href="/Predictions" id="nav-predictions">
+        <span class="nav-icon">📊</span>Predictions
+    </a>
+    <a href="/My_Team" id="nav-my-team">
+        <span class="nav-icon">⚽</span>My Team
+    </a>
+</div>
+<script>
+(function() {
+    var path = window.location.pathname;
+    var links = document.querySelectorAll('#mobile-nav a');
+    links.forEach(function(a) {
+        if (path === a.getAttribute('href')
+            || (path === '/' && a.getAttribute('href') === '/Predictions')) {
+            a.classList.add('active');
+        }
+    });
+})();
+</script>
+""", unsafe_allow_html=True)
+
 pg.run()
