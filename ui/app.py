@@ -24,11 +24,31 @@ from ui.styles import CSS
 
 st.markdown(CSS, unsafe_allow_html=True)
 
-# Custom hamburger button (visual overlay — clicks pass through to Streamlit's hidden toggle)
+# Custom hamburger button — toggles sidebar via JS
 st.markdown("""
-<div class="hamburger-btn" aria-hidden="true">
+<div class="hamburger-btn" id="hamburger-btn" onclick="toggleSidebar()">
     <div class="bar"></div>
 </div>
+<script>
+function toggleSidebar() {
+    // Try clicking Streamlit's own hidden toggle buttons
+    var openBtn = document.querySelector('[data-testid="collapsedControl"] button');
+    var closeBtn = document.querySelector('[data-testid="stSidebar"] button[kind="header"]')
+        || document.querySelector('[data-testid="stSidebarCollapseButton"] button')
+        || document.querySelector('[data-testid="stSidebar"] > div:first-child > button');
+
+    // Temporarily make them visible to click
+    [openBtn, closeBtn].forEach(function(btn) {
+        if (btn) {
+            btn.style.display = 'block';
+            btn.style.visibility = 'visible';
+            btn.click();
+            btn.style.display = '';
+            btn.style.visibility = '';
+        }
+    });
+}
+</script>
 """, unsafe_allow_html=True)
 
 # Initialize session state for My Team page

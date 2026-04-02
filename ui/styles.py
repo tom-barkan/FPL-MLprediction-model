@@ -409,17 +409,16 @@ CSS = """
     }
 
     /* ---- Floating sidebar toggle button ---- */
-    /* Hide the default Streamlit sidebar toggle completely */
-    [data-testid="collapsedControl"] {
-        opacity: 0 !important;
-        position: fixed !important;
-        top: 12px !important;
-        left: 12px !important;
-        z-index: 1000000 !important;
-        width: 44px !important;
-        height: 44px !important;
+    /* Hide ALL default Streamlit sidebar toggles (open and close) */
+    [data-testid="collapsedControl"],
+    [data-testid="stSidebar"] button[kind="header"],
+    [data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+    [data-testid="stSidebarCollapse"],
+    [data-testid="stSidebar"] > div:first-child > button {
+        display: none !important;
+        visibility: hidden !important;
     }
-    /* Custom hamburger button overlay */
+    /* Custom hamburger button */
     .hamburger-btn {
         position: fixed;
         top: 12px;
@@ -435,7 +434,6 @@ CSS = """
         display: flex;
         align-items: center;
         justify-content: center;
-        pointer-events: none;
     }
     .hamburger-btn .bar {
         width: 20px;
