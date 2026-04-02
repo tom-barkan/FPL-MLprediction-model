@@ -215,7 +215,7 @@ def suggestion_card_html(player_in, player_out, fixtures_list=None):
 
 def metric_card_html(label, value, sub=""):
     """Render a summary metric card."""
-    sub_html = f'<div class="sub">{sub}</div>' if sub else ""
+    sub_html = f'<div class="sub">{sub if sub else "&nbsp;"}</div>'
     return (
         f'<div class="metric-card">'
         f'<div class="label">{label}</div>'

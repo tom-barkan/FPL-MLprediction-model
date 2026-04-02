@@ -24,6 +24,13 @@ from ui.styles import CSS
 
 st.markdown(CSS, unsafe_allow_html=True)
 
+# Custom hamburger button (visual overlay — clicks pass through to Streamlit's hidden toggle)
+st.markdown("""
+<div class="hamburger-btn" aria-hidden="true">
+    <div class="bar"></div>
+</div>
+""", unsafe_allow_html=True)
+
 # Initialize session state for My Team page
 if "squad" not in st.session_state:
     st.session_state.squad = []

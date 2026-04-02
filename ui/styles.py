@@ -409,63 +409,53 @@ CSS = """
     }
 
     /* ---- Floating sidebar toggle button ---- */
+    /* Hide the default Streamlit sidebar toggle completely */
     [data-testid="collapsedControl"] {
+        opacity: 0 !important;
         position: fixed !important;
         top: 12px !important;
         left: 12px !important;
-        z-index: 999999 !important;
-        background: #4a0e50 !important;
-        border-radius: 50% !important;
+        z-index: 1000000 !important;
         width: 44px !important;
         height: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        min-height: 44px !important;
-        max-height: 44px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: 0 2px 12px rgba(55,0,60,0.35) !important;
-        border: none !important;
-        padding: 0 !important;
-        overflow: hidden !important;
     }
-    /* Hide ALL default icons/text inside the toggle */
-    [data-testid="collapsedControl"] svg,
-    [data-testid="collapsedControl"] span,
-    [data-testid="collapsedControl"] p,
-    [data-testid="collapsedControl"] i {
-        display: none !important;
-        visibility: hidden !important;
+    /* Custom hamburger button overlay */
+    .hamburger-btn {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 999999;
+        width: 44px;
+        height: 44px;
+        background: #4a0e50;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 12px rgba(55,0,60,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
     }
-    /* Style the button itself */
-    [data-testid="collapsedControl"] button,
-    [data-testid="collapsedControl"] > div,
-    [data-testid="collapsedControl"] [kind="header"] {
-        background: transparent !important;
-        border: none !important;
-        color: transparent !important;
-        width: 44px !important;
-        height: 44px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        position: relative !important;
-        cursor: pointer !important;
+    .hamburger-btn .bar {
+        width: 20px;
+        height: 2px;
+        background: white;
+        border-radius: 1px;
+        position: relative;
     }
-    /* Hamburger icon via pseudo-element */
-    [data-testid="collapsedControl"] button::before,
-    [data-testid="collapsedControl"] > div::before {
-        content: '' !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 20px !important;
-        height: 2px !important;
-        background: white !important;
-        box-shadow: 0 -6px 0 white, 0 6px 0 white !important;
-        border-radius: 1px !important;
+    .hamburger-btn .bar::before,
+    .hamburger-btn .bar::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background: white;
+        border-radius: 1px;
+        left: 0;
     }
+    .hamburger-btn .bar::before { top: -6px; }
+    .hamburger-btn .bar::after { top: 6px; }
 
     /* ---- Footer ---- */
     .fpl-footer {
