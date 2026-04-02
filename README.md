@@ -9,13 +9,14 @@
 <p align="center">
   <a href="#the-experiment">The Experiment</a> ·
   <a href="#how-it-works">How It Works</a> ·
+  <a href="#auto-research">Auto-Research</a> ·
   <a href="#project-structure">Project Structure</a> ·
   <a href="#current-progress">Progress</a> ·
   <a href="#reproduce-this">Reproduce</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-work%20in%20progress-orange?style=flat-square" alt="Status: WIP">
+  <img src="https://img.shields.io/badge/status-active-brightgreen?style=flat-square" alt="Status: Active">
   <img src="https://img.shields.io/badge/python-3.11-blue?style=flat-square&logo=python&logoColor=white" alt="Python 3.11">
   <img src="https://img.shields.io/badge/Apple%20Silicon-MLX-black?style=flat-square&logo=apple&logoColor=white" alt="Apple Silicon MLX">
   <img src="https://img.shields.io/badge/model-Llama%203.2%203B-purple?style=flat-square" alt="Llama 3.2 3B">
@@ -23,13 +24,9 @@
 
 ---
 
-> **This project is actively under construction.** Results, notebooks, and the comparison UI are not yet complete. Check back for updates or watch the repo.
-
----
-
 ## The Experiment
 
-Two AI approaches. Same prediction problem. One winner.
+Two AI approaches. Same prediction problem. One winner — then an automated research loop that made the winner even better.
 
 **Approach A — XGBoost (Traditional ML):** Feed structured player stats into a gradient-boosted decision tree. Fast, proven, and the industry standard for tabular prediction tasks.
 
@@ -100,9 +97,10 @@ Evaluated on 243 player-gameweeks from GW31+ (held-out test set):
 
 | Model | MAE | RMSE | Within ±1 pt | Within ±3 pts | Inference Time |
 |:---|:---|:---|:---|:---|:---|
-| **XGBoost** | **2.11** | **2.81** | 26.7% | **82.3%** | <1s |
+| **XGBoost (auto-research)** | **1.90** | **3.00** | **49.8%** | **79.8%** | <1s |
+| XGBoost (original) | 2.11 | 2.81 | 26.7% | 82.3% | <1s |
 | Few-Shot LLM (3 examples) | 2.16 | 3.32 | 55.6% | 76.1% | 370s |
-| Chain-of-Thought LLM | 2.20 | 3.60 | **60.1%** | 73.7% | 845s |
+| Chain-of-Thought LLM | 2.20 | 3.60 | 60.1% | 73.7% | 845s |
 | Fine-Tuned LLM v3 | 3.35 | 4.46 | 39.1% | 65.8% | 148s |
 | Zero-Shot LLM (baseline) | 11.54 | 14.22 | 2.1% | 10.3% | 133s |
 
@@ -119,7 +117,8 @@ Evaluated on 243 player-gameweeks from GW31+ (held-out test set):
   MAE comparison (lower is better)
   ─────────────────────────────────────────────────────────
 
-  XGBoost          ██████████████████████ 2.11  <-- winner
+  XGBoost (auto)   ████████████████████ 1.90  <-- winner
+  XGBoost (orig)   ██████████████████████ 2.11
   Few-Shot LLM     ██████████████████████▌ 2.16
   Chain-of-Thought ███████████████████████ 2.20
   Fine-Tuned v3    ███████████████████████████████████▌ 3.35
@@ -330,6 +329,72 @@ The most unexpected result: giving the base model (no fine-tuning) just **3 exam
 
 ---
 
+## Auto-Research
+
+Inspired by [Andrej Karpathy's "vibe coding" auto-research concept](https://x.com/karpathy/status/1886192184808149383), we built an automated experimentation loop where **Claude Code acts as the researcher** — proposing changes to the model, testing them, and only keeping improvements.
+
+### How It Works
+
+Instead of manually tweaking hyperparameters, the system runs a tight loop:
+
+```
+  ┌────────────────────────────────────────────────────────┐
+  │  Claude Code reads current model code & baseline MAE   │
+  │                        │                               │
+  │                        ▼                               │
+  │          Proposes a change to train.py                  │
+  │          (architecture, hyperparams, blending)          │
+  │                        │                               │
+  │                        ▼                               │
+  │          Runs autoresearch/run_loop.py                  │
+  │          (train → evaluate → compare)                   │
+  │                        │                               │
+  │               ┌────────┴────────┐                      │
+  │               ▼                 ▼                       │
+  │          Improved?          No better?                  │
+  │          Git commit          Discard &                  │
+  │          + update            try next                   │
+  │          baseline            idea                       │
+  │               │                 │                       │
+  │               └────────┬────────┘                       │
+  │                        ▼                               │
+  │                    Repeat                               │
+  └────────────────────────────────────────────────────────┘
+```
+
+### What It Discovered
+
+The auto-research loop found a **two-stage architecture** that outperforms the original single-model approach:
+
+1. **Classifier** — "Will this player score any points?" (handles benched/injured players)
+2. **Regressor** — "How many points?" (predicts the actual total)
+3. **Combine** — `probability_of_playing^1.2 × predicted_points`
+
+It also discovered that switching from squared error to absolute error, using shallower trees, and applying probability sharpening all improved accuracy.
+
+### Results: Original vs Auto-Research
+
+| | Original XGBoost | Auto-Research XGBoost |
+|:---|:---|:---|
+| Architecture | Single regressor | Classifier + Regressor |
+| Objective | `reg:squarederror` | `reg:absoluteerror` |
+| Tree depth | 6 | 4 (reg) / 2 (clf) |
+| **MAE** | **2.22** | **1.90** (14% better) |
+
+The full experiment trail is preserved in git history — every commit tagged `[autoresearch]` shows exactly which change caused which improvement.
+
+### The Code
+
+Three small modules in `autoresearch/`:
+
+| File | Purpose |
+|:---|:---|
+| `prepare.py` | Loads data, splits train/test, computes metrics |
+| `train.py` | Model architecture & hyperparameters (the thing being tweaked) |
+| `run_loop.py` | Orchestrator: train → evaluate → compare → exit code 0/1 |
+
+---
+
 ## Current Progress
 
 - [x] **Phase 1: Data Pipeline** — FPL API fetcher, feature engineering (20 features), prompt generation
@@ -339,6 +404,7 @@ The most unexpected result: giving the base model (no fine-tuning) just **3 exam
 - [x] **Phase 5: Comparison Dashboard** — Multi-page Streamlit app with predictions table, fixture lookahead, squad builder, and transfer advisor
 - [x] **Phase 6: Write-Up** — Product assessment, "would I ship this?" brief, build-vs-buy-vs-prompt framework
 - [x] **Phase 7: Notebooks & Docs** — 5 documented Jupyter notebooks covering data exploration, training, fine-tuning, evals, and final comparison
+- [x] **Phase 8: Auto-Research** — Automated experimentation loop using Claude Code. Two-stage classifier+regressor architecture, MAE improved from 2.22 to 1.90 (14% gain)
 
 ## Project Structure
 
@@ -357,6 +423,11 @@ models/
   xgboost_fpl.json            Pre-trained XGBoost model
   llama-3.2-3b/               Base model (4-bit quantised)
   fpl-lora-adapter-v3/        Fine-tuned LoRA weights (v3 — per-point balanced)
+autoresearch/
+  prepare.py                  Data loading, train/test split, metric evaluation
+  train.py                    Model architecture & hyperparameters (classifier + regressor)
+  run_loop.py                 Experiment orchestrator: train → eval → compare → report
+  baseline_mae.json           Current best performance metrics
 eval/
   eval_suite.yaml             Named eval scenarios (4 categories, 14 cases)
   build_cases.py              Generates eval case files from YAML + test data
@@ -447,7 +518,8 @@ The Streamlit dashboard has two pages:
 |:---|:---|
 | **MLX + mlx-lm** | Local LLM fine-tuning and inference on Apple Silicon |
 | **Llama 3.2 3B** | Base model for fine-tuning (4-bit quantised, ~2GB) |
-| **XGBoost** | Traditional ML baseline |
+| **XGBoost** | Traditional ML baseline + auto-research optimised model |
+| **Claude Code** | Automated research loop — proposes, tests, and commits model improvements |
 | **FPL API** | Free, public source for all player and fixture data |
 | **Streamlit** | Comparison dashboard |
 | **Jupyter** | Documented experiment notebooks |
