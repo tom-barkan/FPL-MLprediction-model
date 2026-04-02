@@ -255,17 +255,22 @@ def run():
     id_to_label = {v: k for k, v in player_options.items()}
     current_labels = [id_to_label[pid] for pid in st.session_state.squad if pid in id_to_label]
 
-    selected_labels = st.multiselect(
+    # Sync session state → widget key before rendering
+    st.session_state.squad_selector = current_labels
+
+    def _on_squad_change():
+        st.session_state.squad = [
+            player_options[label] for label in st.session_state.squad_selector
+        ]
+
+    st.multiselect(
         "Select your 15 players",
         options=sorted(player_options.keys()),
-        default=current_labels,
+        key="squad_selector",
         max_selections=15,
         help="Search by player name. Select up to 15 players (2 GK, 5 DEF, 5 MID, 3 FWD).",
+        on_change=_on_squad_change,
     )
-
-    new_squad = [player_options[label] for label in selected_labels]
-    if new_squad != st.session_state.squad:
-        st.session_state.squad = new_squad
 
     squad_df = get_squad_df(df)
 
