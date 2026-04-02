@@ -16,9 +16,9 @@ PLAYERS_PATH = os.path.join(ROOT, "data", "raw", "players.json")
 HISTORIES_DIR = os.path.join(ROOT, "data", "raw", "player_histories")
 
 
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_predictions():
-    """Load the next-GW predictions CSV."""
+    """Load the next-GW predictions CSV. TTL=60s so new columns appear on refresh."""
     if not os.path.exists(PREDICTIONS_PATH):
         return None
     return pd.read_csv(PREDICTIONS_PATH)
