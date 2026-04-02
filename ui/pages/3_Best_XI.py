@@ -110,6 +110,31 @@ def run():
 </div>
 """, unsafe_allow_html=True)
 
+    # ---- Model selector ----
+    has_claude = "claude_predicted_pts" in df.columns and df["claude_predicted_pts"].notna().any()
+    has_auto_xgb = "auto_xgb_predicted_pts" in df.columns and df["auto_xgb_predicted_pts"].notna().any()
+
+    MODEL_MAP = {
+        "XGBoost": ("xgb_value_score", "xgb_predicted_pts", "xgb_confidence"),
+        "Auto-Research": ("auto_xgb_value_score", "auto_xgb_predicted_pts", "auto_xgb_confidence"),
+        "LLM": ("llm_value_score", "llm_predicted_pts", "llm_confidence"),
+        "Claude": ("claude_value_score", "claude_predicted_pts", "claude_confidence"),
+    }
+
+    all_models = ["XGBoost", "LLM"]
+    if has_auto_xgb:
+        all_models.insert(1, "Auto-Research")
+    if has_claude:
+        all_models.append("Claude")
+
+    selected_models = st.multiselect("Models", options=all_models, default=all_models, key="best_xi_models")
+
+    # Recalculate combined value score based on selected models
+    if selected_models:
+        value_cols = [MODEL_MAP[m][0] for m in selected_models if MODEL_MAP[m][0] in df.columns]
+        if value_cols:
+            df["combined_value_score"] = df[value_cols].mean(axis=1).round(2)
+
     # ---- Pick best XI ----
     xi = pick_best_xi(df)
 
@@ -129,8 +154,8 @@ def run():
     pos_counts = xi["position"].value_counts()
     formation = f"{pos_counts.get('DEF', 0)}-{pos_counts.get('MID', 0)}-{pos_counts.get('FWD', 0)}"
 
-    # Stats
-    pts_cols = [c for c in ["xgb_predicted_pts", "llm_predicted_pts", "auto_xgb_predicted_pts", "claude_predicted_pts"] if c in xi.columns and xi[c].notna().any()]
+    # Stats — only from selected models
+    pts_cols = [MODEL_MAP[m][1] for m in selected_models if MODEL_MAP[m][1] in xi.columns and xi[MODEL_MAP[m][1]].notna().any()]
     total_pts = xi[pts_cols].mean(axis=1).sum() if pts_cols else 0
     total_cost = xi["price"].sum()
     total_value = xi["combined_value_score"].sum()
@@ -185,12 +210,14 @@ def run():
         table_cols = ["player_name", "position", "team_name", "price", "combined_value_score"]
         display_names = ["Player", "Pos", "Team", "Price", "Value"]
 
-        for col_name, display in [
-            ("xgb_predicted_pts", "XGB Pts"),
-            ("auto_xgb_predicted_pts", "Auto Pts"),
-            ("llm_predicted_pts", "LLM Pts"),
-            ("claude_predicted_pts", "Claude Pts"),
-        ]:
+        model_col_display = {
+            "XGBoost": ("xgb_predicted_pts", "XGB Pts"),
+            "Auto-Research": ("auto_xgb_predicted_pts", "Auto Pts"),
+            "LLM": ("llm_predicted_pts", "LLM Pts"),
+            "Claude": ("claude_predicted_pts", "Claude Pts"),
+        }
+        for model in selected_models:
+            col_name, display = model_col_display[model]
             if col_name in xi.columns and xi[col_name].notna().any():
                 table_cols.append(col_name)
                 display_names.append(display)
