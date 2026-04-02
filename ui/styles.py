@@ -42,8 +42,12 @@ TEAM_COLORS = {
 CSS = """
 <style>
     /* ---- Global ---- */
+    /* Hide default Streamlit header bar */
+    [data-testid="stHeader"] {
+        display: none !important;
+    }
     .block-container {
-        padding-top: 1rem;
+        padding-top: 3.5rem;
     }
     .stApp {
         background: #f5f0f7;
@@ -381,55 +385,58 @@ CSS = """
         margin-bottom: 12px;
     }
 
-    /* ---- Mobile Bottom Nav ---- */
-    .mobile-nav {
-        display: none;
+    /* ---- Floating Top Nav ---- */
+    /* Hide sidebar toggle — nav is handled by floating bar */
+    [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+    .floating-nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999999;
+        background: #37003c;
+        border-bottom: 2px solid #00ff87;
+        padding: 0;
+        justify-content: center;
+        gap: 0;
+    }
+    .floating-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 32px;
+        text-decoration: none;
+        color: rgba(255,255,255,0.6);
+        font-size: 0.88em;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: color 0.15s, background 0.15s;
+    }
+    .floating-nav a:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.08);
+    }
+    .floating-nav a.active {
+        color: #00ff87;
+        background: rgba(0,255,135,0.1);
+    }
+    .floating-nav a .nav-icon {
+        font-size: 1.2em;
     }
     @media (max-width: 768px) {
-        /* Hide sidebar toggle on mobile */
-        [data-testid="collapsedControl"] {
-            display: none !important;
-        }
-        /* Add bottom padding so content isn't hidden behind nav */
-        .block-container {
-            padding-bottom: 70px !important;
-        }
-        .mobile-nav {
-            display: flex;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 999999;
-            background: #37003c;
-            border-top: 2px solid #00ff87;
-            padding: 0;
-            justify-content: stretch;
-        }
-        .mobile-nav a {
+        .floating-nav a {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 10px 0;
-            text-decoration: none;
-            color: rgba(255,255,255,0.6);
+            flex-direction: column;
+            gap: 2px;
             font-size: 0.72em;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            transition: color 0.15s, background 0.15s;
         }
-        .mobile-nav a:hover {
-            color: #fff;
-        }
-        .mobile-nav a.active {
-            color: #00ff87;
-            background: rgba(0,255,135,0.1);
-        }
-        .mobile-nav a .nav-icon {
-            font-size: 1.6em;
-            margin-bottom: 2px;
+        .floating-nav a .nav-icon {
+            font-size: 1.5em;
         }
     }
 

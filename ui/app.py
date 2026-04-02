@@ -36,9 +36,9 @@ my_team_page = st.Page("pages/2_My_Team.py", title="My Team", icon="\u26bd")
 
 pg = st.navigation([predictions_page, my_team_page])
 
-# Mobile bottom tab bar — highlights current page via JS
+# Floating top nav bar — visible on all screen sizes, highlights current page
 st.markdown("""
-<div class="mobile-nav" id="mobile-nav">
+<div class="floating-nav" id="floating-nav">
     <a href="/Predictions" id="nav-predictions">
         <span class="nav-icon">📊</span>Predictions
     </a>
@@ -49,7 +49,7 @@ st.markdown("""
 <script>
 (function() {
     var path = window.location.pathname;
-    var links = document.querySelectorAll('#mobile-nav a');
+    var links = document.querySelectorAll('#floating-nav a');
     links.forEach(function(a) {
         if (path === a.getAttribute('href')
             || (path === '/' && a.getAttribute('href') === '/Predictions')) {
