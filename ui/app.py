@@ -40,7 +40,8 @@ if "budget" not in st.session_state:
 # Multi-page navigation
 predictions_page = st.Page("pages/1_Predictions.py", title="Predictions", icon="\U0001f4ca", default=True)
 my_team_page = st.Page("pages/2_My_Team.py", title="My Team", icon="\u26bd")
+best_xi_page = st.Page("pages/3_Best_XI.py", title="Best XI", icon="\U0001f3c6")
 
-pg = st.navigation([predictions_page, my_team_page])
+pg = st.navigation([predictions_page, my_team_page, best_xi_page])
 
 pg.run()

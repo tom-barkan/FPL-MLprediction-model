@@ -556,6 +556,7 @@ CSS = """
         max-width: 108px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.22);
         flex: 0 0 auto;
+        position: relative;
     }
     .pitch-player .pp-photo {
         width: 44px;
@@ -598,6 +599,23 @@ CSS = """
     }
     .pitch-player .pp-fix {
         margin-top: 3px;
+    }
+    .pitch-player .pp-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #37003c;
+        color: #00ff87;
+        font-weight: 800;
+        font-size: 0.7em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #00ff87;
+        z-index: 2;
     }
     .pitch-player .pp-fix .fdr-badge {
         font-size: 0.55em;
