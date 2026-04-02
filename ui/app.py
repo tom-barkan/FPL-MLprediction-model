@@ -24,36 +24,29 @@ from ui.styles import CSS
 
 st.markdown(CSS, unsafe_allow_html=True)
 
-# Custom hamburger button — toggles sidebar via JS
+# Custom hamburger button — toggles sidebar by manipulating DOM directly
 st.markdown("""
-<div class="hamburger-btn" id="hamburger-btn" onclick="toggleSidebar()">
+<div class="hamburger-btn" id="hamburger-btn">
     <div class="bar"></div>
 </div>
 <script>
-function toggleSidebar() {
+document.getElementById('hamburger-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
     var sidebar = document.querySelector('[data-testid="stSidebar"]');
-    var isOpen = sidebar && sidebar.getAttribute('aria-expanded') === 'true';
+    if (!sidebar) return;
+    var isOpen = sidebar.getAttribute('aria-expanded') === 'true';
+    sidebar.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+});
 
-    if (isOpen) {
-        // Find close button inside sidebar
-        var closeBtn = sidebar.querySelector('[data-testid="stBaseButton-header"]')
-            || sidebar.querySelector('button');
-        if (closeBtn) {
-            closeBtn.style.pointerEvents = 'auto';
-            closeBtn.click();
-            closeBtn.style.pointerEvents = '';
-        }
-    } else {
-        // Find open button (collapsed control)
-        var openBtn = document.querySelector('[data-testid="collapsedControl"] button')
-            || document.querySelector('[data-testid="collapsedControl"]');
-        if (openBtn) {
-            openBtn.style.pointerEvents = 'auto';
-            openBtn.click();
-            openBtn.style.pointerEvents = '';
-        }
+// Also close sidebar when clicking the main content area (outside sidebar)
+document.addEventListener('click', function(e) {
+    var sidebar = document.querySelector('[data-testid="stSidebar"]');
+    var hamburger = document.getElementById('hamburger-btn');
+    if (!sidebar || sidebar.getAttribute('aria-expanded') !== 'true') return;
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.setAttribute('aria-expanded', 'false');
     }
-}
+});
 </script>
 """, unsafe_allow_html=True)
 

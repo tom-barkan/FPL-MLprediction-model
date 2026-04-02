@@ -409,18 +409,12 @@ CSS = """
     }
 
     /* ---- Floating sidebar toggle button ---- */
-    /* Make all default Streamlit sidebar toggles invisible but clickable */
+    /* Hide both default Streamlit sidebar toggles completely */
     [data-testid="collapsedControl"] {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
+        display: none !important;
     }
     [data-testid="stSidebar"] [data-testid="stBaseButton-header"] {
-        opacity: 0 !important;
-        position: absolute !important;
-        pointer-events: none !important;
+        display: none !important;
     }
     /* Custom hamburger button */
     .hamburger-btn {
