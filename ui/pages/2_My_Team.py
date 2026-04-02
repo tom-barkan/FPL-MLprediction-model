@@ -178,13 +178,21 @@ def get_transfer_suggestions(df, squad_df, player_out, strategy, gw):
 
     # Apply strategy
     if strategy == "Safe":
-        avg_conf = (candidates["xgb_confidence"] + candidates["llm_confidence"]) / 2
+        conf_cols = ["xgb_confidence", "llm_confidence"]
+        if "auto_xgb_confidence" in candidates.columns:
+            conf_cols.append("auto_xgb_confidence")
+        avg_conf = candidates[conf_cols].mean(axis=1)
         candidates = candidates[avg_conf >= 65]
         candidates = candidates.sort_values("combined_value_score", ascending=False)
 
     elif strategy == "Differential":
-        avg_pts = (candidates["xgb_predicted_pts"] + candidates["llm_predicted_pts"]) / 2
-        avg_conf = (candidates["xgb_confidence"] + candidates["llm_confidence"]) / 2
+        pts_cols = ["xgb_predicted_pts", "llm_predicted_pts"]
+        conf_cols = ["xgb_confidence", "llm_confidence"]
+        if "auto_xgb_predicted_pts" in candidates.columns:
+            pts_cols.append("auto_xgb_predicted_pts")
+            conf_cols.append("auto_xgb_confidence")
+        avg_pts = candidates[pts_cols].mean(axis=1)
+        avg_conf = candidates[conf_cols].mean(axis=1)
         candidates = candidates[(avg_pts >= 3.5) & (avg_conf < 55)]
         candidates = candidates.sort_values("combined_value_score", ascending=False)
 
@@ -323,7 +331,10 @@ def run():
 
             xi_pos = xi_df["position"].value_counts()
             formation = f"{xi_pos.get('DEF', 0)}-{xi_pos.get('MID', 0)}-{xi_pos.get('FWD', 0)}"
-            total_pts = (xi_df["xgb_predicted_pts"] + xi_df["llm_predicted_pts"]).sum() / 2
+            pts_cols = ["xgb_predicted_pts", "llm_predicted_pts"]
+            if "auto_xgb_predicted_pts" in xi_df.columns:
+                pts_cols.append("auto_xgb_predicted_pts")
+            total_pts = xi_df[pts_cols].mean(axis=1).sum()
 
             info_html = (
                 f'<div class="mc-row" style="margin-top:12px;">'
@@ -441,7 +452,7 @@ def run():
     # ---- Footer ----
     st.markdown(
         '<div class="fpl-footer">'
-        "Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) | "
+        "Built with XGBoost + Auto-Research XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) + Claude Haiku | "
         "Data from the FPL API | "
         "Predictions are for educational purposes only"
         "</div>",

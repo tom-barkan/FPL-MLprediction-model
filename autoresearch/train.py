@@ -32,5 +32,4 @@ def predict(model, X_test, feature_cols):
     used_cols = model["_used_cols"]
     play_prob = model["clf"].predict_proba(X_te[used_cols])[:, 1]
     reg_pred = model["reg"].predict(X_te[used_cols])
-    # Sharpen probability: square it to make low probs even lower
     return (play_prob ** 1.2) * reg_pred

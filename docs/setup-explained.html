@@ -1591,8 +1591,8 @@
             <li><strong>Stage 2 &mdash; "How many points?"</strong><br>
             A regressor (number-predicting model) estimates the actual point total, just like the original XGBoost.</li>
 
-            <li><strong>Combine</strong><br>
-            The final prediction multiplies the two together: <code>probability_of_playing &times; predicted_points</code>. This naturally pushes bench players towards zero without penalising starters.</li>
+            <li><strong>Combine with sharpening</strong><br>
+            The final prediction is: <code>probability_of_playing<sup>1.2</sup> &times; predicted_points</code>. Raising the probability to the power of 1.2 "sharpens" it &mdash; players with low participation probability get pushed further towards zero, while confident starters are barely affected. This naturally handles bench players without penalising starters.</li>
         </ol>
 
         <div class="analogy">
@@ -1639,7 +1639,7 @@
             <tr>
                 <td>MAE (accuracy)</td>
                 <td>2.22</td>
-                <td><span class="improvement-badge">1.90</span> (14% better)</td>
+                <td><span class="improvement-badge">1.8994</span> (14.6% better)</td>
             </tr>
         </table>
     </div>
@@ -1652,15 +1652,23 @@
         <p>Because each improvement is committed to git with a standardised message, you can see the entire research trail:</p>
 
         <div class="what-we-typed">
-            <div class="label">Sample commit messages from one session</div>
-[autoresearch] baseline: MAE 2.2243<br>
-[autoresearch] abs error objective: MAE 2.2243 &rarr; 1.9309<br>
-[autoresearch] add classifier + blending: MAE 1.9309 &rarr; 1.9052<br>
+            <div class="label">All 12 successful commits from 76 experiments</div>
+[autoresearch] init: baseline MAE 2.2243<br>
+[autoresearch] objective reg:absoluteerror: MAE 2.2243 &rarr; 1.9309<br>
+[autoresearch] n_estimators 700: MAE 1.9309 &rarr; 1.9223<br>
+[autoresearch] n_estimators 1000: MAE 1.9223 &rarr; 1.9129<br>
+[autoresearch] n_estimators 1500: MAE 1.9129 &rarr; 1.9052<br>
+[autoresearch] two-stage clf+reg model: MAE 1.9052 &rarr; 1.9043<br>
+[autoresearch] softer clf blend (0.8+0.2*p): MAE 1.9043 &rarr; 1.9035<br>
+[autoresearch] blend ratio 0.7+0.3*p: MAE 1.9035 &rarr; 1.9031<br>
+[autoresearch] blend ratio 0.6+0.4*p: MAE 1.9031 &rarr; 1.9028<br>
+[autoresearch] blend ratio 0.5+0.5*p: MAE 1.9028 &rarr; 1.9025<br>
+[autoresearch] pure prob*reg blend: MAE 1.9025 &rarr; 1.9015<br>
 [autoresearch] clf depth 2: MAE 1.9015 &rarr; 1.8996<br>
 [autoresearch] prob^1.2 sharpening: MAE 1.8996 &rarr; 1.8994
         </div>
 
-        <p>Each line is a single experiment. You can see exactly which change caused which improvement, and the model gets better in small, measurable steps.</p>
+        <p>76 experiments were run in total &mdash; only 12 produced improvements and were committed. The other 64 were automatically discarded. Each line is a measurable step forward, and together they form a complete audit trail of how the model evolved.</p>
 
         <div class="real-world">
             <strong>Real-world analogy:</strong> It's like a scientist's lab notebook. Every experiment is dated, described, and the result is recorded. Nothing is lost, and you can always trace back to see why the model ended up the way it did.
@@ -1669,6 +1677,34 @@
 
     <div class="step">
         <div class="step-number auto-step">6</div>
+        <h3>What We Learned (Including What Failed)</h3>
+        <div class="subtitle">The 64 failed experiments are just as instructive as the 12 that worked</div>
+
+        <p>In research, knowing what <em>doesn't</em> work is often more valuable than knowing what does. Here are the key lessons from the full experiment trail:</p>
+
+        <ul>
+            <li><strong>Switching to absolute error was the single biggest win</strong> &mdash; it dropped MAE from 2.22 to 1.93 in one step. The default "squared error" objective penalises big mistakes disproportionately, but for FPL we care about the <em>average</em> mistake, not just avoiding outliers. Changing the loss function to match what we actually measure turned out to be more impactful than any amount of hyperparameter tuning.</li>
+
+            <li><strong>Feature engineering consistently made things <em>worse</em></strong> &mdash; we tried interaction features (form &times; home advantage), ratio features (bonus per minute, ICT per minute), trend features (form_3gw minus form_5gw), and fixture-adjusted goals. Every single one hurt accuracy. XGBoost with absolute error objective already captures these patterns internally through its tree splits; adding engineered columns just introduced noise.</li>
+
+            <li><strong>Blending multiple models didn't help either</strong> &mdash; we tried averaging MAE-optimised and MSE-optimised regressors (at various blend ratios), multi-seed ensembles (5 models with different random seeds), and specialist models trained only on high-scoring players. None beat the single model. The two-stage classifier approach was the exception because it solves a fundamentally different sub-problem (participation vs. performance).</li>
+
+            <li><strong>More trees helped, but only up to a point</strong> &mdash; going from 500 to 1500 trees gave steady gains, but 2000 trees was no better than 1500. This is a classic case of diminishing returns: more computation, zero improvement.</li>
+
+            <li><strong>The classifier needs to be simple</strong> &mdash; a deep, complex classifier (depth 3+) overfitted and hurt the final prediction. A shallow tree (depth 2) generalised better. The "will this player play?" question is simpler than "how many points?", so a simpler model fits.</li>
+
+            <li><strong>Sample weighting by recency backfired</strong> &mdash; weighting recent gameweeks more heavily (linear and exponential) both hurt. Recent games aren't inherently more predictive &mdash; the rolling averages in the features already capture recency.</li>
+
+            <li><strong>DART boosting (dropout for trees) was much slower with no gain</strong> &mdash; 165 seconds vs 2 seconds, and accuracy was unchanged. A nice idea in theory; not worth it here.</li>
+        </ul>
+
+        <div class="analogy">
+            <strong>Think of it like cooking experiments:</strong> We learned that swapping the type of oven (loss function) matters more than adding extra spices (features). We learned that having two cooks handle different courses (classifier + regressor) works, but three cooks in one kitchen (triple ensemble) just causes confusion. And we learned that using more expensive ingredients (more trees, fancier boosting) hits a ceiling quickly.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number auto-step">7</div>
         <h3>Why This Matters</h3>
         <div class="subtitle">The approach, not just the result</div>
 
@@ -1704,8 +1740,8 @@
             <li>Eval framework: 14 named test cases across 4 categories with regression detection</li>
             <li>Prediction pipeline for next GW: 344 players, both models, with confidence</li>
             <li>Interactive Streamlit dashboard with predictions table, squad builder, and transfer planner</li>
-            <li>Auto-research loop: Claude Code experiments with model settings, keeping only improvements (MAE 2.22 &rarr; 1.90)</li>
-            <li>Two-stage model architecture: classifier + regressor with probability sharpening</li>
+            <li>Auto-research loop: 76 experiments, 12 improvements committed, MAE 2.22 &rarr; 1.90 (14.6% better)</li>
+            <li>Two-stage model architecture: classifier (depth 2) + regressor (depth 4) with probability sharpening (p<sup>1.2</sup>)</li>
             <li>Product assessment and "would I ship this?" brief with build-vs-buy framework</li>
             <li>5 documented Jupyter notebooks covering every phase of the experiment</li>
         </ul>

@@ -1,6 +1,6 @@
 """
 Generate predictions for the next gameweek for all active players
-using both XGBoost and the fine-tuned LLM.
+using XGBoost, fine-tuned LLM, and Auto-Research XGBoost.
 
 Outputs: data/processed/next_gw_predictions.csv
 """
@@ -8,6 +8,7 @@ Outputs: data/processed/next_gw_predictions.csv
 import json
 import os
 import re
+import sys
 import numpy as np
 import pandas as pd
 import xgboost as xgb
@@ -20,6 +21,15 @@ LLM_DIR = os.path.join(ROOT, "models", "llama-3.2-3b")
 ADAPTER_DIR = os.path.join(ROOT, "models", "fpl-lora-adapter-v3")
 RAW_DIR = os.path.join(ROOT, "data", "raw")
 OUTPUT_PATH = os.path.join(ROOT, "data", "processed", "next_gw_predictions.csv")
+
+# Auto-Research model uses features from autoresearch/prepare.py
+AUTO_RESEARCH_FEATURES = [
+    "form_3gw", "form_5gw", "avg_minutes_3gw", "bonus_avg_3gw",
+    "ict_index_3gw", "goals_per_90_season", "assists_per_90_season",
+    "clean_sheets_pct_season", "was_home", "fixture_difficulty",
+    "team_goals_scored_3gw", "team_goals_conceded_3gw",
+    "opponent_goals_conceded_season",
+]
 
 DROP_COLS = ["player_id", "player_name", "target_points", "gameweek"]
 
@@ -183,6 +193,61 @@ def predict_xgboost(next_gw_df):
     max_std = np.percentile(pred_std, 95) if len(pred_std) > 0 else 1
     confidence = np.clip(100 * (1 - pred_std / max(max_std, 0.01)), 10, 99).astype(int)
 
+    return preds, confidence
+
+
+def predict_auto_research(next_gw_df):
+    """
+    Run Auto-Research XGBoost predictions.
+
+    Trains the two-stage model (classifier + regressor) on all historical data
+    using the optimised hyperparameters found by the autoresearch loop, then
+    predicts for the next gameweek.
+    """
+    # Import autoresearch train module
+    sys.path.insert(0, os.path.join(ROOT, "autoresearch"))
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "autoresearch_train", os.path.join(ROOT, "autoresearch", "train.py")
+    )
+    train_mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(train_mod)
+
+    # Load historical data for training
+    hist = pd.read_csv(FEATURES_PATH)
+    feature_cols = [c for c in AUTO_RESEARCH_FEATURES if c in hist.columns]
+    X_train = hist[feature_cols].fillna(0)
+    y_train = hist["target_points"]
+
+    # Train model on all historical data
+    model = train_mod.build_and_train(X_train, y_train, feature_cols)
+
+    # Prepare next-GW features (same columns)
+    X_next = next_gw_df[feature_cols].fillna(0).copy()
+    preds = train_mod.predict(model, X_next, feature_cols)
+
+    # Confidence: use the classifier's play probability as a basis,
+    # combined with form consistency for a richer signal.
+    play_prob = model["clf"].predict_proba(X_next[model["_used_cols"]])[:, 1]
+
+    conf = np.full(len(next_gw_df), 50.0)
+
+    # Play probability signal: high prob = more confident
+    conf += np.clip(play_prob * 30, 0, 30)
+
+    # Form consistency
+    if "form_3gw" in next_gw_df.columns and "form_5gw" in next_gw_df.columns:
+        form_consistency = np.clip(
+            15 - np.abs(next_gw_df["form_3gw"].values - next_gw_df["form_5gw"].values) * 5, 0, 15
+        )
+        conf += form_consistency
+
+    # Minutes stability
+    if "avg_minutes_3gw" in next_gw_df.columns:
+        mins_factor = np.clip((next_gw_df["avg_minutes_3gw"].values - 45) / 45 * 10, 0, 10)
+        conf += mins_factor
+
+    confidence = np.clip(conf, 15, 95).astype(int)
     return preds, confidence
 
 
@@ -364,6 +429,10 @@ def main():
     print("\nRunning XGBoost predictions...")
     xgb_preds, xgb_conf = predict_xgboost(next_gw_df)
 
+    # Auto-Research XGBoost predictions
+    print("\nRunning Auto-Research XGBoost predictions...")
+    auto_preds, auto_conf = predict_auto_research(next_gw_df)
+
     # LLM predictions
     print("\nRunning LLM predictions...")
     llm_preds, llm_conf = predict_llm(next_gw_df)
@@ -382,14 +451,19 @@ def main():
     output["xgb_confidence"] = xgb_conf
     output["xgb_value_score"] = compute_value_score(xgb_preds, xgb_conf)
 
+    # Auto-Research XGBoost
+    output["auto_xgb_predicted_pts"] = np.round(auto_preds, 1)
+    output["auto_xgb_confidence"] = auto_conf
+    output["auto_xgb_value_score"] = compute_value_score(auto_preds, auto_conf)
+
     # LLM
     output["llm_predicted_pts"] = np.round(llm_preds, 1)
     output["llm_confidence"] = llm_conf
     output["llm_value_score"] = compute_value_score(llm_preds, llm_conf)
 
-    # Combined value score (average of both)
+    # Combined value score (average of all three)
     output["combined_value_score"] = np.round(
-        (output["xgb_value_score"] + output["llm_value_score"]) / 2, 2
+        (output["xgb_value_score"] + output["auto_xgb_value_score"] + output["llm_value_score"]) / 3, 2
     )
 
     # Sort by combined value score
@@ -404,14 +478,15 @@ def main():
     print(f"\n{'='*80}")
     print(f"TOP 15 PLAYERS — GW {next_gw}")
     print(f"{'='*80}")
-    print(f"{'Player':<16} {'Pos':>4} {'Team':>5} {'Fix':>6} {'XGB':>5} {'Conf':>5} {'LLM':>5} {'Conf':>5} {'Value':>6}")
+    print(f"{'Player':<16} {'Pos':>4} {'Team':>5} {'Fix':>6} {'XGB':>5} {'Auto':>5} {'LLM':>5} {'Value':>6}")
     print(f"{'-'*80}")
     for _, r in output.head(15).iterrows():
         fix_str = f"{r['home_away']} {r['opponent']}"
         print(
             f"{r['player_name']:<16} {r['position']:>4} {r['team_name']:>5} "
-            f"{fix_str:>6} {r['xgb_predicted_pts']:>5.1f} {r['xgb_confidence']:>4}% "
-            f"{r['llm_predicted_pts']:>5.1f} {r['llm_confidence']:>4}% "
+            f"{fix_str:>6} {r['xgb_predicted_pts']:>5.1f} "
+            f"{r['auto_xgb_predicted_pts']:>5.1f} "
+            f"{r['llm_predicted_pts']:>5.1f} "
             f"{r['combined_value_score']:>6.2f}"
         )
 

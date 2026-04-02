@@ -38,8 +38,9 @@ def run():
     </div>
     """, unsafe_allow_html=True)
 
-    # ---- Check if Claude predictions exist ----
+    # ---- Check which optional models exist ----
     has_claude = "claude_predicted_pts" in df.columns and df["claude_predicted_pts"].notna().any()
+    has_auto_xgb = "auto_xgb_predicted_pts" in df.columns and df["auto_xgb_predicted_pts"].notna().any()
 
     # Metric cards placeholder — rendered after model filter is known
     metric_cards_spot = st.container()
@@ -76,6 +77,8 @@ def run():
     mf_col, sort_col1, sort_col2 = st.columns([2, 2, 5])
     with mf_col:
         all_models = ["XGBoost", "LLM"]
+        if has_auto_xgb:
+            all_models.insert(1, "Auto-Research")
         if has_claude:
             all_models.append("Claude")
         selected_models = st.multiselect("Models", options=all_models, default=all_models)
@@ -84,6 +87,10 @@ def run():
         if "XGBoost" in selected_models:
             sort_options.insert(1, "XGBoost Predicted Points")
             sort_options.append("XGBoost Confidence")
+        if "Auto-Research" in selected_models:
+            idx = sort_options.index("Price (low to high)")
+            sort_options.insert(idx, "Auto-Research Predicted Points")
+            sort_options.append("Auto-Research Confidence")
         if "LLM" in selected_models:
             idx = sort_options.index("Price (low to high)")
             sort_options.insert(idx, "LLM Predicted Points")
@@ -97,6 +104,7 @@ def run():
     # ---- Recalculate combined value score based on selected models ----
     MODEL_MAP = {
         "XGBoost": ("xgb_value_score", "xgb_predicted_pts", "xgb_confidence"),
+        "Auto-Research": ("auto_xgb_value_score", "auto_xgb_predicted_pts", "auto_xgb_confidence"),
         "LLM": ("llm_value_score", "llm_predicted_pts", "llm_confidence"),
         "Claude": ("claude_value_score", "claude_predicted_pts", "claude_confidence"),
     }
@@ -164,9 +172,11 @@ def run():
     sort_map = {
         "Combined Value Score": ("combined_value_score", False),
         "XGBoost Predicted Points": ("xgb_predicted_pts", False),
+        "Auto-Research Predicted Points": ("auto_xgb_predicted_pts", False),
         "LLM Predicted Points": ("llm_predicted_pts", False),
         "Claude Predicted Points": ("claude_predicted_pts", False),
         "XGBoost Confidence": ("xgb_confidence", False),
+        "Auto-Research Confidence": ("auto_xgb_confidence", False),
         "LLM Confidence": ("llm_confidence", False),
         "Claude Confidence": ("claude_confidence", False),
         "Price (low to high)": ("price", True),
@@ -205,6 +215,9 @@ def run():
     if "XGBoost" in selected_models:
         table_cols.extend(["xgb_predicted_pts", "xgb_confidence"])
         col_names.extend(["XGB Pts", "XGB Conf"])
+    if "Auto-Research" in selected_models and has_auto_xgb:
+        table_cols.extend(["auto_xgb_predicted_pts", "auto_xgb_confidence"])
+        col_names.extend(["Auto Pts", "Auto Conf"])
     if "LLM" in selected_models:
         table_cols.extend(["llm_predicted_pts", "llm_confidence"])
         col_names.extend(["LLM Pts", "LLM Conf"])
@@ -221,6 +234,8 @@ def run():
     # Format confidence as "XX%" strings
     if "XGB Conf" in display_df.columns:
         display_df["XGB Conf"] = display_df["XGB Conf"].apply(lambda x: f"{int(x)}%")
+    if "Auto Conf" in display_df.columns:
+        display_df["Auto Conf"] = display_df["Auto Conf"].apply(lambda x: f"{int(x)}%")
     if "LLM Conf" in display_df.columns:
         display_df["LLM Conf"] = display_df["LLM Conf"].apply(lambda x: f"{int(x)}%")
     if "Claude Conf" in display_df.columns:
@@ -235,6 +250,8 @@ def run():
     }
     if "XGB Pts" in display_df.columns:
         col_config["XGB Pts"] = st.column_config.NumberColumn("XGB Pts", format="%.1f")
+    if "Auto Pts" in display_df.columns:
+        col_config["Auto Pts"] = st.column_config.NumberColumn("Auto Pts", format="%.1f")
     if "LLM Pts" in display_df.columns:
         col_config["LLM Pts"] = st.column_config.NumberColumn("LLM Pts", format="%.1f")
     if "Claude Pts" in display_df.columns:
@@ -256,22 +273,34 @@ def run():
         if selected_player:
             p = filtered[filtered["player_name"] == selected_player].iloc[0]
 
-            model_cols = st.columns(3 if has_claude else 2)
+            n_model_cols = 2 + (1 if has_auto_xgb else 0) + (1 if has_claude else 0)
+            model_cols = st.columns(n_model_cols)
+            col_idx = 0
 
-            with model_cols[0]:
+            with model_cols[col_idx]:
                 st.markdown("#### XGBoost")
                 st.metric("Predicted Points", f"{p['xgb_predicted_pts']:.1f}")
                 st.metric("Confidence", f"{p['xgb_confidence']}%")
                 st.metric("Value Score", f"{p['xgb_value_score']:.2f}")
+            col_idx += 1
 
-            with model_cols[1]:
+            if has_auto_xgb:
+                with model_cols[col_idx]:
+                    st.markdown("#### Auto-Research")
+                    st.metric("Predicted Points", f"{p['auto_xgb_predicted_pts']:.1f}")
+                    st.metric("Confidence", f"{int(p['auto_xgb_confidence'])}%")
+                    st.metric("Value Score", f"{p['auto_xgb_value_score']:.2f}")
+                col_idx += 1
+
+            with model_cols[col_idx]:
                 st.markdown("#### Fine-Tuned LLM")
                 st.metric("Predicted Points", f"{p['llm_predicted_pts']:.1f}")
                 st.metric("Confidence", f"{p['llm_confidence']}%")
                 st.metric("Value Score", f"{p['llm_value_score']:.2f}")
+            col_idx += 1
 
             if has_claude:
-                with model_cols[2]:
+                with model_cols[col_idx]:
                     st.markdown("#### Claude (Haiku)")
                     st.metric("Predicted Points", f"{p['claude_predicted_pts']:.1f}")
                     st.metric("Confidence", f"{int(p['claude_confidence'])}%")
@@ -299,48 +328,55 @@ def run():
     # ---- Model Agreement / Disagreement ----
     with st.expander("Model Agreement & Disagreement", expanded=False):
         filtered_copy = filtered.copy()
-        filtered_copy["pts_diff"] = abs(
-            filtered_copy["xgb_predicted_pts"] - filtered_copy["llm_predicted_pts"]
+
+        # Compute max spread across all available models for each player
+        pts_spread_cols = ["xgb_predicted_pts", "llm_predicted_pts"]
+        if has_auto_xgb:
+            pts_spread_cols.append("auto_xgb_predicted_pts")
+        if has_claude:
+            pts_spread_cols.append("claude_predicted_pts")
+        filtered_copy["pts_diff"] = (
+            filtered_copy[pts_spread_cols].max(axis=1) - filtered_copy[pts_spread_cols].min(axis=1)
         )
+
+        # Build display columns dynamically
+        agree_cols = ["player_name", "position", "team_name", "opponent", "home_away",
+                      "xgb_predicted_pts"]
+        agree_names = ["Player", "Pos", "Team", "Opp", "H/A", "XGB Pts"]
+        agree_fmt = {"XGB Pts": "{:.1f}"}
+        if has_auto_xgb:
+            agree_cols.append("auto_xgb_predicted_pts")
+            agree_names.append("Auto Pts")
+            agree_fmt["Auto Pts"] = "{:.1f}"
+        agree_cols.append("llm_predicted_pts")
+        agree_names.append("LLM Pts")
+        agree_fmt["LLM Pts"] = "{:.1f}"
+        if has_claude:
+            agree_cols.append("claude_predicted_pts")
+            agree_names.append("Claude Pts")
+            agree_fmt["Claude Pts"] = "{:.1f}"
+        agree_cols.extend(["pts_diff", "combined_value_score"])
+        agree_names.extend(["Spread", "Value"])
+        agree_fmt.update({"Spread": "{:.1f}", "Value": "{:.2f}"})
 
         agree_tab, disagree_tab = st.tabs(["Most Agreement", "Most Disagreement"])
 
         with agree_tab:
-            st.caption("Players where both models predict similar points (high conviction picks)")
-            agreed = filtered_copy.nsmallest(15, "pts_diff")[
-                [
-                    "player_name", "position", "team_name", "opponent", "home_away",
-                    "xgb_predicted_pts", "llm_predicted_pts", "pts_diff", "combined_value_score",
-                ]
-            ].copy()
-            agreed.columns = [
-                "Player", "Pos", "Team", "Opp", "H/A",
-                "XGB Pts", "LLM Pts", "Diff", "Value",
-            ]
+            st.caption("Players where all models predict similar points (high conviction picks)")
+            agreed = filtered_copy.nsmallest(15, "pts_diff")[agree_cols].copy()
+            agreed.columns = agree_names
             st.dataframe(
-                agreed.style.format(
-                    {"XGB Pts": "{:.1f}", "LLM Pts": "{:.1f}", "Diff": "{:.1f}", "Value": "{:.2f}"}
-                ),
+                agreed.style.format(agree_fmt),
                 use_container_width=True,
                 hide_index=True,
             )
 
         with disagree_tab:
             st.caption("Players where the models disagree most (proceed with caution)")
-            disagreed = filtered_copy.nlargest(15, "pts_diff")[
-                [
-                    "player_name", "position", "team_name", "opponent", "home_away",
-                    "xgb_predicted_pts", "llm_predicted_pts", "pts_diff", "combined_value_score",
-                ]
-            ].copy()
-            disagreed.columns = [
-                "Player", "Pos", "Team", "Opp", "H/A",
-                "XGB Pts", "LLM Pts", "Diff", "Value",
-            ]
+            disagreed = filtered_copy.nlargest(15, "pts_diff")[agree_cols].copy()
+            disagreed.columns = agree_names
             st.dataframe(
-                disagreed.style.format(
-                    {"XGB Pts": "{:.1f}", "LLM Pts": "{:.1f}", "Diff": "{:.1f}", "Value": "{:.2f}"}
-                ),
+                disagreed.style.format(agree_fmt),
                 use_container_width=True,
                 hide_index=True,
             )
@@ -348,7 +384,7 @@ def run():
     # ---- Footer ----
     st.markdown(
         '<div class="fpl-footer">'
-        'Built with XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) + Claude Haiku | '
+        'Built with XGBoost + Auto-Research XGBoost + Llama 3.2 3B (fine-tuned with LoRA on MLX) + Claude Haiku | '
         'Data from the FPL API | '
         'Predictions are for educational purposes only'
         '</div>',

@@ -113,6 +113,8 @@ def build_player_prompt(row):
     # Add other models' predictions as context
     lines.append(f"\nOther model predictions for reference:")
     lines.append(f"  XGBoost: {row['xgb_predicted_pts']:.1f} pts (confidence: {row['xgb_confidence']}%)")
+    if "auto_xgb_predicted_pts" in row.index and pd.notna(row.get("auto_xgb_predicted_pts")):
+        lines.append(f"  Auto-Research XGBoost: {row['auto_xgb_predicted_pts']:.1f} pts (confidence: {row['auto_xgb_confidence']}%)")
     lines.append(f"  Fine-tuned LLM: {row['llm_predicted_pts']:.1f} pts (confidence: {row['llm_confidence']}%)")
 
     return "\n".join(lines)
@@ -353,9 +355,12 @@ def main():
         merged["claude_predicted_pts"] * (merged["claude_confidence"] / 100), 2
     ).astype(float)
 
-    # Update combined value score to include all 3 models
+    # Update combined value score to include all available models
+    value_cols = ["xgb_value_score", "llm_value_score", "claude_value_score"]
+    if "auto_xgb_value_score" in merged.columns:
+        value_cols.append("auto_xgb_value_score")
     merged["combined_value_score"] = np.round(
-        (merged["xgb_value_score"] + merged["llm_value_score"] + merged["claude_value_score"]) / 3,
+        merged[value_cols].sum(axis=1) / len(value_cols),
         2,
     )
 
@@ -380,13 +385,17 @@ def main():
     print(f"Mean prediction: {np.mean(pts):.1f}")
     print(f"Avg confidence: {np.mean([r['confidence'] for r in valid]):.0f}%")
 
-    print(f"\n{'Player':<16} {'XGB':>6} {'LLM':>6} {'Claude':>6} {'Conf':>5} {'Reasoning'}")
-    print(f"{'-'*80}")
+    has_auto = "auto_xgb_predicted_pts" in merged.columns
+    auto_hdr = " {'Auto':>6}" if has_auto else ""
+    print(f"\n{'Player':<16} {'XGB':>6}{' Auto':>6 if has_auto else ''} {'LLM':>6} {'Claude':>6} {'Conf':>5} {'Reasoning'}")
+    print(f"{'-'*90}")
     for _, r in merged.head(15).iterrows():
         reason = r.get('claude_reasoning', '')[:35] if pd.notna(r.get('claude_reasoning')) else ''
+        auto_str = f"{r['auto_xgb_predicted_pts']:>6.1f} " if has_auto else ""
         print(
             f"{r['player_name']:<16} "
             f"{r['xgb_predicted_pts']:>6.1f} "
+            f"{auto_str}"
             f"{r['llm_predicted_pts']:>6.1f} "
             f"{r['claude_predicted_pts']:>6.1f} "
             f"{r['claude_confidence']:>4.0f}% "

@@ -2,6 +2,8 @@
 Reusable HTML UI components for the FPL dashboard.
 """
 
+import pandas as pd
+
 from ui.styles import FDR_COLORS, TEAM_COLORS
 
 
@@ -169,11 +171,14 @@ def suggestion_card_html(player_in, player_out, fixtures_list=None):
 
     xgb_pts = player_in["xgb_predicted_pts"]
     llm_pts = player_in["llm_predicted_pts"]
+    has_auto = "auto_xgb_predicted_pts" in player_in.index and pd.notna(player_in.get("auto_xgb_predicted_pts"))
+    auto_pts = player_in.get("auto_xgb_predicted_pts", 0) if has_auto else None
     value = player_in["combined_value_score"]
     cost_delta = player_in["price"] - player_out["price"]
 
     xgb_delta = xgb_pts - player_out["xgb_predicted_pts"]
     llm_delta = llm_pts - player_out["llm_predicted_pts"]
+    auto_delta = (auto_pts - player_out["auto_xgb_predicted_pts"]) if has_auto else 0
     val_delta = value - player_out["combined_value_score"]
 
     def _delta_span(d, fmt=".1f"):
@@ -204,7 +209,8 @@ def suggestion_card_html(player_in, player_out, fixtures_list=None):
         f'</div>'
         f'<div class="sg-stats-row">'
         f'<div class="sg-stat"><div class="s-label">XGB Pts</div><div class="s-val">{xgb_pts:.1f}</div>{_delta_span(xgb_delta)}</div>'
-        f'<div class="sg-stat"><div class="s-label">LLM Pts</div><div class="s-val">{llm_pts:.1f}</div>{_delta_span(llm_delta)}</div>'
+        + (f'<div class="sg-stat"><div class="s-label">Auto Pts</div><div class="s-val">{auto_pts:.1f}</div>{_delta_span(auto_delta)}</div>' if has_auto else '')
+        + f'<div class="sg-stat"><div class="s-label">LLM Pts</div><div class="s-val">{llm_pts:.1f}</div>{_delta_span(llm_delta)}</div>'
         f'<div class="sg-stat"><div class="s-label">Value</div><div class="s-val">{value:.2f}</div>{_delta_span(val_delta, ".2f")}</div>'
         f'<div class="sg-stat"><div class="s-label">Cost</div><div class="s-val">{cost_sign}{cost_delta:.1f}m</div></div>'
         f'{fix_html}'

@@ -59,6 +59,43 @@ def load_predictions(eval_dir: str) -> dict:
         except Exception as e:
             print(f"  WARN: Could not load XGBoost model: {e}")
 
+    # Auto-Research XGBoost — two-stage model trained on full data
+    auto_train_path = os.path.join(PROJECT_ROOT, "autoresearch", "train.py")
+    if os.path.exists(auto_train_path):
+        try:
+            import importlib.util
+            import sys
+
+            sys.path.insert(0, os.path.join(PROJECT_ROOT, "autoresearch"))
+            spec = importlib.util.spec_from_file_location("autoresearch_train", auto_train_path)
+            train_mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(train_mod)
+
+            auto_features = [
+                "form_3gw", "form_5gw", "avg_minutes_3gw", "bonus_avg_3gw",
+                "ict_index_3gw", "goals_per_90_season", "assists_per_90_season",
+                "clean_sheets_pct_season", "was_home", "fixture_difficulty",
+                "team_goals_scored_3gw", "team_goals_conceded_3gw",
+                "opponent_goals_conceded_season",
+            ]
+            auto_feature_cols = [c for c in auto_features if c in features.columns]
+            train_data = features[features["gameweek"] <= 30]
+            X_train_auto = train_data[auto_feature_cols].fillna(0)
+            y_train_auto = train_data["target_points"]
+            auto_model = train_mod.build_and_train(X_train_auto, y_train_auto, auto_feature_cols)
+
+            X_test_auto = test[auto_feature_cols].fillna(0)
+            auto_preds = train_mod.predict(auto_model, X_test_auto, auto_feature_cols)
+
+            models["auto_research_xgb"] = {
+                "predictions": [{"index": i, "actual": int(test.iloc[i]["target_points"]),
+                                 "parsed_prediction": float(p), "parse_success": True}
+                                for i, p in enumerate(auto_preds)],
+                "is_llm": False,
+            }
+        except Exception as e:
+            print(f"  WARN: Could not load Auto-Research XGBoost: {e}")
+
     # LLM strategies
     for strategy in ["zero_shot", "few_shot", "chain_of_thought", "fine_tuned"]:
         path = os.path.join(eval_dir, f"llm_{strategy}_predictions.json")
