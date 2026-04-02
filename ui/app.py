@@ -31,22 +31,28 @@ st.markdown("""
 </div>
 <script>
 function toggleSidebar() {
-    // Try clicking Streamlit's own hidden toggle buttons
-    var openBtn = document.querySelector('[data-testid="collapsedControl"] button');
-    var closeBtn = document.querySelector('[data-testid="stSidebar"] button[kind="header"]')
-        || document.querySelector('[data-testid="stSidebarCollapseButton"] button')
-        || document.querySelector('[data-testid="stSidebar"] > div:first-child > button');
+    var sidebar = document.querySelector('[data-testid="stSidebar"]');
+    var isOpen = sidebar && sidebar.getAttribute('aria-expanded') === 'true';
 
-    // Temporarily make them visible to click
-    [openBtn, closeBtn].forEach(function(btn) {
-        if (btn) {
-            btn.style.display = 'block';
-            btn.style.visibility = 'visible';
-            btn.click();
-            btn.style.display = '';
-            btn.style.visibility = '';
+    if (isOpen) {
+        // Find close button inside sidebar
+        var closeBtn = sidebar.querySelector('[data-testid="stBaseButton-header"]')
+            || sidebar.querySelector('button');
+        if (closeBtn) {
+            closeBtn.style.pointerEvents = 'auto';
+            closeBtn.click();
+            closeBtn.style.pointerEvents = '';
         }
-    });
+    } else {
+        // Find open button (collapsed control)
+        var openBtn = document.querySelector('[data-testid="collapsedControl"] button')
+            || document.querySelector('[data-testid="collapsedControl"]');
+        if (openBtn) {
+            openBtn.style.pointerEvents = 'auto';
+            openBtn.click();
+            openBtn.style.pointerEvents = '';
+        }
+    }
 }
 </script>
 """, unsafe_allow_html=True)
