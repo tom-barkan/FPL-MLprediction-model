@@ -1,7 +1,7 @@
 {
-  "mae": 1.9052,
-  "rmse": 2.9665,
-  "within_1_pct": 46.1,
-  "within_3_pct": 80.2,
-  "train_time_s": 2.1
+  "mae": 1.9043,
+  "rmse": 2.9879,
+  "within_1_pct": 49.0,
+  "within_3_pct": 79.8,
+  "train_time_s": 2.6
 }
