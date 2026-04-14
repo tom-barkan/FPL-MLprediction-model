@@ -4,6 +4,7 @@ Centralized data loading with caching for the FPL dashboard.
 
 import json
 import os
+import sys
 
 import pandas as pd
 import streamlit as st
@@ -14,6 +15,8 @@ FIXTURES_PATH = os.path.join(ROOT, "data", "raw", "fixtures.json")
 TEAMS_PATH = os.path.join(ROOT, "data", "raw", "teams.json")
 PLAYERS_PATH = os.path.join(ROOT, "data", "raw", "players.json")
 HISTORIES_DIR = os.path.join(ROOT, "data", "raw", "player_histories")
+PREDICTIONS_ARCHIVE_DIR = os.path.join(ROOT, "data", "predictions")
+GAMEWEEKS_PATH = os.path.join(ROOT, "data", "raw", "gameweeks.json")
 
 
 @st.cache_data(ttl=60)
@@ -201,3 +204,102 @@ def get_enriched_predictions():
     df["photo_url"] = df["player_id"].map(_photo_url)
 
     return df
+
+
+@st.cache_data
+def load_archived_predictions(gw):
+    """Load archived predictions for a specific gameweek."""
+    path = os.path.join(PREDICTIONS_ARCHIVE_DIR, f"gw{gw}_predictions.csv")
+    if not os.path.exists(path):
+        return None
+    return pd.read_csv(path)
+
+
+@st.cache_data(ttl=60)
+def get_available_result_gameweeks():
+    """Get list of gameweeks that have both archived predictions and actual results."""
+    if not os.path.isdir(PREDICTIONS_ARCHIVE_DIR):
+        return []
+
+    import re
+    gw_numbers = []
+    for fname in os.listdir(PREDICTIONS_ARCHIVE_DIR):
+        m = re.match(r"gw(\d+)_predictions\.csv", fname)
+        if m:
+            gw_numbers.append(int(m.group(1)))
+
+    if not gw_numbers or not os.path.isdir(HISTORIES_DIR):
+        return []
+
+    # Check which GWs have actual results by sampling a few player history files
+    available = []
+    sample_files = [f for f in os.listdir(HISTORIES_DIR) if f.endswith(".json")][:5]
+    for gw in gw_numbers:
+        has_actuals = False
+        for fname in sample_files:
+            filepath = os.path.join(HISTORIES_DIR, fname)
+            with open(filepath) as f:
+                data = json.load(f)
+            history = data.get("history", []) if isinstance(data, dict) else data
+            for entry in history:
+                if entry["round"] == gw:
+                    has_actuals = True
+                    break
+            if has_actuals:
+                break
+        if has_actuals:
+            available.append(gw)
+
+    return sorted(available, reverse=True)
+
+
+@st.cache_data
+def load_gw_actual_points(gw):
+    """Load actual FPL points for all players in a specific gameweek.
+
+    Returns: {player_id: {"total_points": int, "minutes": int}}
+    """
+    result = {}
+    if not os.path.isdir(HISTORIES_DIR):
+        return result
+
+    for filename in os.listdir(HISTORIES_DIR):
+        if not filename.endswith(".json"):
+            continue
+        player_id = int(filename.replace(".json", ""))
+        filepath = os.path.join(HISTORIES_DIR, filename)
+        with open(filepath) as f:
+            data = json.load(f)
+
+        history = data.get("history", []) if isinstance(data, dict) else data
+        for entry in history:
+            if entry["round"] == gw:
+                result[player_id] = {
+                    "total_points": entry["total_points"],
+                    "minutes": entry["minutes"],
+                }
+                break
+
+    return result
+
+
+def refresh_fpl_data():
+    """Re-fetch all FPL data from the API. Deletes cached histories to force refresh."""
+    import shutil
+    import subprocess
+
+    # Delete cached player histories so they get re-fetched
+    if os.path.isdir(HISTORIES_DIR):
+        shutil.rmtree(HISTORIES_DIR)
+    os.makedirs(HISTORIES_DIR, exist_ok=True)
+
+    fetch_script = os.path.join(ROOT, "data", "fetch_fpl.py")
+    # Use the same Python interpreter that's running this process
+    python_exe = sys.executable
+    subprocess.run([python_exe, fetch_script], check=True)
+
+    # Clear all cached data
+    load_gw_actual_points.clear()
+    get_available_result_gameweeks.clear()
+    load_teams.clear()
+    load_players_metadata.clear()

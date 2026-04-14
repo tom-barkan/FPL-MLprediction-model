@@ -685,5 +685,62 @@ CSS = """
         font-weight: 800;
         color: #37003c;
     }
+
+    /* ---- Results Page ---- */
+    .results-winner {
+        border: 2px solid #00ff87 !important;
+        background: #f0fff4 !important;
+        box-shadow: 0 2px 12px rgba(0,255,135,0.18) !important;
+    }
+    .results-model-title {
+        color: #37003c;
+        font-size: 1.1em;
+        font-weight: 800;
+        text-align: center;
+        margin: 8px 0 4px;
+        padding: 6px 12px;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+    }
+    .results-model-title.winner {
+        border-color: #00ff87;
+        background: linear-gradient(90deg, #f0fff4, #fff);
+    }
+    .pitch-player .pp-predicted {
+        font-size: 0.6em;
+        color: #888;
+        margin-top: 1px;
+    }
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88em;
+    }
+    .results-table th {
+        background: #37003c;
+        color: #fff;
+        padding: 8px 12px;
+        text-align: center;
+        font-size: 0.82em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .results-table td {
+        padding: 6px 12px;
+        text-align: center;
+        border-bottom: 1px solid #f0ecf2;
+    }
+    .results-table tr:nth-child(even) td {
+        background: #faf8fb;
+    }
+    .results-table .best-val {
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .results-table .worst-val {
+        color: #c62828;
+        font-weight: 700;
+    }
 </style>
 """

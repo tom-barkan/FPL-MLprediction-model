@@ -246,6 +246,36 @@ def metric_card_compact_html(label, value):
     )
 
 
+def pitch_player_results_html(name, team_name, price, predicted_pts, actual_pts, photo_url=None, badge=""):
+    """Render a player card for the results pitch showing actual and predicted points.
+
+    badge: optional "C" or "V" for captain / vice-captain indicator.
+    """
+    team_color = TEAM_COLORS.get(team_name, "#37003c")
+
+    photo_div = (
+        f'<img class="pp-photo" src="{photo_url}" alt="{name}" onerror="this.style.display=\'none\'">'
+        if photo_url else ''
+    )
+    badge_div = f'<span class="pp-badge">{badge}</span>' if badge else ''
+
+    delta = actual_pts - predicted_pts
+    delta_color = "#2e7d32" if delta >= 0 else "#c62828"
+    delta_sign = "+" if delta >= 0 else ""
+
+    return (
+        f'<div class="pitch-player">'
+        f'{badge_div}'
+        f'{photo_div}'
+        f'<div class="pp-name"><span class="pp-dot" style="background:{team_color};"></span>{name}</div>'
+        f'<div class="pp-meta">{team_name} &middot; {price:.1f}m</div>'
+        f'<div class="pp-pts">{actual_pts}</div>'
+        f'<div class="pp-predicted">Pred: {predicted_pts:.1f} '
+        f'<span style="color:{delta_color};font-weight:700;">({delta_sign}{delta:.1f})</span></div>'
+        f'</div>'
+    )
+
+
 def delta_html(value, suffix="pts"):
     """Render a positive/negative delta value."""
     if value > 0:
