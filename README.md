@@ -11,6 +11,7 @@
   <a href="#how-it-works">How It Works</a> ·
   <a href="#auto-research">Auto-Research</a> ·
   <a href="#claude-haiku-api-based-predictions">Claude Haiku</a> ·
+  <a href="#live-results">Live Results</a> ·
   <a href="#project-structure">Project Structure</a> ·
   <a href="#current-progress">Progress</a> ·
   <a href="#reproduce-this">Reproduce</a>
@@ -427,6 +428,23 @@ Claude predictions are generated separately (`python models/predict_claude.py`) 
 
 ---
 
+## Live Results
+
+We're tracking how each model performs on real, unseen gameweeks — predictions made before the deadline, scored after the matches. Full analysis, per-player breakdowns, and cumulative standings are in **[RESULTS.md](RESULTS.md)**.
+
+**Cumulative standings after GW32:**
+
+| Rank | Model | Total Points | Avg MAE |
+|:---|:---|---:|---:|
+| 1 | **Claude Haiku** | **53** | 4.20 |
+| 2 | LLM (Llama 3.2 3B) | 44 | 4.81 |
+| 3 | Auto-Research XGBoost | 42 | 3.78 |
+| 4 | XGBoost (Original) | 18 | 1.95 |
+
+> Early days — one gameweek is noise. See [RESULTS.md](RESULTS.md) for the full story, including why XGBoost's low MAE is misleading and how captain selection swung the results by 8+ points.
+
+---
+
 ## Current Progress
 
 - [x] **Phase 1: Data Pipeline** — FPL API fetcher, feature engineering (20 features), prompt generation
@@ -446,6 +464,8 @@ data/
   fetch_fpl.py                Fetches all data from FPL API
   build_features.py           Engineers 20 features per player-gameweek
   build_prompts.py            Generates LLM training prompts (JSONL + MLX chat format)
+  archive_predictions.py      Archives current GW predictions before generating next GW
+  predictions/                Archived per-GW prediction CSVs (gw32_predictions.csv, ...)
   processed/                  Feature CSV + prediction outputs
   mlx/                        MLX-formatted train/valid/test splits
   raw/                        Raw JSON from FPL API (players, fixtures, teams, gameweeks)
@@ -487,6 +507,9 @@ ui/
   pages/
     1_Predictions.py          Main predictions table with filters + next 2 fixtures
     2_My_Team.py              Squad builder + multi-transfer advisor
+    3_Best_XI.py              Optimal predicted XI with pitch view
+    4_Results.py              Gameweek results — predicted vs actual comparison
+  results_logic.py            Scoring logic for model evaluation
 docs/
   setup-explained.html        Plain-English guide to everything we built
 ```
@@ -529,15 +552,15 @@ streamlit run ui/app.py
 
 ### Dashboard
 
-The Streamlit dashboard has two pages:
+The Streamlit dashboard has four pages:
 
-**Predictions** — The main page with a sortable/filterable table showing all 4 models' predictions for 344 players. Includes a model filter toggle, next 2 fixtures with difficulty ratings, player deep dive with per-model cards, and model agreement/disagreement analysis across all selected models.
+**Predictions** — Sortable/filterable table showing all 4 models' predictions for 344 players. Model filter toggle, next 2 fixtures with difficulty ratings, player deep dive with per-model cards, and model agreement/disagreement analysis.
 
-**My Team** — Build your 15-player FPL squad and get transfer recommendations. Features squad validation (position limits, max 3 per team, 100m budget), auto-picked starting XI, and a multi-transfer planner with four strategy tabs:
-- **Safe** — High average confidence across all models
-- **Differential** — High predicted points but lower confidence (risk/reward)
-- **Form** — Players trending up in recent gameweeks
-- **Fixture** — Easiest upcoming fixtures
+**My Team** — Build your 15-player FPL squad and get transfer recommendations. Squad validation, auto-picked starting XI, and a multi-transfer planner with four strategy tabs (Safe, Differential, Form, Fixture).
+
+**Best XI** — Optimal predicted starting XI within budget constraints, shown on a football pitch with captain/vice-captain badges and fixture difficulty indicators.
+
+**Results** — Gameweek-by-gameweek comparison of each model's Best XI against actual FPL points. Pitch views with actual scores, metrics comparison table, and cumulative model performance tracking. See [RESULTS.md](RESULTS.md) for the full write-up.
 
 ## Hardware
 
