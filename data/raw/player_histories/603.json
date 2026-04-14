@@ -1,22 +1,6 @@
 {
   "fixtures": [
     {
-      "id": 320,
-      "code": 2562214,
-      "team_h": 19,
-      "team_h_score": null,
-      "team_a": 20,
-      "team_a_score": null,
-      "event": 32,
-      "finished": false,
-      "minutes": 0,
-      "provisional_start_time": false,
-      "kickoff_time": "2026-04-10T19:00:00Z",
-      "event_name": "Gameweek 32",
-      "is_home": true,
-      "difficulty": 2
-    },
-    {
       "id": 324,
       "code": 2562218,
       "team_h": 8,
@@ -62,7 +46,7 @@
       "kickoff_time": "2026-05-02T14:00:00Z",
       "event_name": "Gameweek 35",
       "is_home": false,
-      "difficulty": 4
+      "difficulty": 3
     },
     {
       "id": 360,
@@ -75,7 +59,7 @@
       "finished": false,
       "minutes": 0,
       "provisional_start_time": false,
-      "kickoff_time": "2026-05-09T14:00:00Z",
+      "kickoff_time": "2026-05-10T15:30:00Z",
       "event_name": "Gameweek 36",
       "is_home": true,
       "difficulty": 4
@@ -94,7 +78,7 @@
       "kickoff_time": "2026-05-17T14:00:00Z",
       "event_name": "Gameweek 37",
       "is_home": false,
-      "difficulty": 4
+      "difficulty": 3
     },
     {
       "id": 380,
@@ -1446,6 +1430,49 @@
       "selected": 318791,
       "transfers_in": 19415,
       "transfers_out": 4281
+    },
+    {
+      "element": 603,
+      "fixture": 320,
+      "opponent_team": 20,
+      "total_points": 6,
+      "was_home": true,
+      "kickoff_time": "2026-04-10T19:00:00Z",
+      "team_h_score": 4,
+      "team_a_score": 0,
+      "round": 32,
+      "modified": false,
+      "minutes": 90,
+      "goals_scored": 0,
+      "assists": 0,
+      "clean_sheets": 1,
+      "goals_conceded": 0,
+      "own_goals": 0,
+      "penalties_saved": 0,
+      "penalties_missed": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "saves": 0,
+      "bonus": 0,
+      "bps": 23,
+      "influence": "15.4",
+      "creativity": "33.6",
+      "threat": "3.0",
+      "ict_index": "5.2",
+      "clearances_blocks_interceptions": 3,
+      "recoveries": 8,
+      "tackles": 1,
+      "defensive_contribution": 4,
+      "starts": 1,
+      "expected_goals": "0.03",
+      "expected_assists": "0.05",
+      "expected_goal_involvements": "0.08",
+      "expected_goals_conceded": "0.59",
+      "value": 41,
+      "transfers_balance": 10161,
+      "selected": 323419,
+      "transfers_in": 23534,
+      "transfers_out": 13373
     }
   ],
   "history_past": []

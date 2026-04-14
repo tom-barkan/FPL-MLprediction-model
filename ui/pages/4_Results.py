@@ -18,7 +18,6 @@ from ui.data_loader import (
     get_available_result_gameweeks,
     load_gw_actual_points,
     load_players_metadata,
-    refresh_fpl_data,
     PREDICTIONS_ARCHIVE_DIR,
     PHOTOS_DIR,
     PLAYER_PHOTO_URL_LOCAL,
@@ -285,32 +284,11 @@ def run():
 
     available_gws = get_available_result_gameweeks()
 
-    # Auto-fetch: if we have archived predictions but no actuals, try fetching
     if not available_gws:
-        # Check if there are archived files but just missing actuals
-        archived_files = [f for f in os.listdir(PREDICTIONS_ARCHIVE_DIR) if f.endswith(".csv")]
-        if archived_files:
-            st.warning("Actual results not found for archived gameweeks. Fetching latest data from FPL API...")
-            with st.spinner("Fetching FPL data... this may take several minutes for player histories."):
-                try:
-                    refresh_fpl_data()
-                    st.cache_data.clear()
-                    available_gws = get_available_result_gameweeks()
-                except Exception as e:
-                    st.error(f"Failed to fetch FPL data: {e}")
-                    st.info("Try running manually: `python data/fetch_fpl.py`")
-                    return
-        else:
-            st.info(
-                "No archived predictions found. "
-                "Run `python data/archive_predictions.py` to archive the current gameweek predictions."
-            )
-            return
-
-    if not available_gws:
-        st.warning(
-            "Could not find actual results for any archived gameweek. "
-            "The gameweek may not be finished yet."
+        st.info(
+            "No results available yet. Make sure you have:\n"
+            "1. Archived predictions (`python data/archive_predictions.py`)\n"
+            "2. Fetched actual results (`python data/fetch_fpl.py`)"
         )
         return
 
@@ -331,12 +309,7 @@ def run():
         return
 
     if not actuals:
-        st.warning(f"No actual results found for GW{selected_gw}. Data may need refreshing.")
-        if st.button("Refresh FPL Data"):
-            with st.spinner("Fetching..."):
-                refresh_fpl_data()
-                st.cache_data.clear()
-                st.rerun()
+        st.warning(f"No actual results found for GW{selected_gw}. Run `python data/fetch_fpl.py` to update.")
         return
 
     # ---- Evaluate ----

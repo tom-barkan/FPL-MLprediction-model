@@ -1,22 +1,6 @@
 {
   "fixtures": [
     {
-      "id": 316,
-      "code": 2562210,
-      "team_h": 12,
-      "team_h_score": null,
-      "team_a": 10,
-      "team_a_score": null,
-      "event": 32,
-      "finished": false,
-      "minutes": 0,
-      "provisional_start_time": false,
-      "kickoff_time": "2026-04-11T16:30:00Z",
-      "event_name": "Gameweek 32",
-      "is_home": false,
-      "difficulty": 4
-    },
-    {
       "id": 322,
       "code": 2562216,
       "team_h": 5,
@@ -30,7 +14,7 @@
       "kickoff_time": "2026-04-18T11:30:00Z",
       "event_name": "Gameweek 33",
       "is_home": false,
-      "difficulty": 4
+      "difficulty": 3
     },
     {
       "id": 335,
@@ -59,7 +43,7 @@
       "finished": false,
       "minutes": 0,
       "provisional_start_time": false,
-      "kickoff_time": "2026-05-02T14:00:00Z",
+      "kickoff_time": "2026-05-02T16:30:00Z",
       "event_name": "Gameweek 35",
       "is_home": false,
       "difficulty": 5
@@ -1446,6 +1430,49 @@
       "selected": 30291,
       "transfers_in": 970,
       "transfers_out": 423
+    },
+    {
+      "element": 424,
+      "fixture": 316,
+      "opponent_team": 12,
+      "total_points": 1,
+      "was_home": false,
+      "kickoff_time": "2026-04-11T16:30:00Z",
+      "team_h_score": 2,
+      "team_a_score": 0,
+      "round": 32,
+      "modified": false,
+      "minutes": 45,
+      "goals_scored": 0,
+      "assists": 0,
+      "clean_sheets": 0,
+      "goals_conceded": 2,
+      "own_goals": 0,
+      "penalties_saved": 0,
+      "penalties_missed": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "saves": 0,
+      "bonus": 0,
+      "bps": 11,
+      "influence": "10.4",
+      "creativity": "15.2",
+      "threat": "21.0",
+      "ict_index": "4.7",
+      "clearances_blocks_interceptions": 0,
+      "recoveries": 1,
+      "tackles": 1,
+      "defensive_contribution": 2,
+      "starts": 1,
+      "expected_goals": "0.09",
+      "expected_assists": "0.04",
+      "expected_goal_involvements": "0.13",
+      "expected_goals_conceded": "0.81",
+      "value": 51,
+      "transfers_balance": -1126,
+      "selected": 29573,
+      "transfers_in": 308,
+      "transfers_out": 1434
     }
   ],
   "history_past": [
