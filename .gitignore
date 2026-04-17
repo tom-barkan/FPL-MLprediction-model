@@ -1,6 +1,8 @@
 # Models (too large for GitHub)
 models/llama-3.2-3b/
 models/fpl-lora-adapter/
+models/fpl-lora-adapter-v2/
+models/fpl-lora-adapter-v3/
 models/xgboost_fpl.json
 
 # Raw data not needed by UI

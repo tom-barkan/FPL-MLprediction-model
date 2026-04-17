@@ -1,345 +1,338 @@
-player_id,pts,conf,why
-643,5.1,68,"Good recent form (6.7 avg) vs favorable fixture, but low ICT and away status temper upside; models diverge significantly suggesting moderate consistency."
-449,7.8,78,"Excellent form (10.3 avg), very high fixture difficulty rating favors MUN, consistent minutes, and strong model consensus (XGB 6.6, LLM 9.5) suggest attacking returns likely."
-200,4.8,68,"Strong recent form (5.7) and high ICT suggest creativity, but BHA's solid defense and model disagreement (XGB vs LLM gap) warrant cautious optimism for a home mid-tier return."
-253,5.2,68,"Strong recent form (6.7 avg) and excellent LLM prediction (6.6) vs weak Newcastle attack (FDR 3), though XGB is more conservative at 3.8."
-628,4.1,68,"Solid recent form (4.3 avg) and full minutes, but WHU away is a decent attacking fixture (FDR 2) limiting clean sheet probability despite the opposing models' variance."
-679,4.1,68,"Consistent 90-min play against weak Wolves attack (FDR 2), but limited save potential keeps ceiling low; models suggest modest return."
-681,5.1,68,"Home fixture vs LEE (FDR 2) with decent recent form (5.0 avg), but limited minutes (60) and moderate ICT concern against strong opponent."
-249,6.1,68,"Excellent recent form (7.7 avg) and high ICT against tough opponent, but difficult fixture vs Man City limits upside despite home advantage."
-82,5.1,62,"Strong recent form and ICT suggest attacking returns, but tough away fixture at Chelsea and midfield depth at City limits ceiling."
-441,5.8,75,"Excellent form (7.0 avg) and high ICT (9.9) vs weak LEE side, full minutes played, other models suggest strong return."
-113,4.1,68,"Consistent 90min defender at home vs mid-table Everton (FDR 3), decent form (4.3 avg) but limited attacking threat evident in low ICT, model consensus around 3.4-5.3 range."
-606,4.8,68,"Favourable fixture vs WOL at home, decent recent form (5.0 avg), though minutes concern (only 60/3GW) slightly tempers upside."
-273,4.8,68,"Decent form (4.7) with good ICT (5.1) against weak NEW defense, but recent minutes slightly inconsistent and other models diverge."
-266,5.8,68,"Strong recent form (6.3 avg) and high LLM prediction (6.3) against weak Bournemouth at home, but consistency concerns limit upside."
-375,4.1,68,"Liverpool defender at home vs weak Fulham (FDR 2), but recent form soft (only 66 mins/3GW avg) and low ICT suggests limited attacking returns."
-634,4.1,62,Inconsistent form (4.7 avg) with limited minutes (70/180) against strong WHU attack; XGB conservative while LLM optimistic suggests mid-range outcome.
-603,4.1,65,"Consistent defender with full minutes vs weak Wolves side (FDR 2), but modest form and ICT suggest limited attacking returns."
-139,4.1,68,"Favourable fixture vs Burnley (FDR 2) with consistent 90min play, but modest form (4.0 avg) and low ICT suggest limited attacking returns typical for GK; other models' divergence reflects uncertainty."
-646,4.1,65,Limited recent minutes (61 in 3GW) despite decent form; WHU away fixture is favorable but inconsistent playing time creates uncertainty.
-457,5.1,68,"Casemiro shows solid form (6.0 avg) with high ICT (8.0) against weak Leeds; home advantage and favorable fixture support a return, though midfield minutes consistency is a slight concern."
-178,4.1,65,Welbeck faces elite Burnley away (FDR=2) with limited recent minutes (67 in 3GW) but decent form; models split suggests modest return around league average.
-402,4.5,58,Solid form and minutes against tough Chelsea defence creates conflicting signals; moderate defensive return likely in difficult away fixture.
-267,5.1,68,"Sarr in excellent form (6.3 avg) with consistent 90min play faces favorable NEW defense (FDR 3), though model predictions diverge slightly between XGB (4.2) and LLM (6.5)."
-366,4.2,75,Becker faces a weak Fulham side at home with excellent form and consistent minutes; consensus models support a solid clean sheet probability.
-5,7.3,78,Consistent 90-minute defender at home vs weak opposition (FDR 3); strong form and ensemble model agreement supports 7+ points.
-83,4.8,68,"Decent form (5.3) and good ICT (6.3) vs weak Everton defense, but inconsistent minutes and model disagreement temper expectations."
-125,4.1,68,"Solid home fixture vs Everton with consistent 90min play, but midfield role limits ceiling despite decent form metrics."
-303,4.2,65,"Consistent starter with decent form (6.7 avg) but faces moderate fixture difficulty; XGB suggests modest return with LLM higher, settling between models."
-258,4.6,68,Consistent starter with good recent form against a mid-table opponent; defensive returns limited but minutes secured.
-408,4.1,58,Decent form (5.0) but tough away fixture at Chelsea (FDR 4) with moderate ICT (3.1) and inconsistent minutes limit upside.
-169,4.8,68,"Good form (4.7 avg) and high ICT (5.3) vs favorable fixture (FDR 2), though away trip and model variance (XGB low at 3.5) create moderate uncertainty."
-1,4.5,68,"Raya has solid form (4.3) and plays at home vs weak BOU, but low ICT (1.5) and model divergence (XGB 3.6 vs LLM 5.3) suggest uncertainty around clean sheet probability."
-596,4.1,68,"Solanke faces tough away fixture vs Southampton (FDR 4) with moderate form (3.7 avg) and decent ICT (5.1), though XGB slightly conservative at 3.3."
-207,4.1,58,Inconsistent form (4.7 avg) with moderate ICT against decent Brighton defense; XGB/LLM divergence suggests high uncertainty.
-146,4.1,68,"Dunk faces a favorable fixture (FDR 2) but recent form is inconsistent with low minutes averaging 60/90, though model consensus (XGB 3.1, LLM 4.7) suggests modest returns."
-531,4.5,68,"Ballard in excellent form (5.7 avg) with full minutes, but tough TOT match (FDR 3) and model disagreement (XGB 3.8 vs LLM 6.0) warrant cautious optimism."
-636,4.2,68,Consistent 90min defender with solid form (3.0 avg) facing tough away fixture at WHU; model consensus around 4.2 with moderate FDR 2 difficulty.
-324,4.5,58,"Solid recent form and high ICT suggest attacking threat, but difficult away fixture at Liverpool and inconsistent other model predictions create uncertainty."
-543,4.3,68,Solid recent form (4.7 avg) but tough TOT fixture caps upside; midfield minutes consistent at 73/90 suggests starting.
-694,4.3,65,"Consistent 90-min appearances and solid form, but tough fixture vs TOT limits ceiling despite home advantage."
-407,4.1,68,"Solid defensive form (3.7 avg) facing tough Chelsea fixture, but strong underlying stats (XGB 3.6, LLM 5.2) suggest reasonable returns despite FDR-4 challenge."
-612,4.8,68,"Good form (5.3 avg) and favorable fixture vs WOL, but recent minutes low (54/3GW) create uncertainty on minutes played."
-290,4.1,65,Branthwaite's recent form is solid (5.0 avg) but minutes are concerning at 57/3GW; away fixture vs Brentford (mid-difficulty) offers limited defensive appeal despite reasonable ICT.
-633,3.8,58,Low recent minutes (64 in 3GW) limits ceiling despite favorable WHU fixture; ensemble models suggest modest return slightly above average.
-695,4.5,68,"Consistent starter with 90 mins recent form, but facing tough WHU away fixture limits ceiling despite decent underlying stats."
-386,5.4,68,"Allister shows solid form (6.3 avg) with full minutes, facing weak Fulham at home, but midfield consistency and XGB model suggest moderate rather than premium return."
-370,4.1,58,"Limited recent minutes (49 in 3GW) despite favorable fixture; other models diverge significantly, suggesting uncertainty in playing time."
-403,4.1,68,Gvardiol offers defensive returns at a difficult away fixture; recent form solid (5.0) but Chelsea's attack limits upside despite his attacking threat.
-329,4.1,68,"Wilson faces difficult Liverpool defence away, limited recent minutes (54 in 3GW) despite decent form, ensemble models suggest mid-range return."
-387,5.8,75,"Szoboszlai in excellent form (6.7 avg) with consistent 90min playing time, facing weak Fulham defense at home; slight uncertainty from XGB underbias tempered by strong LLM and high ICT."
-624,5.8,68,"Strong recent form (5.7 avg) and high ICT (7.2) against favorable Wolves fixture, though FWD position limits ceiling compared to mid eligibility."
-72,4.1,68,"Solid form and full minutes, but difficult away fixture at Arsenal limits ceiling; LLM optimistic given XGB, settling middle ground."
-148,4.2,68,"Consistent 90-min player with decent form (3.7) facing easy fixture, but low ICT and XGB suggests limited attacking threat."
-507,4.1,68,"Solid defensive form (4.0 avg) vs mid-difficulty Aston Villa, but inconsistent other model predictions (3.3-5.1) and moderate ICT suggest 4+ likely with low haul upside."
-421,4.1,68,"Solid recent form (6.0 avg) and high ICT suggest attacking threat, but tough away fixture at Chelsea (FDR 4) limits upside; ensemble of models converges around 4-4.7 range."
-390,4.1,68,"Good fixture vs Fulham, decent form (2.3 avg) and high ICT (3.9), but recent minutes (73) suggest rotation risk limits upside potential."
-666,4.8,68,"Strong recent form (5.3 avg) vs weak defence (FDR 3), but limited minutes (74/3GW) and model disagreement suggest cautious optimism for home fixture."
-381,5.1,78,Salah facing weak FDR 2 fixture at home with strong recent form (4.7 avg) and high ICT; consensus models support mid-5s return.
-474,4.6,68,"Consistent starter with strong form (4.7 avg) facing moderate FDR, but away fixture and defensive uncertainty at Newcastle limit ceiling."
-733,4.0,68,"Home fixture vs Leeds provides attacking opportunity, but recent form is modest and ICT suggests limited shot-stopping chances; XGB/LLM models align around 4.0."
-450,5.4,75,"Cunha shows excellent form (5.0 avg) with consistent minutes and high creativity (ICT 6.4); home fixture vs Leeds (FDR 2) is favorable, though other models suggest 4.8-6.1 range."
-8,5.2,68,"Strong home fixture vs weak BOU defense, excellent recent form (8.0 avg), though model disagreement suggests some uncertainty; reliable minutes boost outlook."
-485,5.8,68,"Strong recent form (6.7 avg) and high ICT (7.6) against moderate Palace defence, but away fixture limits upside despite model agreement around 5-6.5pts"
-791,4.3,68,"Decent form (3.7 avg) with positive ICT (5.6) against weak Wolves defense, but inconsistent minutes (84/3GW avg) limits ceiling."
-151,5.1,68,"Strong recent form (5.0 avg) with consistent minutes, favorable FDR 2 fixture, but away status and defensive uncertainty slightly temper upside."
-684,4.5,68,"Solid form and full minutes, but Palace's moderate attacking threat and away fixture temper upside; consensus models suggest mid-range return."
-16,5.8,78,"Excellent form (5.3 avg), high creativity (7.4 ICT), full minutes, facing weak Bournemouth defence at home with XGB/LLM consensus around 5.6."
-173,4.1,68,Consistent midfielder with decent form (3.3 avg) facing weak Burnley; moderate ICT and recent minutes suggest solid floor with limited ceiling upside.
-532,3.6,58,Consistent starter with full minutes but weak form (4.0 avg) and low ICT against strong TOT attack limits upside despite home advantage.
-661,5.1,58,"Inconsistent minutes (64 avg) against Fulham's weak defence, but elevated by strong ICT form (6.8) and LLM model agreement (6.2); XGB suggests caution."
-783,5.1,68,"Consistent playing time and decent form against a favorable fixture (FDR 2), though away status and moderate ICT slightly temper upside."
-411,3.8,58,Low recent minutes (53 in 3GW) and tough away fixture at Chelsea despite decent ICT form; model consensus suggests below-average output.
-613,4.9,68,"Souček shows solid recent form (4.7 avg) with consistent minutes and good ICT, facing a favorable WOL defense at home, though XGB suggests moderate upside."
-442,3.9,68,"Maguire faces a favorable fixture vs Leeds, but inconsistent form (1.3 avg) and moderate ICT (2.4) limit upside despite solid minutes and model consensus."
-299,4.3,65,"Consistent recent form (4.0 avg) against moderate fixture, but away status and middling ICT (3.6) slightly temper expectations despite LLM optimism."
-515,5.8,68,"Strong recent form (6.7 avg) and high ICT (8.4) vs favorable fixture, but consistency concerns and model variance warrant caution."
-291,4.1,65,Tarkowski shows inconsistent form (6.0 avg but only 60 mins/GW) against moderate fixture; XGB conservative while LLM bullish suggests uncertainty.
-160,3.8,58,Low minutes (40 in 3GW) and moderate form (3.3) offset by excellent fixture; other models suggest 3.1-4.2.
-525,3.5,58,"Moderate form with decent home fixture, but low ICT and recent minutes concerns limit upside despite reasonable XGB projection."
-110,3.5,68,"Consistent full-back getting 90 mins vs weak Everton, but limited attacking returns and model consensus suggests modest points."
-437,4.1,75,"Consistent minutes, favorable fixture vs Leeds, defensive potential supported by model consensus averaging ~4.2pts."
-163,4.1,68,"Decent form (3.3 avg) against easy fixture (FDR 2), but inconsistent minutes and modest ICT limit upside; other models suggest 3.9-4.9 range."
-683,3.5,65,Solid defensive form (90 min consistently) but difficult fixture vs Tottenham's attacking threat limits upside.
-488,3.8,62,Inconsistent minutes (30 in 3GW) and moderate form (3.7) against decent Palace defense; consensus models suggest low-to-mid return.
-256,4.6,68,"Home fixture vs Newcastle with decent form (3.7 avg) and high ICT (5.7), though other models suggest moderate output around 4-5 pts."
-517,4.8,68,"Solid recent form (5.0 avg) with good ICT and minutes, facing Aston Villa (FDR 3) at home; XGB/LLM consensus supports mid-4s return."
-121,4.8,65,"Inconsistent form with high ICT suggests potential, but low minutes (68/270) and model divergence indicate uncertainty despite favorable home fixture vs Everton."
-242,4.1,68,Solid recent form (5.7 avg) but away to Brentford (FDR 4) limits upside; high minutes suggest involvement but other models slightly cautious.
-458,3.4,62,"Mainoo shows modest recent form (2.7pts/GW) with decent minutes; easy fixture vs LEE supports slight uptick, but ICT suggests limited involvement."
-108,3.2,68,"Solid defender with decent form against mid-table Everton, but low ICT and minutes concerns limit upside."
-436,4.5,68,Consistent starter with solid recent form against weak Leeds; defensive foundation reliable but ceiling limited without attacking returns.
-74,3.8,58,"Excellent recent form (7.7 avg) and full minutes, but Away vs Arsenal (FDR 5) and other models' disagreement (2.3-5.3 range) suggest caution despite strong underlying performances."
-260,3.2,68,Difficult away fixture vs Chelsea (FDR 4) limits defensive returns despite consistent minutes; XGB/LLM consensus around 3.6 suggests modest output.
-136,5.1,68,"Consistent form (4.7 avg) and high ICT (7.5) vs weak Everton defence, but FDR 3 limits upside potential."
-417,3.1,65,"Consistent low output (3.0 form, 67 min/GW) vs strong Chelsea defense (FDR 4); limited playing time and minimal attacking returns suggest near-baseline return."
-444,3.2,58,New/young defender with limited form data; home fixture vs Leeds offers clean sheet potential but inconsistent minutes history suggests rotation risk despite recent 90-min appearances.
-371,3.8,68,Kerkez faces favorable FUL fixture but low recent minutes (51/3GW) and minimal ICT suggest limited involvement; XGB/LLM consensus around 3.5-3.9 with modest upside for clean sheet.
-120,4.2,68,"Decent form (4.0 avg) vs vulnerable Everton defense, but limited minutes suggest rotation risk and inconsistent playing time."
-736,3.5,68,"Solid form but Chelsea away is challenging; model consensus around 3.3-3.7, limited attacking support from defense reduces ceiling."
-384,5.1,75,"Gakpo in excellent form (4.0 avg) with high creativity, facing weak FUL defence at home; XGB/LLM consensus supports 5+ return."
-642,3.8,65,"Hwang faces tough WHU away (FDR 2) with recent poor form (2.3 avg) and limited minutes, though other models suggest slight upside at 3.4-4.1."
-287,3.5,68,Pickford faces mid-difficulty Brentford away with moderate form (3.3) and low ICT; decent consistency but limited upside from GK position.
-109,3.0,58,Consistent minutes and decent form but moderate fixture difficulty; defender against Everton offers limited attacking upside.
-654,3.2,65,"Moderate form (2.7 avg) against decent defense (FDR 3), limited minutes trend concerning despite home advantage."
-660,3.8,58,Decent form (3.7 avg) but tough away fixture at Man United (FDR 4) limits upside despite consistent minutes.
-452,3.2,58,Very limited minutes (40 in 3GW) despite good fixture; inconsistent form and low ICT suggest bench risk despite XGB/LLM support.
-644,2.8,58,"Poor recent form (2.0 avg), limited minutes (65 in 3GW), and difficult away fixture vs WHU despite favourable FDR rating."
-709,2.8,55,"Minimal recent minutes (50 in 3GW), poor form and ICT, though WHU is favorable fixture."
-443,2.8,58,"Shaw's recent form is weak (2.0 avg, only 58 min/3GW), though home vs LEE is favorable; limited minutes suggest potential rotation risk."
-235,5.1,75,"Palmer in strong form (4.0 avg) with high ICT; despite tough MCI fixture, other models align around 5.0+ and home advantage supports attacking returns."
-90,2.8,65,"Difficult away fixture vs Arsenal (FDR 5), below-average form (3.7), and model consensus suggests minimal returns despite consistent minutes."
-614,3.2,68,Decent fixture but recent form underwhelming; limited minutes (66 avg) and low ICT suggest reduced attacking threat despite set-piece potential.
-491,3.0,65,Moderate form with limited minutes (65/180) and inconsistent ICT suggests Tonali will likely return baseline with minimal differential upside against mid-tier CRY fixture.
-815,3.8,68,"Disasi faces favorable WOL matchup with excellent recent form (90min consistency), but xG-based models suggest modest returns for a defender with limited attacking threat."
-419,3.2,58,Grealish shows poor recent form (3.3 avg) with limited minutes (66/3GW) against tough Brentford away; consensus models lean toward floor with minimal upside.
-673,3.1,58,Moderate midfielder with poor recent form (2.3) and limited minutes (72/3GW avg); facing tough Sun defence away from home with mixed model consensus.
-101,2.8,58,Limited recent minutes (60 in 3GW) and low ICT suggest reduced involvement; Everton attacking threat presents clean sheet risk despite home advantage.
-354,3.1,65,Ampadu faces difficult Man Utd defence away; limited ICT suggests low attacking threat despite full minutes.
-725,4.8,68,Consistent 90-min defender with solid form against weak BOU; model consensus (4.0-5.4) suggests reliable clean sheet potential at home.
-373,5.1,78,"Elite defender with excellent form (3.3 avg), perfect minutes, strong ICT, and facing weak Fulham at home in ideal fixture."
-225,3.8,68,"Chelsea defender at home against strong Manchester City; decent recent form (4.7 avg) and full minutes, but tough opponent and low ICT (1.5) limit upside."
-469,3.1,62,Pope faces moderate-difficulty Crystal Palace away with solid recent form (2.0 avg) but limited offensive potential as goalkeeper; XGB slightly higher suggests defensive stability.
-585,3.8,58,"Solid form (4.3 avg) and full minutes, but moderate ICT (2.7) and tough away fixture vs Nottingham limit upside."
-348,2.8,68,Difficult away fixture at Manchester with poor recent form (4.0 avg) and low ICT suggests limited attacking returns; defensive clean sheet unlikely against top-6 opponent.
-497,3.2,58,Low recent form (4.0 avg) and limited minutes (68/180) suggest rotation risk; away fixture vs Crystal Palace offers no boost despite decent FDR.
-544,4.2,68,Consistent form (4.7 avg) and full minutes against tough Spurs defense (FDR 3) suggests modest return; aligned with model consensus.
-77,3.2,62,Hill's solid form (6.0 avg) undermined by difficult away fixture at Arsenal (FDR 5) and model variance; consistent minutes support floor around 3.
-807,2.8,62,"Poor form (2.7 avg), low ICT, and difficult away fixture at Arsenal (FDR 5) offset by decent minutes; other models suggest limited upside."
-561,2.8,45,"Very limited minutes (52 in 3GW), low ICT, and difficult fixture vs TOT despite home advantage make significant return unlikely."
-97,2.8,65,"Low recent form (3.3), limited minutes (69/GW), and tough away fixture vs Arsenal (FDR 5) offset decent ICT; consensus models suggest underwhelming return."
-21,5.2,75,"Consistent midfielder playing full minutes against weak defence; XGB/LLM consensus supports 5+ return, though Rice's recent form (4.0 avg) suggests ceiling slightly below model predictions."
-26,3.1,58,Zubimendi shows poor form (2.3) and low ICT despite favorable fixture; limited attacking returns expected for a midfielder in defensive role.
-205,3.1,58,Moderate fixture vs Brighton with consistent minutes but below-average form and ICT; ensemble models suggest marginal contribution.
-453,2.8,45,"Tough home fixture vs Man City, limited recent minutes (61 in 3GW), and model consensus suggests below-average return despite decent ICT."
-591,3.2,65,Consistent recent form (4.0 avg) but tough away fixture at Southampton (FDR 4) limits upside; midfield scorer facing defensive challenge.
-526,3.2,65,Inconsistent form (4.0 avg) with limited minutes (74/3GW) against decent Aston Villa defense; model consensus around 3.2-3.5.
-261,3.9,75,Consistent 90-min defender with solid form and ICT; favorable home fixture vs Newcastle supports baseline model predictions.
-198,3.1,58,Low recent minutes (60 in 3GW) and modest form (3.7) against decent Brighton attack; other models conservative.
-582,2.8,58,"Inconsistent form (2.3 avg), moderate fixture difficulty, and limited minutes suggest a below-average return against Nottingham Forest's solid defence."
-817,3.1,58,"Low recent form (2.3) and minimal ICT (2.1) against tough WHU defense, though decent fixture difficulty suggests some upside."
-162,2.5,58,"Minimal recent minutes (44 in 3GW), low ICT, and away fixture to Burnley limit upside despite friendly FDR."
-107,2.8,65,Poor form (2.0 avg) and minimal minutes (37 over 3GW) despite favorable home fixture; XGB slightly optimistic given playing time concerns.
-708,3.8,65,Home fixture vs Wolves (favorable FDR) but recent form weak at 1.7 pts/game and low ICT; XGB model suggests modest upside.
-724,3.0,68,"Decent defensive fixture at home, but low recent form and ICT suggest limited attacking returns; XGB model slightly optimistic given 78min average play."
-84,3.1,68,"Difficult away fixture at Arsenal (FDR 5), solid recent form (4.0 avg) but XGB/LLM models suggest modest return; decent minutes indicate playing time."
-193,3.1,58,"Consistent starter with decent form (2.3 avg) against favorable opponent, but limited attacking threat and XGB suggests modest returns for a defender."
-597,3.1,58,"Poor recent form (5.0 avg), minimal minutes (46 in 3GW), and moderate away fixture against Southampton offset by decent ICT; consensus models around 3.2-3.3."
-52,2.8,58,"Poor recent form (2.3 avg), limited minutes (60), and away fixture vs moderate defense; consensus models align on low return despite reasonable fixture difficulty."
-600,3.2,65,"Areola faces favorable fixture vs Wolves, but recent form (2.3 avg) and low ICT (1.7) suggest limited attacking threat; typical GK return expected."
-64,3.2,58,Poor form (1.0 avg) and low minutes despite favorable fixture; XGB model suggests modest return against mid-table opponent.
-374,3.2,65,"Konaté faces a favorable fixture but recent minutes are concerning (56 min/3GW) with low form/ICT, though Liverpool's home defensive strength provides some floor."
-547,3.1,65,"Decent fixture at home vs Tottenham, but poor recent form (2.3 avg), limited minutes (60), and low ICT suggest inconsistent output; XGB model slightly more optimistic than recent returns."
-311,3.1,58,Moderate form with low ICT suggests limited big-chance involvement; away fixture vs Brentford (FDR 4) presents defensive challenge despite decent minutes.
-677,2.6,58,Severe minutes concern (39 mins in 3GW suggests bench rotation) outweighs favorable home fixture despite low FDR.
-615,4.5,68,"Summerville faces favorable WOL fixture but recent form modest at 2.3; underlying models (XGB 4.4, LLM 4.7) suggest mid-range return with consistent minutes justifying slight uplift."
-699,2.8,68,"Luiz struggling with minutes (43 in 3GW) and form, though NFO's weak defense offers some upside in an away fixture."
-430,4.1,68,Haaland faces tough Chelsea defence away; recent form dipping (2.7 avg) and limited minutes (60) concerning despite elite pedigree.
-489,2.9,68,"Murphy has poor recent form (3.3 avg), minimal minutes (39 in 3GW), and faces a decent defence; other models align at 2.8."
-706,2.8,58,Away at tough Manchester fixture with poor recent form (3.3 avg) and low ICT despite decent minutes suggests limited attacking returns and defensive vulnerability.
-490,2.8,65,"Poor recent form (2.3 pts/gw), low minutes (68 avg), moderate fixture difficulty, and model consensus around 2-3 suggests minimal return away at Crystal Palace."
-191,2.8,55,Limited minutes and low ICT suggest bench player role; weak form and models averaging 2.4 provide little upside despite home fixture.
-300,3.8,58,"Moderate form (4.7 avg) against mid-difficulty fixture, but other models suggest caution; decent minutes but inconsistent returns typical of mid-table midfielders."
-720,2.1,45,"Minimal recent minutes (43 in 3GW), low form average, and away fixture at tough WHU make points unlikely despite decent ICT."
-440,3.1,68,Poor recent form (1.3 avg) and low minutes despite favorable fixture; XGB suggests minimal upside at home vs Leeds.
-330,2.5,68,"Away fixture vs Liverpool (tough FDR 4), low recent form (2.7), minimal ICT involvement (1.2), and ensemble models predict ~2.5pts despite full minutes played."
-106,2.8,58,"Poor recent form (2.0 avg), limited minutes (60 in 3GW), and low ICT suggest defensive struggles despite home advantage vs EVE."
-372,3.2,68,Robertson faces elite FDR fixture but recent form and minutes played are concerning; consistency model and XGB both suggest modest return for premium defender.
-470,3.1,68,"Solid form (2.7 avg) and full minutes, but Brighton's decent attack and modest ICT suggest limited clean sheet probability at home."
-126,3.2,58,Moderate form (2.7) against decent defence (FDR 3); XGB suggests slight uplift but inconsistent output limits ceiling.
-170,2.1,68,"Milner shows poor recent form (1.7 avg), minimal ICT threat (1.3), and limited minutes (58 across 3GW); away vs Burnley offers no fixture advantage despite FDR 2."
-473,4.2,75,Consistent 90-min defender with solid form (2.7) facing favorable Palace (FDR 3); XGB/LLM consensus supports 4.1-4.4 range.
-296,2.8,68,Low recent minutes (54 in 3GW) and poor form suggest reduced playing time; difficult away fixture vs Brentford compounds concerns.
-187,2.8,65,"Poor recent form (3.0 avg), low minutes (60), weak ICT index, and other models suggest subpar output despite home fixture."
-58,2.8,58,Limited minutes (57 avg) and low ICT suggest peripheral role; away fixture vs mid-table team offers modest upside but recent form underwhelming.
-20,2.8,45,"Poor recent form (1.3 pts/gw), minimal minutes (50 across 3 games), and low ICT suggest bench/rotation risk despite favorable fixture and model disagreement."
-670,2.8,45,Roefs faces strong attacking Tottenham at home despite full minutes; model disagreement and weak form suggest a blank is likely.
-665,2.8,58,Away fixture vs high-scoring MUN (FDR 4) limits clean sheet probability; low ICT suggests limited involvement despite full minutes.
-32,3.2,68,"Solid fixture vs Nottingham Forest (FDR 3), full minutes played recently, but form slightly below average and XGB model suggests modest returns."
-416,3.2,58,"Inconsistent form (2.0 avg) against tough Chelsea defense (FDR 4), though full minutes suggest starting; XGB model slightly optimistic given recent output."
-271,2.8,58,"Poor recent form (1.3 avg), low ICT index, and limited minutes suggest minimal impact despite favorable home fixture vs Newcastle."
-81,2.8,65,"Poor form (4.0 avg), limited minutes (66), difficult away fixture at Arsenal (FDR 5), and model consensus below average expectations."
-478,2.8,65,"Recent form weak (2.3 avg), minimal minutes (55 in 3GW), favorable fixture offset by poor consistency and injury concerns."
-431,3.2,58,Bayindir faces Leeds at home (favorable fixture) but shows poor recent form (1.7 avg) and low ICT; XGB model suggests modest return.
-487,2.1,68,"Barnes has minimal recent form (1.7 avg), limited minutes (56/3GW), and faces tough CRY defense; models converge on below-average return."
-50,2.5,58,"Poor form (2.0 pts/gw), low ICT (1.8), limited minutes (72), and away fixture at decent defense (FDR 3) suggest underwhelming return."
-67,2.8,58,Away at Arsenal (hardest fixture) with modest form; XGB underscores defensive vulnerability despite consistent minutes.
-350,2.8,58,"Poor form (1.7 avg), limited minutes (61), tough away fixture at MUN (FDR 4), and conflicting model predictions suggest likely blank/low return."
-318,2.8,68,Away at Liverpool (hardest fixture) with low ICT and other models suggest limited attacking return; clean sheet unlikely but full minutes possible.
-812,2.9,68,"GK facing Tottenham (tough fixture), low recent form (4.3) and minimal minutes (60) limit ceiling despite home advantage."
-552,3.1,58,Consistent minutes but poor recent form and ICT against tough Tottenham fixture; XGB slightly optimistic given weak output.
-337,2.4,68,"Poor form (1.7 avg), low minutes (64/3GW), difficult away fixture at Liverpool, and consensus models point to minimal return."
-731,2.8,58,"Poor recent form (2.7 avg), minimal minutes (21 in 3GW), difficult away fixture vs Liverpool, and model disagreement suggest limited returns."
-413,3.8,62,Marmoush faces tough Chelsea defence; limited recent minutes and inconsistent form suggest modest return despite being in-form City side.
-565,3.1,65,Inconsistent recent form (1.7 avg) against in-form Sunderland; low ICT suggests limited involvement expected.
-343,2.8,65,"Difficult away fixture vs Man Utd (FDR 4), recent form underwhelming at 4.0 avg, XGB model suggests minimal returns for defender in tough matchup."
-668,2.8,58,Poor recent form (1.3 avg) and limited minutes (67/180) suggest bench risk despite home fixture; difficult opponent TOT dampens upside.
-662,2.1,58,Limited minutes (32 in 3GW) and low ICT suggest bench player; easy fixture provides minimal upside.
-476,2.8,58,"Poor recent form (1.0 avg), limited minutes (64/3GW), and difficult away fixture at Crystal Palace offset by defensive stability."
-593,2.6,58,"Poor recent form (2.0 pts/gw), limited minutes (71/180), and difficult away fixture vs SUN offset by decent ICT; consensus models suggest low return."
-215,2.8,58,"Low recent form (2.7 avg), limited minutes (59/3GW suggest bench role), and unfavorable matchup outlook despite home advantage."
-716,2.8,45,Low minutes (57 in 3GW) suggests rotation risk; tough fixture vs Aston Villa limits upside despite home advantage.
-314,2.9,68,Tough away fixture at Liverpool with poor ICT suggests limited attacking threat; expect defensive performance with clean sheet unlikely.
-157,2.8,45,"Mitoma severely limited by injuries (15 mins/game avg), facing tough Burnley away despite good fixture rating; XGB suggests minimal upside."
-6,4.1,68,"Reliable defensive contributor with decent form against weak fixture, but low minutes trend (60 avg) slightly limits ceiling."
-400,2.5,58,"Low recent form (2.7), limited minutes (60 avg), difficult fixture vs Aston Villa despite home advantage"
-217,2.1,58,Foster shows poor recent form (1.3 avg) and low ICT despite friendly fixture; limited minutes (67 in 3GW) suggest bench role or ineffectiveness.
-119,4.3,75,"Mbeumo faces Leeds (excellent fixture) at home with consistent form (1.7 avg) and high ICT (4.6), supported by model consensus around 4.4."
-47,4.2,68,Consistent 90-min midfielder with moderate form against favorable fixture; XGB slightly bullish but ICT lacks explosive potential.
-521,3.1,58,Consistent minutes but low form (2.0) and ICT (2.4) against moderate difficulty; ensemble models suggest modest return with slight upside from home advantage.
-356,2.3,68,"Poor form (2.0 avg), low ICT, tough away fixture vs MUN, and model consensus suggests minimal return."
-88,2.3,68,"Cook faces elite Arsenal defense (FDR 5) with modest recent form (3.7 avg) and poor model consensus (XGB 2.2, LLM 2.5)."
-494,2.6,58,"Poor recent form (2.3 avg), low minutes (55/3GW), weak ICT index, and tough away fixture vs CRY despite favorable FDR."
-508,3.1,58,Poor form (2.0 avg) and low minutes (78/3GW) limit ceiling despite favorable home fixture vs Aston Villa; XGB suggests slightly higher potential but inconsistency evident.
-588,2.8,58,"Odobert severely limited minutes (48 in 3GW), weak recent form, and away fixture to Sunderland offer minimal upside despite moderate FDR."
-610,3.8,68,Consistent minutes and great fixture (FDR2) offset by modest form; XGB model slightly bullish but recent ICT low suggests limited attacking threat.
-506,3.8,68,"Solid form and full minutes at home, but Aston Villa attack poses moderate threat; defensive defender against good side."
-382,3.1,45,Low recent minutes (21 in 3GW) and modest ICT despite favorable fixture suggests limited starting chances.
-584,2.1,58,"Low recent form (1.7 avg), limited minutes (65 in 3GW), and difficult away fixture vs Southampton despite decent ICT suggests minimal return."
-715,2.8,45,"Poor recent form (1.3 avg), low ICT, and average opponent difficulty offer limited upside despite full minutes."
-749,2.8,68,"Poor recent form (2.0 avg), low ICT (2.1), limited minutes, despite facing weak WHU defence (FDR 2)."
-11,2.8,58,White's minimal recent minutes (30 in 3GW) and low ICT (1.1) outweigh the favorable home fixture against BOU; other models align with cautious outlook.
-424,2.4,58,"Low minutes (55 in 3GW), weak form (3.0), difficult away fixture at Liverpool, and consensus models suggest minimal return."
-502,3.1,58,Sels faces Aston Villa (FDR 3) at home with decent recent form (3.0 avg) but low ICT suggests limited attacking threat; XGB slightly favors a clean sheet scenario.
-292,3.1,68,Consistent playing time but away fixture vs Brentford (FDR 4) limits attacking returns; defensive form modest at 3.3 avg.
-302,3.2,58,"Moderate form (3.0 avg) against tough Brentford away, limited attacking output, midfield minutes solid but inconsistent fantasy returns."
-237,3.2,58,Difficult home fixture vs Manchester City despite decent ICT; inconsistent recent form (2.3 avg) and ensemble models suggest modest return.
-124,2.5,65,"Limited minutes (56 in 3GW), poor form (2.0 avg), weak ICT index, and other models predict low returns despite favorable home fixture vs Everton."
-19,2.1,45,"Poor recent form (1.0 avg), minimal minutes (36 in 3GW), and low ICT despite favorable fixture suggest bench/limited role."
-262,2.1,45,"Minimal recent minutes (49 in 3GW), low ICT index, and bench-prone status suggest limited involvement despite favorable home fixture vs Newcastle."
-726,2.4,58,"Poor recent form (2.0 avg), minimal minutes (38 in 3GW), modest fixture difficulty, and model consensus around 2.5 points suggests limited attacking output."
-100,2.1,68,"Poor recent form (1.7 avg), minimal minutes (58/180), facing elite ARS defense (FDR 5), and low model consensus (XGB 2.7, LLM 1.4) suggest blank likely."
-59,3.1,58,Moderate form (2.0) with inconsistent ICT (3.4) against favorable fixture; ensemble of models suggests slight underperformance relative to opportunity.
-158,2.1,58,"Minimal recent minutes (30 in 3GW), low ICT and form, though faces weak Burnley defense."
-723,3.6,65,"Consistent minutes and decent form against favorable fixture, but limited attacking upside for a defender keeps ceiling moderate."
-199,2.8,58,"Low recent form (3.0 avg) and limited minutes (79 in 3GW) suggest rotation risk; Brighton's attacking threat and other model predictions (2.8, 2.0) indicate minimal attacking returns expected."
-181,2.1,64,"Minimal recent minutes (34 in 3GW), low ICT/form, and backup status limit upside despite favorable fixture."
-376,3.2,58,Poor recent form and limited minutes (34 in 3GW) despite favorable fixture; other models suggest low ceiling.
-316,2.1,68,"Robinson faces Liverpool away (hardest fixture), limited minutes recently (60/3GW), and poor form (2.0/3GW) despite decent ICT suggests defensive struggles."
-609,2.8,45,Todibo's extremely limited minutes (30 in 3GW) and low ICT suggest inconsistent selection; favourable fixture helps but unreliable playing time is the main concern.
-714,2.8,45,"New signing with minimal playing time (40 mins/3GW), low ICT, and inconsistent form makes this a high-risk fixture despite moderate FDR."
-519,2.1,58,"Minimal recent minutes (36 in 3GW), poor form and ICT, though home fixture offers slight support against favorable Aston Villa matchup."
-284,2.9,58,"Limited minutes (56 in 3GW), low form average, and XGB/LLM agreement on sub-3 output despite favorable home fixture vs Newcastle."
-293,3.1,58,Consistent starter with moderate form but facing tough opponent Brentford (FDR 4); low ICT suggests limited attacking threat.
-322,2.8,58,"Away fixture at tough Liverpool (FDR 4) limits upside; recent form 2.7 and low ICT 3.2 suggest defensive struggles, though consistent minutes provide baseline floor."
-516,2.8,58,Minimal recent minutes (48 in 3GW) and poor form (2.3 avg) despite favorable home fixture; models suggest modest return.
-220,2.8,58,"Poor recent form (1.7 avg), low ICT, limited minutes, and difficult fixture vs Manchester City suggests low clean sheet probability."
-805,2.8,58,"Limited minutes (35 in 3GW) and low form (2.3) despite home fixture against Aston Villa; both models predict 2.5, slight upside from fixture but constrained by playing time."
-475,3.0,58,Botman has played only 30 mins in 3GW suggesting injury/rotation concerns; moderate fixture difficulty and low ICT indicate limited offensive potential.
-228,2.8,45,Gusto faces elite MCI attack at home with minimal recent minutes (45 in 3GW) and low ICT; defensive returns unlikely despite good form baseline.
-674,2.8,65,"Away fixture vs Crystal Palace (moderate difficulty), recent form slightly below average with limited minutes and low ICT suggests defensive vulnerability."
-627,3.1,68,"Johnstone faces WHU away (FDR 2), full minutes recently but poor recent form (2.0 avg) and low ICT suggest limited attacking involvement; XGB model slightly optimistic."
-37,2.8,58,"Poor recent form (2.0 avg), minimal minutes (50 in 3GW), and away fixture vs mid-table opposition limit upside despite favorable FDR."
-341,2.3,68,"Poor form (3.7 avg), low ICT, difficult away fixture vs MUN, and consensus models suggest minimal returns for backup goalkeeper."
-663,2.1,58,"Arias has minimal recent form (1.0 avg), very low ICT, minimal minutes (36 in 3GW), and models predict poor output despite favorable FDR."
-241,3.1,58,"Caicedo faces top-defensive Manchester City at home; poor recent form (2.3 avg), low ICT (1.7), and other models suggest modest return despite friendly fixture difficulty rating."
-813,2.1,58,"Poor recent form (1.7 pts/GW), minimal minutes (54 in 3GW), and tough fixture vs TOT despite home advantage limit upside."
-553,2.1,58,"Minimal playing time (51 mins/3GW), low ICT, and tough opponent despite home advantage suggest limited returns."
-328,2.1,68,"Poor recent form (2.0 avg), minimal minutes (33/3GW), difficult fixture at Liverpool, and model consensus suggests low output."
-505,3.5,68,Solid defender with full minutes but weak recent form (2.3 avg) against mid-table opponent; XGB model suggests modest return.
-295,2.1,58,Keane averaging only 1.7pts over 3GW with minimal minutes (33) and low ICT suggests limited playing time; moderate fixture difficulty doesn't offset weak form.
-486,2.3,65,"Poor recent form (1.3 avg), minimal minutes (50 in 3GW), and low ICT suggest limited impact despite decent fixture; other models align with low expectation."
-686,2.1,58,"Limited minutes (34 in 3GW), low form average, and unproven player despite favorable fixture suggest minimal impact."
-40,2.8,65,"Poor recent form (0.7 avg), limited minutes (60), and low ICT suggest defensive returns unlikely against mid-table NFO despite decent fixture."
-438,2.1,45,"Mazraoui severely limited by injury (only 26 mins in 3GW), inconsistent minutes trump favorable fixture despite easy opponent."
-568,3.8,65,"Porro faces tough Southampton away (FDR 4) with poor recent form (1.0 avg), though XGB suggests decent potential; inconsistent returns and limited minutes trend concerning."
-676,2.1,58,"Minimal playing time (43 mins/3GW), low ICT, and underperforming XGB suggests bench risk despite home fixture."
-693,2.1,45,Severe minutes shortage (11/GW avg) despite decent fixture; minimal recent form and ICT suggest limited attacking involvement.
-317,2.1,58,"Low recent minutes (30 in 3GW), poor ICT, and extremely difficult fixture vs Liverpool severely limits upside despite decent defensive potential."
-499,3.8,45,Isak faces weak FUL defense but minimal recent minutes (34 in 3GW) and low ICT suggest limited involvement; XGB/LLM average supports modest return.
-727,2.1,58,"Limited minutes (45min/3GW), poor form, difficult away fixture at Liverpool, and low model consensus suggest a blank or minimal return."
-226,3.2,58,Poor recent form (1.7 avg) and low ICT against elite City attack; difficult fixture limits upside despite full minutes.
-39,2.8,58,"Poor recent form (1.0 avg), limited minutes (67/180), and other models predict low returns despite favorable fixture difficulty."
-276,2.4,65,"Poor form (2.0 avg), limited minutes (69/3GW), low ICT, and other models suggest underperformance despite home fixture."
-224,2.1,55,"Very limited minutes (34 in 3GW), low ICT, and difficult fixture vs Man City despite home advantage outweighs any defensive upside."
-209,2.1,58,"Very low recent form (1.7 avg), minimal minutes (50 in 3GW), and weak ICT suggest bench/rotation risk despite home fixture vs mid-table Brighton."
-672,2.1,45,"Very low recent form (1.0 avg), minimal minutes (57 in 3GW), and tough fixture vs Man City limits upside despite home advantage."
-325,2.1,68,"Low recent form (1.0), minimal minutes (33 in 3GW), and difficult away fixture at Liverpool; XGB model suggests depressed output."
-477,2.1,58,Severe minutes concern (only 30 in 3GW suggests benching/rotation) outweighs decent fixture difficulty; other models align on low output.
-511,2.1,58,"Minimal recent minutes (30 in 3GW), poor form, and competing models suggest low output despite favorable home fixture."
-365,2.1,68,"Very low recent minutes (33 in 3GW), tough away fixture at MUN, and weak form/ICT suggest minimal playing time and impact."
-10,2.1,45,Limited minutes (28 in 3GW) and minimal involvement (ICT 0.5) despite home fixture; rotation risk outweighs BOU's weakness.
-713,2.1,68,"Away at top-4 Arsenal with poor recent form (3.7 avg), limited minutes (70/180), and both model predictions well below average."
-570,2.6,58,"Poor recent form (2.7 avg), limited minutes (60 3GW), difficult away fixture vs Sun, and model consensus low (~2.1 avg) suggest below-average return."
-230,2.1,58,"Low recent minutes (53 in 3GW), poor form (1.7), and tough opponent Man City limit upside despite home fixture."
-167,2.1,58,"Very limited minutes (27 in 3GW), low ICT, and inconsistent form suggest bench rotation risk despite favorable fixture."
-718,2.1,45,"Very limited minutes (44 in 3GW), poor form/ICT despite favorable fixture, minimal playing time suggests bench role."
-190,2.1,58,"Low recent form (1.3 avg), minimal minutes (60 in 3GW), weak ICT index, and other models suggest below-average return despite favorable fixture."
-794,2.8,68,Backup defender with inconsistent minutes facing strong Chelsea attack; limited attacking returns despite Man City's quality.
-551,1.8,65,Rigg faces tough Tottenham defence with minimal recent minutes (30 in 3GW) and low ICT despite home advantage; limited playing time is the primary concern.
-129,2.1,68,Severe lack of minutes (40 in 3GW) and poor form/ICT suggest limited playing time against mid-table Everton.
-55,2.8,68,"Barkley faces favorable FDR 3 fixture but recent form is weak (4.7 pts/3GW avg, only 46 mins), consensus models predict ~2.6-2.9 pts with low ICT involvement."
-608,2.1,45,Very limited minutes (30 in 3GW) and low ICT suggest bench/fringe player despite favorable fixture.
-87,2.1,68,"Poor form (2.7 avg), minimal minutes (54 in 3GW), low ICT, and extremely difficult away fixture vs Arsenal."
-572,2.1,58,"Poor recent form (1.7 avg), limited minutes (60/3GW), and away fixture vs mid-table SUN with moderate difficulty suggests likely clean sheet miss or minimal return."
-192,2.1,65,Minimal recent minutes (24 in 3GW) and low ICT suggest bench player status; home fixture vs mid-table Brighton offers limited upside.
-144,2.1,62,Limited minutes (30 in 3GW) and low ICT despite good fixture suggests bench player status; easy opponent doesn't offset bench risk.
-73,2.1,68,"Minimal recent minutes (20 in 3GW), difficult away fixture at Arsenal (FDR5), and low form/ICT suggest limited points."
-414,2.8,45,"Foden faces tough Chelsea away, recent poor form (1.0 pts/GW) and minimal minutes (26 in 3GW) suggest limited playing time remains a concern despite model variance."
-342,2.1,58,"Away fixture vs Man Utd (tough), poor form (1.7 avg), limited minutes (68/270), and consensus models suggest low output (XGB=2.3, LLM=1.3)."
-717,2.1,58,"Poor recent form (1.0 avg), minimal minutes (36 in 3GW), and difficult away fixture at Sunderland limit upside despite decent ICT involvement."
-49,2.1,58,"Very limited minutes (40 in 3GW), poor form and ICT despite favorable fixture suggest bench role continues."
-54,2.1,58,"Minimal recent minutes (20 in 3GW), low ICT, and away fixture vs tough defense suggest limited impact despite favorable FDR rating."
-85,2.1,68,"Poor form (2.0 avg), minimal minutes (42 in 3GW), low ICT, and difficult away fixture vs Arsenal limits upside significantly."
-580,2.3,58,Very limited minutes (31 in 3GW) and low ICT despite home fixture vs Newcastle suggest bench risk; other models align on low expectation.
-304,2.1,68,"Iroegbunam lacks minutes (29 in 3GW), poor form (1.3 avg), weak ICT, and faces difficult Brentford away; consensus models align on low output."
-712,2.1,68,"Poor recent form (1.3 avg), minimal minutes (27 in 3GW), and low ICT despite favorable fixture suggest bench risk outweighs home advantage vs Newcastle."
-808,2.1,45,"Minimal recent minutes (23 in 3GW), low form and ICT, away fixture vs mid-table; competing models suggest limited output."
-575,2.1,45,"Poor form (-1.0), minimal minutes (42 across 3GW), low ICT, and difficult away fixture vs Southampton despite moderate FDR rating."
-456,1.8,45,Severe lack of minutes (29 in 3GW) despite favorable fixture; inconsistent form and low ICT suggest bench risk outweighs upside.
-796,2.1,58,"Poor form (0.7 avg), minimal minutes (35 in 3GW), low ICT, and XGB model suggests minimal return despite decent fixture."
-236,2.1,38,"Minimal recent minutes (23 in 3GW), poor form, and difficult fixture vs Man City despite home advantage limit upside."
-691,3.2,58,"Poor recent form (1.3 avg) and low ICT (3.6) against strong MUN defense, though full minutes show availability; ensemble models diverge significantly."
-335,2.1,68,"Poor form (2.3 avg), minimal minutes (46 in 3GW), tough away fixture vs Liverpool, and ensemble models predicting sub-par returns."
-587,2.8,58,"Poor recent form (2.0 avg), low ICT index (1.6), limited minutes (71), and tough away fixture at Southampton despite moderate FDR rating."
-321,1.8,68,Away at Liverpool (hardest fixture) with minimal recent minutes (31 in 3GW) and very low ICT suggests limited involvement and clean sheet risk.
-338,1.5,58,"Limited minutes (25 in 3GW), poor form, difficult away fixture at Liverpool, and low model consensus suggest minimal points."
-36,2.8,45,"Cash has minimal recent minutes (45 in 3GW), low form (-0.3), and faces tough away fixture; XGB suggests moderate floor but LLM's pessimism and injury concerns warrant caution."
-648,2.1,58,"Munetsi struggling with minutes (28 in 3GW), weak form/ICT, and away fixture vs tough WHU despite favorable FDR rating."
-785,1.8,45,Severe lack of playing time (21 mins/3GW) and minimal output despite favorable fixture suggests bench rotation risk.
-539,2.1,58,"O'Nien severely limited by injury (39 mins in 3GW), faces tough Spurs attack despite home fixture, other models suggest minimal return."
-730,2.1,68,Severe minutes drought (26 min/3GW) and poor form (0.7) against strong Tottenham defense outweigh home advantage.
-195,2.1,45,"Poor recent form (0.7), limited minutes (75 over 3GW), and low model consensus suggest minimal return against mid-table Brighton."
-41,2.1,65,Limited minutes (30 in 3GW) and poor form (0.3 avg) suggest fringe status; favorable fixture helps slightly but insufficient playing time dominates outlook.
-573,1.8,58,"Spence severely limited minutes (25 in 3GW), away fixture vs tough opponent, and model consensus around 1.5-2.2 suggests minimal opportunity for returns."
-53,2.1,58,"Malen severely underperforming with minimal minutes (31 in 3GW) and poor form (2.0), making him a risky pick despite favorable fixture against NFO."
-388,2.1,68,"Minimal recent minutes (24 in 3GW), low ICT, and weak form suggest bench/rotation risk despite favorable home fixture vs Fulham."
-344,2.1,58,"Bijol's minimal recent minutes (33 in 3GW), low ICT, and tough away fixture vs MUN suggest limited playing time and defensive vulnerability."
-645,1.8,68,"Minimal recent minutes (25 in 3GW), low ICT, and weak form suggest bench risk despite favorable fixture difficulty."
-38,3.2,58,Solid defender with full minutes but poor recent form (0.7) and low ICT suggests limited attacking threat; modest defensive fixture (FDR 3) provides slight upside.
-638,2.1,58,"Minimal recent minutes (31 in 3GW), low form, and tough away fixture at WHU despite good FDR rating suggests limited playing time risk."
-571,2.1,68,Severe minutes shortage (29 in 3GW) and poor form despite moderate fixture; benching risk outweighs defensive upside.
-816,2.1,68,"Minimal recent minutes (20 in 3GW), low ICT, and poor form suggest bench/sub risk despite favorable FDR."
-331,2.1,68,"Cairney faces elite Liverpool away with poor recent form (1.3 avg), minimal minutes (27 in 3GW), and low ICT despite models suggesting 2.0 baseline."
-462,1.8,45,Severely limited minutes (21 in 3GW) and poor form despite favourable fixture; models suggest low return with high uncertainty.
-31,2.8,58,Severely limited minutes (24 in 3GW) and low model predictions offset favorable home fixture against weak opponent.
-347,1.8,68,"Poor form (1.7 avg), low ICT, tough away fixture at MUN (FDR 4), and limited minutes suggest minimal FPL returns."
-305,2.1,45,"Minimal recent minutes (27 in 3GW), low form and ICT, away fixture vs moderate difficulty; limited upside despite reasonable price point."
-229,2.1,65,Inconsistent minutes (30 in 3GW) and poor ICT against elite MCI attack limits upside despite home advantage.
-270,2.3,68,"Hughes severely lacking minutes (25 in 3GW), poor form and ICT despite home fixture vs NEW; limited opportunity suggests blank risk."
-678,2.1,68,"Masuaku has played only 23 minutes in 3GW with minimal form/ICT, and faces elite attacking side Tottenham despite home advantage."
-345,1.8,68,Severe minutes concern (28 mins/3GW) suggests benching; tough away fixture at MUN and low ICT compound poor defensive form.
-246,1.5,62,"Minimal recent minutes (26 in 3GW), very low ICT index, and unfavorable fixture vs Man City limits ceiling despite home advantage."
-320,1.8,65,Diop facing elite Liverpool away with minimal recent minutes (30 in 3GW) and poor form (0.3 avg); risky pick despite low FDR expectations.
-233,2.1,45,"Minimal playing time (31 mins/3GW), very low ICT, against elite attacking side Man City at home."
+player_id,claude_predicted_pts,claude_confidence,claude_reasoning
+441,6.8,85,Excellent recent form (7.0 avg) with guaranteed minutes and high involvement (ICT 9.9) against moderate difficulty away fixture suggests solid return despite travel.
+74,6.8,82,Excellent recent form (7.7 avg) at home vs weak defence (FDR 2) with nailed 90-min status suggests a strong return despite model disagreement.
+72,6.8,82,Excellent recent form (7.3 avg) at home against a weak opponent (FDR 2) with nailed 90-min appearances suggests another strong defensive return.
+508,6.2,85,Strong recent form (7.0 avg) at home against weak opposition (FDR 1) with high playing time suggests a solid clean sheet return with potential bonus points.
+449,8.5,76,Elite form (10.3 avg) and exceptional involvement (ICT 15.3) outweigh moderate fixture difficulty; fine-tuned LLM aligns with quality recent performance over ML models showing low confidence.
+517,5.8,82,"Strong recent form (6.3 avg), high minutes, easiest fixture (FDR 1), and high ICT involvement suggest a solid return, aligning with the fine-tuned LLM model."
+311,5.2,65,"Solid recent form (6.7 avg) at home is offset by Liverpool's strong defence, suggesting a moderate return rather than a haul or blank."
+5,5.8,68,Excellent form (9.7 avg) and nailed starter clashing with hardest fixture (FDR 5) against elite attacking team creates uncertain outlook between haul and blank.
+507,4.8,82,Consistent starter (90 min avg) at home vs weakest attack (FDR 1) with recent form of 5.7 pts suggests a solid clean sheet return around 4-5 points.
+505,4.2,75,"Consistent 5.0 avg form with nailed 90-min status and easy home fixture (FDR 1) suggests a solid clean sheet return, though XGBoost models suggest slightly lower expectation."
+303,5.2,65,Strong recent form (6.7 avg) and home advantage offset by tough Liverpool opponent; balancing Garner's consistency against fixture difficulty.
+354,4.3,82,"Consistent 4.0 pts form with full minutes, moderate away fixture (FDR 3), and alignment with ensemble model predictions suggests a solid mid-range return."
+267,6.5,82,"Strong recent form (6.7 avg) with full minutes, home advantage vs a mid-table side, and consistent involvement (ICT 5.7) suggest a solid return despite model variance."
+402,4.2,68,"Good form (5.3 avg) and easy fixture (FDR 2) suggest a solid return, but inconsistent minutes (75 avg) and competing model variance warrant moderate confidence."
+67,4.1,75,"Recent form of 4.7 pts combined with an easy home fixture (FDR 2) suggests a solid clean sheet probability, though the XGBoost models' lower predictions warrant some caution."
+343,4.2,82,"Consistent recent form (5.0 avg) and moderate away fixture (FDR 3) suggest a solid defensive return, with consensus clustering around 3-5 pts."
+387,5.8,75,"Solid recent form (6.3 avg) and full minutes despite moderate away fixture difficulty, though XGBoost models suggest some regression risk."
+416,4.2,75,"Moderate form (4.7 avg) against an easy fixture (FDR 2) with consistent minutes and decent ICT involvement suggests a solid mid-range return, balanced between the model predictions."
+407,4.2,82,Consistent 90-min starter for elite Man City against weak Burnley (FDR 2) suggests clean sheet probability outweighs recent 3.7 avg form dip.
+249,6.2,68,Strong recent form (7.7 avg) and high involvement (ICT 10.5) offset by a tough away fixture (FDR 4) and fixture congestion at GW33.
+531,3.5,75,"Strong recent form (5.7 avg) is offset by a difficult away fixture (FDR 4) against Aston Villa, suggesting a modest return with clean sheet risk."
+421,4.8,75,"Solid recent form (5.3 avg) against easy fixture (FDR 2) with consistent minutes, though XGBoost models suggest some regression from his 6.3 price tag."
+515,5.5,68,"Solid recent form (6.3 avg) and excellent home fixture (FDR 1) suggest a good return, though the XGBoost models' caution and moderate ICT index warrant some conservatism."
+88,3.8,76,"Moderate form (3.7 avg) against a weak opponent (FDR 2) at home provides slight upside, though low ICT index and modest price suggest limited ceiling."
+77,4.2,75,"Consistent 5.0 form with guaranteed minutes at home vs weak defence (FDR 2) suggests a solid clean sheet return, though XGBoost caution indicates some volatility risk."
+299,4.8,62,Solid home form (6.0 avg) but Liverpool's strong defence (FDR 3) and moderate ICT involvement suggest a modest return below recent average.
+502,4.2,82,"Excellent home fixture (FDR 1) against Burnley with consistent recent form of 4.7 avg suggests a solid clean sheet return, supported by ensemble model consensus."
+660,3.8,76,"Consistent 90-minute appearances with moderate ICT involvement (7.4) against a mid-difficulty away fixture suggests a slightly-above-average return, supported by the ensemble consensus."
+261,4.2,72,"Solid recent form (5.0 avg) at home against mid-table opposition suggests a decent return, but consensus model uncertainty warrants a conservative middle-ground estimate."
+8,4.2,68,"Strong recent form (8.0 avg) is offset by an extremely difficult away fixture vs Man City (FDR 5), likely limiting attacking returns and clean sheet probability."
+293,3.5,72,Solid home form (5.0 avg) is offset by Liverpool's attacking prowess and low ICT involvement suggesting limited attacking returns as a defender.
+87,3.8,75,"Decent home fixture (FDR 2) and solid recent form (5.7 avg) are offset by inconsistent minutes (68.3) and moderate ICT involvement, placing him between a solid return and a blank."
+603,3.5,81,Consistent 90-minute starter with moderate form (3.0 avg) facing mid-table opponent; expect standard defensive return with clean sheet possibility.
+485,6.8,75,"Excellent recent form (9.3 avg) with high ICT involvement at home against mid-table Bournemouth (FDR 3) suggests a solid attacking return, though the XGBoost models warrant some caution."
+506,4.8,72,Excellent home fixture (FDR 1) against Burnley with consistent 90-min involvement and solid 5.3 pts form suggests a clean sheet + bonus is probable.
+544,3.5,68,"Moderate form (4.7 avg) faces a difficult away fixture (FDR 4) against Aston Villa, with low ICT suggesting limited involvement in key actions."
+348,3.7,88,Consistent recent form (4.0 avg) with high playing time against moderate FDR 3 opposition aligns with model consensus of 3.6-3.8 pts.
+706,3.8,82,"Moderate form (4.7 avg) against mid-tier FDR fixture with consistent minutes suggests a solid defensive return, slightly above the XGBoost consensus but below peak form."
+16,4.2,65,"Decent recent form (5.3 avg) undermined by the hardest fixture (FDR 5) away to title contenders, with consensus models split between pessimistic and optimistic outlooks."
+679,3.5,68,Moderate away fixture (FDR 3) with recent form of 4.7 pts suggests a decent but not exceptional return; consensus leans toward lower scoring (2.7-3.0) but recent form slightly elevates expectation.
+341,3.8,85,Consistent recent form (4.7 avg) with full minutes backing suggests a solid return despite moderate away fixture difficulty (FDR 3).
+417,3.5,62,"Moderate form (3.0 avg) with inconsistent minutes (66 min avg) against an easy fixture (FDR 2) suggests a modest return, with alignment toward XGBoost consensus but slightly elevated for the favourable matchup."
+526,3.8,62,Moderate form (5.0 avg) against easy opponent (FDR 1) is offset by inconsistent minutes (70 avg) and relatively low price suggesting limited upside.
+794,3.2,76,"Consistent starter with decent form (4.0 avg) facing easy away fixture (FDR 2), but low price and defensive role limit upside potential."
+82,5.2,62,"Solid recent form (5.7 avg) against an easy fixture (FDR 2) is offset by inconsistent playing time and moderate ICT involvement, with model consensus suggesting lower returns than recent output."
+457,4.2,68,"Moderate form (5.0 avg) against mid-difficulty away fixture, but inconsistent minutes (77 avg) and lower ICT suggest limited involvement—weighted between optimistic LLM and conservative XGBoost models."
+205,3.1,82,"Consistent starter with 90-min average, but poor form (2.7 avg) and very difficult home fixture vs Man City (FDR 4) limits upside despite model consensus around 3 pts."
+59,3.8,82,"Consistent starter with easy home fixture (FDR 2) against a weak opponent, though modest form and low ICT suggest mid-range return is most likely."
+148,3.6,76,Consistent starter with moderate form (3.7 avg) at home against mid-tier FDR opponent; expect typical defensive returns with clean sheet possibility.
+113,3.8,76,"Solid home fixture (FDR 3) with consistent 90-min starts and recent 4.3 avg form suggests a reliable defensive return, though lower than Fine-tuned LLM given Fulham's decent attack."
+318,3.5,75,Consistent 90-min starts with moderate form (4.0 avg) in a moderate away fixture (FDR 3) suggests a typical defensive return with modest clean sheet probability.
+521,3.5,82,"Easy home fixture (FDR 1) and full 90-min availability provide upside to recent 2.7 pts form, though low ICT index limits ceiling."
+643,4.2,65,"Moderate form (6.3 avg) against a mid-table away fixture (FDR 3) suggests a solid return, but lower ICT index and consensus variance warrant cautious optimism."
+260,3.8,82,Consistent starter (90 min avg) in an easy away fixture with moderate form suggests a solid defensive return with clean sheet potential.
+723,4.8,76,"Good recent form (5.3 avg) at home against mid-table WHU suggests a solid clean sheet or attacking contribution, though the XGBoost models' caution on consistency warrants slight moderation."
+90,3.8,82,"Consistent starter (90 min avg) with moderate involvement (ICT 5.3) facing a weak opponent at home, but mediocre recent form suggests a slightly above-average return rather than a haul."
+450,5.2,65,"Solid recent form (5.3 avg) with consistent minutes and decent ICT involvement, but away to Chelsea (FDR 3) and model consensus leans lower, suggesting some caution warranted."
+101,3.5,76,Recent form of 5.3 pts is solid but moderately difficult home fixture (FDR 3) and consistent ensemble predictions suggest a more conservative 3-4 point return typical of reliable GK starters.
+110,4.8,72,"Strong recent form (6.7 avg) and home fixture (FDR 3) suggest a solid return, though consensus models are more conservative indicating some regression risk."
+106,3.5,75,"Consistent 4.0 pt form at home with moderate fixture difficulty (FDR 3) suggests a solid return, though the XGBoost models suggest slightly lower ceiling than recent average."
+624,4.8,75,Consistent 90-minute appearances with moderate ICT involvement (5.7) against a mid-table defence (FDR 3) suggests a solid mid-range return above his recent 4.0 average.
+1,3.8,72,"Away fixture vs elite-attacking Man City (FDR 5) makes clean sheet unlikely; recent form of 5.7 pts inflated by easier matches, so expect save points only around 3-4."
+411,4.2,62,"Low minutes (53 avg) and inconsistent form (2.7 pts) suggest rotation risk despite easy fixture, though Man City's defensive strength provides some upside."
+21,3.2,72,"Poor form (3.7 avg) and a very difficult away fixture vs Man City (FDR 5) limit returns, though Rice's assured minutes and price suggest floor around 2-3 points."
+81,3.8,62,Moderate form (4.0 avg) with inconsistent minutes (66 min avg) against an easy opponent is tempered by rotation risk and modest ICT involvement.
+584,3.1,73,"Poor recent form (2.0 avg) and inconsistent minutes suggest a modest return, though home fixture and moderate ICT involvement offer slight upside potential."
+55,3.5,68,Moderate form (5.3 avg) but inconsistent minutes (58 min avg) and a cheap midfielder suggest limited upside despite an easy home fixture.
+350,3.1,81,"Poor form (2.0 avg) and low minutes (62) suggest limited impact, but moderate fixture difficulty (FDR 3) and consensus model predictions around 3.0 pts support a slightly above-average return."
+83,3.2,72,Moderate form (4.0 avg) with inconsistent minutes (61 min avg) and moderate fixture difficulty limits upside despite home advantage.
+84,3.8,76,"Poor recent form (2.3 avg) against an easy home fixture (FDR 2) suggests modest recovery, but inconsistency limits upside potential."
+606,3.8,68,Moderate form (5.3 avg) against mid-difficulty away fixture (FDR 3) with inconsistent minutes (60.3 avg) suggests a modest return slightly above blank.
+292,4.2,75,"Improved form (4.7 avg) and full minutes at home support a decent return, though Liverpool's attacking threat and the XGBoost models' caution suggest tempering expectations slightly below recent form."
+291,4.2,68,Strong recent form (7.0 avg) is offset by inconsistent minutes (60 min avg suggests rotation risk) and a moderately tough home fixture vs Liverpool.
+136,4.8,65,"Moderate form (4.0 avg) at home vs mid-table opponent suggests a solid return, though the XGBoost models' lower predictions warrant some caution on upside."
+207,3.2,65,"Moderate form (4.7 avg) against elite defence (Man City, FDR 4) suggests a below-average return despite home advantage and decent recent involvement."
+125,3.8,72,"Consistent starter (90 min avg) with moderate form (4.7 pts) and decent home fixture (FDR 3), but low price and ICT suggest limited upside potential."
+695,3.2,75,Consistent starter with moderate form (4.0 avg) faces mid-table away fixture; likely 1 point (appearance) plus potential clean sheet or bonus.
+287,3.8,75,"Home fixture provides clean sheet potential, but Liverpool's attacking threat and Pickford's modest 5.0 avg form suggest a moderate return rather than a haul."
+314,3.2,82,Moderate form of 4.3 pts average against a mid-difficulty away fixture (FDR 3) suggests a typical goalkeeper return with modest clean sheet probability.
+613,3.2,75,Moderate form (3.0 avg) against a mid-table away fixture with low ICT involvement suggests a typical return slightly above blank.
+108,3.0,81,Consistent defensive form (2.7 avg) at home against mid-table FUL (FDR 3) suggests a typical clean sheet chance with modest bonus potential.
+200,3.2,75,"Poor form (3.0 avg) against elite defence (Man City, FDR 4) and modest price limits upside despite home advantage and full minutes."
+677,3.2,68,Low minutes (38.7 avg) and inconsistent form despite easy home fixture suggest rotation risk limits upside potential.
+6,4.2,65,"Strong recent form (7.0 avg) undermined by tough away fixture vs Man City (FDR 5) and reduced minutes, suggesting a modest return with clean sheet risk."
+242,4.2,68,"Moderate form (4.7 avg) at home against Liverpool (FDR 3) suggests typical mid-range return, with consensus models pointing toward 2.7-5.1 range."
+370,3.5,72,"Moderate form (4.3 avg) faces moderate away fixture (FDR 3), but reduced minutes (65.3) and low ICT suggest limited attacking involvement despite being a modern fullback."
+342,3.0,82,"Consistent mid-range form (2.7 avg) with moderate away fixture difficulty aligns with ensemble consensus, suggesting a typical defensive return with minimal upside."
+408,4.2,75,"Solid form (5.0 avg) against a weak away fixture (FDR 2) supports a decent return, though inconsistent minutes and model disagreement suggest moderate confidence."
+612,3.2,75,"Low minutes (54.3 avg) and moderate form (5.3 pts) in a neutral fixture suggest below-average return, aligned with ensemble consensus around 3.0 pts."
+713,3.2,75,"Easy home fixture (FDR 2) and consistent recent form of 3.0 pts avg suggest a solid return, though minutes uncertainty (63.7 avg) prevents higher confidence."
+736,3.2,68,"Easy away fixture (FDR 2) offers clean sheet potential, but recent form of 2.7 pts and low ICT suggest limited attacking involvement for a goalkeeper."
+807,3.2,68,"Poor recent form (2.7 avg) and low ICT involvement temper optimism from easy home fixture, suggesting modest return near baseline."
+403,4.2,68,Solid form (5.0 avg) and easy away fixture (FDR 2) offset by inconsistent minutes (71 avg) and moderate playing time uncertainty for City's rotation-prone defence.
+109,3.0,82,Consistent starter with moderate home fixture (FDR 3) and stable form; XGBoost consensus at 3.0 pts aligns with defender baseline expectations.
+178,4.2,68,"Moderate form (5.0 avg) against mid-table defence at home, but limited minutes (64.3) and inconsistent involvement (ICT 7.3) suggest a modest return rather than a haul."
+151,4.8,75,"Consistent 5.0 pts form with full minutes at home against moderate opposition (FDR 3) suggests a solid return, though Chelsea's attacking threat limits clean sheet probability."
+225,3.8,72,Moderate away fixture (FDR 4) with solid recent form (4.7 avg) but limited attacking involvement suggests a typical defender return with low clean sheet odds.
+237,2.8,80,"Poor recent form (2.3 avg), difficult away fixture (FDR 4), and low ICT involvement suggest a below-average return despite decent minutes."
+97,3.5,65,"Moderate form (3.0 avg) against easy home opponent (FDR 2) suggests slight uptick, but low ICT index (3.5) and inconsistent output limit ceiling potential."
+32,3.8,82,"Easy home fixture (FDR 2) against Southampton provides clean sheet potential despite recent poor form, with Auto-Research model's 4.4 prediction lending credibility."
+344,4.2,68,"Solid recent form (6.3 avg) and moderate fixture difficulty (FDR 3) suggest a decent return, though inconsistent minutes (62 avg) and lower price point indicate some volatility."
+258,3.8,82,Consistent 90-min starter with reliable 3.0 pt form and home advantage against WHU (FDR 2) suggests modest clean sheet probability and solid floor.
+683,2.8,82,"Difficult away fixture (FDR 4) against Aston Villa combined with modest recent form (3.3 avg) and low ICT suggests a below-average return, aligning with consensus model predictions."
+146,3.2,75,Moderate form (4.0 avg) against mid-tier fixture (FDR 3) hurt by inconsistent minutes (60 avg) suggests a solid but unspectacular clean sheet or tackle return.
+330,3.0,85,Low ICT index (1.9) and modest form (3.7 avg) suggest limited attacking involvement; consensus of other models points to a typical blank-to-low return performance.
+684,3.8,72,"Solid home form of 4.3 pts against mid-table opponent, but reduced minutes (72 avg) and moderate ICT suggest a typical defensive return rather than a haul."
+120,3.1,72,"Poor form (2.7 avg) and low involvement (ICT 1.6) suggest a modest return despite home advantage, with consensus around 2.6-3.0 pts."
+375,3.2,76,"Moderate form (5.0 avg) undermined by inconsistent minutes (65.7), moderate fixture difficulty (FDR 3), and consensus of ensemble models trending toward 2.0-3.0 range suggests a typical defensive return."
+516,3.2,75,"Easy home fixture (FDR 1) provides opportunity, but inconsistent minutes (47 avg) and low ICT index (2.8) limit upside despite decent recent form."
+302,3.8,72,"Moderate form (5.0 avg) faces Liverpool's strong defence at home, with limited ICT involvement suggesting a below-average return despite decent minutes."
+38,3.8,75,"Home fixture vs weak opponent (FDR 2) with consistent 90-min playing time offers clean sheet potential despite recent poor form, aligning with the stronger model consensus."
+419,3.2,75,Poor recent form (3.3 avg) and limited minutes (65.7) against a strong Liverpool defence (FDR 3) suggest a low-scoring return despite home advantage.
+628,3.2,84,"Consistent recent form (3.7 avg) and moderate away fixture (FDR 3) suggest a typical GK return, aligned with ensemble model consensus around 2.8-3.6 pts."
+300,3.2,68,Moderate form (3.7 avg) and modest involvement (ICT 4.4) in a home fixture against title-contending Liverpool suggests a typical return slightly below his recent average.
+665,3.2,76,Moderate away fixture (FDR 3) with recent form of 4.7 pts suggests a solid but unspectacular return; consensus models lean toward 1.6-4.0 range.
+610,2.8,82,"Consistent starter with moderate form (3.0 avg) facing mid-tier away fixture (FDR 3); low ICT suggests minimal attacking involvement, aligning with consensus predictions around 2-3 pts."
+126,3.2,76,"Modest form of 3.7 pts and low ICT involvement suggest a typical starter return at home against mid-table opposition, aligned with ensemble consensus."
+815,3.0,82,"Consistent 3.0 pt form with full minutes, moderate away fixture (FDR 3), and alignment with XGBoost baseline suggests a typical defender return."
+597,3.2,68,Moderate form (4.0 avg) with limited minutes (57.3) and middling involvement (ICT 4.9) against a decent defence suggests a modest return slightly above blank.
+257,3.2,65,"Low minutes average (48.3) suggests rotation risk despite an easy home fixture, pulling down what could otherwise be a 4-5 point return."
+585,4.1,75,"Consistent 90-minute starter with moderate form (4.3 avg) in a favorable home fixture, though low ICT index (2.7) suggests limited involvement in attacking play."
+443,3.0,82,"Moderate form of 2.7 pts, nailed starter status, and moderate fixture difficulty (FDR 3) align with consensus model predictions around 3.0 pts."
+634,3.2,75,Moderate form (3.7 avg) with inconsistent minutes and a mid-tier away fixture (FDR 3) suggests a solid but unspectacular defensive return.
+591,3.2,68,"Moderate form (3.0 avg) against a mid-table side at home suggests a typical return, though low ICT involvement and budget price indicate limited upside."
+163,3.2,68,"Moderate form of 3.3 pts, decent home fixture (FDR 3), and low ICT involvement suggest a solid but unremarkable return aligned with his season average."
+37,3.2,75,"Easy home fixture (FDR 2) offers clean sheet potential, but inconsistent minutes (57 avg) and modest form (3.7) suggest a modest return around expectation."
+284,3.2,75,Moderate form (4.0 avg) with limited minutes (55.7) against a decent defence (FDR 2) suggests a modest return below his average.
+47,3.2,65,"Moderate form (3.0 avg) against a weak opponent (FDR 2) at home provides slight upside, but inconsistent involvement (ICT 6.1) and model disagreement suggest cautious optimism."
+674,3.2,82,"Newcastle's solid home form (FDR 3) and Ramsdale's consistent 4.0 avg suggest a clean sheet is likely, with modest save points offsetting any attacking involvement."
+139,3.8,75,Consistent 4.0 pts form at home against mid-table Chelsea (FDR 3) suggests a solid clean sheet chance with typical GK returns around 3-5 points.
+475,3.2,68,"Recent minutes inconsistency (48 min avg) and moderate fixture difficulty temper what would otherwise be a decent home game, with consensus models suggesting 2-3 point range."
+582,2.8,72,"Poor form (2.3 avg) and low ICT involvement suggest limited attacking returns despite home advantage, with consensus predictions pointing to a modest 2.8-3.0 range."
+715,2.8,82,"Easy home fixture (FDR 1) provides clean sheet potential, but poor recent form (1.3 avg) and low ICT suggest limited upside beyond baseline keeper points."
+580,2.8,75,"Poor form (2.3 avg), limited minutes (53 min), and low ICT suggest Johnson is a rotation risk despite the easy home fixture."
+570,3.1,82,Consistent 90-minute starter with moderate form (3.3 avg) facing mid-table Brighton at home; aligned with ensemble consensus around 2.7-3.3 pts.
+235,4.2,68,"Palmer's moderate form (4.3 avg) faces a tough away fixture (FDR 4) against Brighton, with the fine-tuned model suggesting slight upside but consensus uncertainty warranting a cautious middle-ground prediction."
+532,2.8,72,"Difficult away fixture (FDR 4) against Aston Villa limits clean sheet probability, but consistent 90-min starts and moderate form suggest a low-scoring return around defensive baseline."
+708,2.8,76,"Poor form (1.7 avg) and low ICT index (1.6) suggest minimal involvement despite moderate fixture difficulty, with consensus models pointing toward a low return."
+366,3.2,75,Moderate form of 3.3 pts in a mid-difficulty away derby (FDR 3) suggests a typical GK return with low clean sheet probability.
+473,3.2,68,"Consistent starter at home (90 mins avg) against moderate opposition (FDR 3), but poor recent form (2.7 avg) and low attacking involvement (ICT 4.6) suggest defensive returns only."
+329,3.2,72,"Modest form (4.0 avg) with reduced minutes (58.7) and moderate fixture difficulty (FDR 3) suggests a slightly below-average return, aligned with consensus model predictions."
+593,2.8,76,Poor recent form (2.3 avg) and low ICT involvement (3.5) suggest minimal attacking returns despite home advantage and moderate fixture difficulty.
+169,3.5,65,"Moderate form (3.7 avg) against mid-difficulty opponent (FDR 3) suggests a typical return, with low ICT index limiting upside potential."
+160,3.2,65,"Inconsistent form (3.7 avg, 65 min suggests rotation risk) against mid-tier defence limits upside despite home advantage."
+276,2.8,68,"Low form (2.0 avg), limited minutes (69 min), and minimal involvement (ICT 2.6) suggest a modest return despite the favourable home fixture against WHU."
+636,2.8,82,Consistent mid-table defender with modest form (2.7 avg) facing moderate fixture difficulty; XGBoost consensus around 3.0 pts supports slight downside expectation for away fixture.
+487,2.6,68,"Poor form (2.0 avg) and low ICT involvement (3.1) limit upside despite home advantage, though moderate FDR 3 fixture offers slight improvement potential."
+783,3.8,65,"Moderate form (4.0 avg) at home against Chelsea (FDR 3) suggests a slightly above-average return, balancing consistent minutes with modest involvement."
+693,2.7,75,"Low form (1.3 avg), limited minutes (41 min), and minimal involvement (ICT 2.0) suggest a bench player unlikely to capitalize despite the easy home fixture."
+444,2.6,85,"Poor recent form (1.7 avg), moderate fixture difficulty (FDR 3), and low ICT involvement suggest a typical defensive blank or minimal return, aligning with ensemble model consensus."
+436,3.2,75,"Solid recent form (4.0 avg) with full minutes, moderate away fixture difficulty, and consensus among models around 2-4 pts suggests a typical defensive return with potential clean sheet."
+49,2.8,75,"Poor recent form (2.0 avg) and limited minutes (40 min avg) suggest bench/rotation risk despite easy home fixture, aligning with consensus model predictions."
+725,3.2,65,Solid recent form (4.3 avg) but a brutal away fixture vs Man City (FDR 5) and low ICT suggests limited involvement and clean sheet risk.
+335,3.8,72,"Decent form (6.3 avg) and moderate involvement (ICT 7.5) offset by away fixture and sub-par minutes, aligning with ensemble consensus around 3-4 pts."
+469,2.8,75,"Recent form of 2.0 pts with consistent 90-min starts suggests blank/low returns, though home fixture vs mid-table BOU offers modest clean sheet upside."
+817,3.2,65,"Moderate form of 3.3 pts with decent minutes in a mid-difficulty away fixture suggests an average return, slightly below his recent average due to travel disadvantage."
+470,2.8,82,"Hard home fixture vs Man City (FDR 4) with modest recent form (3.3 avg) suggests a low-scoring gameweek, though full minutes played offer some floor protection."
+317,2.8,75,"Moderate form (3.7 avg) undermined by inconsistent minutes (60 avg) and moderate away fixture difficulty, with consensus model predictions clustering around 2-3 points."
+490,2.6,76,"Poor recent form (1.7 avg) and low involvement (ICT 1.2) offset the home advantage against mid-table opponent, suggesting a modest return near his baseline."
+588,3.2,68,Low minutes (47.7 avg) and inconsistent form (3.3 pts) despite a favourable home fixture suggest rotation risk and limited attacking involvement for this budget mid.
+474,4.2,76,"Consistent 90-min starter with solid recent form (4.7 avg) at home vs mid-table opponent, likely clean sheet or 1 GA scenario typical for Newcastle's defence."
+458,2.7,72,Poor recent form (2.7 avg) and modest involvement (ICT 3.7) in an away fixture of moderate difficulty suggest a typical return around his baseline output.
+193,2.3,75,"Consistent 2.3 pts form with nailed starter status, but a tough home fixture vs Man City (FDR 4) and low ICT suggest limited attacking involvement and clean sheet risk."
+187,2.5,75,"Walker faces elite attacking side Manchester City at home (FDR 4), and recent form of 3.3 pts combined with low clean sheet probability suggests a defensive struggle with minimal returns."
+107,3.2,72,"Moderate home fixture (FDR 3) with inconsistent minutes (61 avg) and low ICT suggests a typical defensive return around the mean, aligned with XGBoost consensus."
+273,3.8,62,"Moderate form (4.3 avg) with suboptimal minutes (59 min) against easy opponent (FDR 2) suggests modest return, though inconsistent playing time creates volatility."
+54,3.2,72,"Inconsistent minutes (42 avg) and moderate form (4.0 pts) against an easy home fixture (FDR 2) suggest a modest return, aligning with ensemble consensus around 3 pts."
+452,2.4,68,"Poor recent form (1.7 avg), low ICT involvement, and inconsistent minutes suggest a modest return despite moderate fixture difficulty."
+64,3.2,65,"Dip in form (3.3 avg) and reduced minutes (71.7) against an easy opponent suggest a modest return, with Auto-Research XGBoost's conservative 2.2 and Fine-tuned LLM's optimistic 4.2 bracketing a middle ground."
+691,2.8,75,"Poor form (1.3 avg) and moderate away fixture (FDR 3) suggest a below-average return, aligned with ensemble consensus around 2-3 points."
+644,2.8,68,"Poor form (2.7 avg), limited minutes (61), low involvement (ICT 3.1), and moderate away fixture suggest a below-average return despite consensus around 3 pts."
+543,3.2,72,"Moderate form (4.7 avg) against tough away fixture (FDR 4) with low ICT involvement suggests below-average return, aligned with ensemble consensus."
+191,2.4,82,Defensive player facing elite attacking side (MCI) with modest recent form (3.3 avg) and low ICT involvement suggests limited points despite home advantage.
+296,2.8,68,"Low minutes (54.3 avg) and minimal involvement (ICT 1.5) suggest rotation risk despite home fixture, with consensus models pointing toward a below-average return."
+271,2.3,81,Poor form (1.3 avg) and minimal involvement (ICT 1.8) suggest a typical bench/rotation player output despite the easy home fixture.
+476,2.3,75,"Poor recent form (1.0 avg) and low minutes suggest rotation risk, but home fixture vs Bournemouth (FDR 3) offers modest clean sheet potential."
+478,2.8,65,"Low recent minutes (54.7 avg) and modest form (2.3 pts) suggest rotation risk despite home fixture, with consensus models pointing to 1.7-3.4 range."
+453,2.8,68,Poor form (2.7 avg) combined with a difficult away fixture (FDR 4) and inconsistent minutes suggests a below-average return despite decent ICT involvement.
+58,2.3,85,"Poor form (1.7 avg), limited minutes (57 min), low ICT involvement, and despite easy home fixture, Kamara lacks consistency and attacking output to justify higher expectations."
+424,2.4,65,"Low minutes (50 min avg) and poor form (2.0 pts) suggest rotation risk, despite moderate fixture difficulty, though model consensus leans slightly higher."
+714,2.8,65,Low minutes (43.3 avg) and poor form (2.3 pts) suggest rotation risk despite home advantage; aligns with ensemble consensus of 2.6-3.1 pts.
+316,2.6,82,"Consistent low returns (2.3 avg) and moderate away fixture (FDR 3) suggest another modest blank or single clean sheet point, aligning with model consensus around 2-3 pts."
+442,2.5,75,Poor recent form (1.3 avg) and away fixture at Chelsea (FDR 3) suggest a typical defensive return with minimal bonus upside.
+646,4.8,62,"Recent form of 8.0 pts is encouraging but away fixture (FDR 3) and low ICT index (4.4) suggest regression from peak, with other models showing divergence indicating uncertainty."
+262,2.3,65,"Low minutes (49.3 avg) and minimal involvement (ICT 0.8) suggest rotation risk despite an easy home fixture, keeping upside capped."
+390,2.6,76,"Poor form (1.7 avg), low involvement (ICT 2.0), and inconsistent minutes suggest a low-return gameweek, though the moderate fixture difficulty and model consensus around 2-3 pts provides some floor."
+614,2.6,72,"Poor form (2.3 avg) and reduced minutes suggest limited impact despite home advantage, while facing elite Manchester City defence (FDR 4) in a likely low-scoring match."
+668,2.6,73,"Poor form (2.0 avg), difficult away fixture (FDR 4), low ICT involvement, and sub-60 min risk suggest a modest return despite peer model consensus."
+26,2.8,68,"Poor recent form (2.7 avg), low ICT involvement, and a brutal away fixture vs Man City (FDR 5) suggest a modest return despite Arsenal's attacking quality."
+494,2.5,65,Poor recent form (2.3 avg) and inconsistent minutes (55 min avg) suggest limited attacking involvement despite a favourable home fixture against Bournemouth.
+661,3.5,45,Inconsistent playing time (63.7 min avg) and potential rotation risk for Liverpool away at Everton limits upside despite decent recent form.
+552,2.1,72,Poor form (2.0 avg) combined with difficult away fixture (FDR 4) and low ICT involvement suggests a modest return near his recent baseline.
+241,2.3,75,"Poor recent form (1.7 avg), low involvement (ICT 2.4), and difficult away fixture (FDR 4) suggest a below-average return despite moderate expert consensus."
+456,2.5,62,Poor recent form and limited minutes (28.7 avg) despite a favorable home fixture (FDR 2) suggest bench rotation risk outweighs the easy opponent.
+615,2.8,68,Poor form (3.7 avg) combined with limited playing time (30 min) and moderate fixture difficulty suggests a below-average return despite decent price point.
+100,2.8,85,"Low minutes (37.3 avg) and poor form (2.7 pts) suggest bench rotation risk despite easy home fixture, with consensus models clustering around 2.5-3.1 pts."
+805,2.1,52,"Low minutes (35 min avg) and minimal ICT involvement suggest bench rotation risk despite the easy home fixture, though consensus models lean slightly higher."
+199,2.5,68,"Moderate form (3.0 avg) faces a tough home fixture vs Man City (FDR 4), likely limiting clean sheet chances and keeping returns modest."
+388,2.3,68,"Poor form (2.7 avg), limited minutes (51 min), low involvement (ICT 2.9), and derby away fixture suggest a risky bench/substitute option unlikely to deliver."
+733,2.8,68,Poor form (2.0 avg) and moderate away fixture difficulty (FDR 3) suggest a typical blank with minimal chance of a clean sheet or save points.
+50,2.5,65,"Poor recent form (2.0 avg), limited minutes (53.3), and low involvement (ICT 1.7) suggest minimal return despite home advantage against Southampton."
+384,3.2,72,"Poor recent form (2.7 avg) and moderate away fixture (FDR 3) suggest a below-average return, though Liverpool's attacking quality provides some upside."
+791,2.8,72,"Poor recent form (1.7 avg) and limited minutes/involvement (68.7 min, ICT 2.6) suggest a modest return despite moderate fixture difficulty."
+162,2.2,68,"Low playing time (43.7 min avg) and poor form (1.7 pts) suggest bench/rotation risk despite home fixture, though moderate FDR offers slight upside."
+266,2.8,68,Poor recent form (2.7 avg) combined with hardest fixture (FDR 5) against Man City's strong defence limits upside despite guaranteed minutes.
+36,2.3,82,Low playing time (45 min avg) and minimal involvement (0.8 ICT) limit upside despite easy home fixture; consensus of ensemble models suggests modest return.
+565,2.3,82,"Poor recent form (1.7 avg), moderate home fixture difficulty (FDR 3), and consensus from other models pointing to 2-3 pts suggest a typical blank or minimal return."
+337,2.8,62,"Poor recent form (2.7 avg), limited minutes (42.7), and low ICT suggest unreliable playing time against a mid-table defence."
+654,2.8,62,"Poor recent form (2.3 avg) and low ICT involvement despite an easy home fixture suggest minimal impact, with limited minutes a concern."
+699,2.5,65,Low minutes (31 avg) and weak form (3.0 pts) despite easy home fixture suggests bench/rotation risk outweighs the FDR-2 advantage.
+371,2.3,65,"Low minutes (51.3 avg) and minimal form (2.3 pts) suggest rotation risk despite a moderate fixture, with the auto-research model's caution warranted."
+226,2.2,75,"Poor form (1.7 avg), difficult away fixture (FDR 4), and low ICT involvement suggest a likely blank or minimal return despite guaranteed minutes."
+413,2.8,65,Low recent form (2.3 avg) and limited minutes (41.3) suggest bench role despite easy fixture; consensus models point to sub-3 returns.
+217,2.2,88,"Poor recent form (1.3 avg), limited minutes, low ICT involvement, and difficult home fixture vs Man City strongly suggest a blank or minimal return."
+430,2.8,65,"Poor recent form (1.3 avg) and reduced minutes (60 min avg) suggest Haaland is out of favour or recovering, offsetting the easy fixture against Burnley."
+40,2.6,75,"Poor recent form (0.7 avg) and limited minutes (60) offset the easy home fixture; consensus models suggest low 2-3 range, aligned with his injury/rotation concerns."
+400,2.8,72,"Easy home fixture (FDR 1) against Burnley provides clean sheet potential, but inconsistent minutes (60 avg) and poor recent form (2.7 pts) limit upside."
+488,3.2,62,Low playing time (30 min avg) and modest form (3.7 pts) despite a favorable home fixture suggest limited minutes will cap returns.
+215,2.8,65,Limited minutes (59 avg) and modest form (3.0 pts) against title-chasing Man City (FDR 4) suggest a low-return gameweek despite home advantage.
+726,2.2,52,"Low minutes (26.7 avg) and minimal involvement (ICT 1.5) suggest bench rotation risk despite home fixture, though decent form models lean slightly higher."
+596,3.8,62,"Moderate form (3.7 avg) against a decent defence (FDR 3) with low ICT involvement suggests a typical return, though recent inconsistency and the XGBoost models' caution warrant modest expectations."
+322,2.5,68,Moderate form of 2.7 pts with consistent minutes in a moderately difficult away fixture suggests a typical defensive return around the baseline.
+600,2.5,68,Away fixture with moderate difficulty (FDR 3) and poor recent form (2.3 avg) suggests a likely blank or low-scoring outing typical for backup keepers.
+406,2.1,68,"Low recent minutes (34.3 avg) suggest rotation risk despite easy fixture, but City's defensive strength and a cheap price point to potential value if he plays."
+716,2.5,72,"Easy home fixture (FDR 1) offers clean sheet potential, but inconsistent minutes (56.7 avg) and poor recent form (1.0 pts) suggest rotation risk limits upside."
+440,2.5,72,"Poor recent form (1.3 avg), reduced minutes (69.7), and moderate away fixture difficulty suggest a typical blank or minimal return for an underperforming defender."
+173,2.8,85,Modest form (3.3 avg) with low ICT involvement and moderate fixture difficulty suggests a typical mid-range return slightly below recent average.
+587,2.2,75,"Poor recent form (2.0 avg), low ICT involvement (1.6), and inconsistent minutes suggest a modest return despite the home fixture against mid-table Brighton."
+681,2.8,65,"Poor form (2.3 pts avg), limited minutes (41 min avg), and low involvement (ICT 2.3) suggest continued bench rotation despite a moderate fixture."
+121,2.8,65,"Poor form (1.7 avg), limited minutes (53.7), and low involvement (ICT 1.7) suggest a bench player in a moderate fixture, though home advantage and consensus models point slightly higher."
+386,3.2,65,Moderate form (3.7 avg) in a derby away fixture (FDR 3) with low ICT involvement suggests a modest return slightly below recent average.
+290,2.2,62,"Low recent minutes (31.3 avg) and modest form (2.3 pts) suggest rotation risk, despite home fixture; consensus models lean 1.7-3.1 range."
+561,2.8,65,"Low minutes (52 min avg) suggest rotation risk, difficult away fixture (FDR 4), and minimal ICT involvement point to a below-average return despite decent recent form."
+228,2.2,65,"Low recent form (2.3 avg), inconsistent minutes (54.7), and a difficult away fixture (FDR 4) suggest limited upside despite moderate price."
+730,2.8,68,"Low minutes (55.7 avg) and poor form (3.3 pts) against a tough away fixture (FDR 4) suggest limited involvement, though the Auto-Research model's 1.3 pts may be overly pessimistic."
+381,3.2,62,"Recent form has collapsed to 3.3 pts avg with only 38.7 mins per game suggesting rotation/injury concerns, though derby fixture offers some upside."
+486,2.2,65,"Poor form (1.7 avg) and limited minutes (53 min) suggest bench risk despite home fixture, though FDR 3 offers some upside over blank."
+568,2.3,82,Poor recent form (1.3 avg) and moderate fixture difficulty (FDR 3) align with ensemble consensus around 2-3 pts; low attacking involvement (ICT 4.1) limits upside for a fullback.
+158,2.2,68,"Poor form (1.7 avg), limited minutes (32 min), and low involvement (ICT 2.1) suggest bench rotation risk despite home fixture, aligning with consensus models."
+295,2.0,65,"Low minutes (32.7 avg) suggest rotation risk despite home fixture, with inconsistent recent form limiting upside potential."
+489,2.1,65,"Low form (1.7 avg) and minimal playing time (36 mins) suggest bench rotation risk despite home fixture, though moderate FDR offers some upside."
+198,2.8,75,"Inconsistent minutes (60 avg) against elite attack Manchester City (FDR 4) limits clean sheet probability, though home advantage provides modest support."
+324,2.8,65,Poor form averaging 2.0 pts over last 3 GW with modest ICT involvement (5.1) limits upside despite moderate fixture difficulty (FDR 3).
+569,2.2,85,"Severe minutes reduction (30 min avg) and poor form suggest bench/rotation risk despite home fixture, aligning with ensemble model consensus."
+724,2.3,68,Poor form averaging 2.3 pts plus a difficult away fixture (FDR 4) against Aston Villa suggests another modest return near his recent baseline.
+124,2.2,65,"Poor recent form (2.0 avg), low minutes (56.3), and minimal involvement (ICT 1.7) suggest limited upside despite a moderate home fixture."
+666,2.8,68,"Poor form (3.3 avg), inconsistent minutes (54 min avg), and a very difficult away fixture vs Man City (FDR 5) suggest a low-scoring gameweek despite decent price point."
+52,2.3,72,"Poor recent form (1.0 avg) and low ICT involvement suggest a continued struggle despite home advantage, though the moderate fixture difficulty (FDR 3) provides some upside."
+572,2.1,75,"Low recent form (1.7 avg) and inconsistent minutes (59.7) limit upside despite home advantage, though a moderate FDR 3 fixture offers some recovery potential."
+511,2.2,68,"Low minutes (30 avg) suggest bench role despite easy home fixture, keeping upside limited despite FDR 1 opponent."
+553,2.3,68,"Inconsistent minutes (58 avg), modest ICT involvement, and difficult away fixture (FDR 4) suggest below-average returns despite model consensus around 2-3 pts."
+749,2.0,75,"Poor recent form (1.7 avg), limited minutes (68), and low ICT index suggest a struggling asset; away fixture (FDR 3) offers modest upside but not enough to overcome current trends."
+373,2.8,75,"Poor recent form (2.0 avg) and away fixture against Everton limit upside, though nailed-on minutes and defensive quality provide floor stability."
+633,2.8,68,"Modest form (2.7 avg) and moderate away fixture difficulty (FDR 3) with limited minutes suggest a typical low-scoring defender return, balanced against other model predictions."
+256,2.1,72,"Poor form and minimal minutes (34.3 avg) suggest bench-player status despite an easy home fixture, with a modest clean sheet chance being the main upside."
+372,2.1,75,"Robertson's severely reduced minutes (43 avg) and poor form suggest injury concerns or rotation risk, limiting upside despite moderate fixture difficulty."
+230,2.4,82,"Poor form (2.3 avg) and difficult away fixture (FDR 4) suggest minimal returns, with consensus across models pointing to low single digits."
+477,2.2,68,"Low minutes (38.3 avg) and minimal involvement (ICT 0.7) suggest rotation concerns, with only a clean sheet chance against mid-table BOU offering upside."
+431,2.1,85,Poor form (1.7 avg) and moderate away fixture (FDR 3) suggest a typical blank or minimal return; consensus of other models supports low expectation.
+129,2.0,75,"Poor recent form (1.7 avg), limited minutes (46.7), and low ICT involvement suggest minimal impact despite a moderate home fixture."
+119,2.8,72,"Poor form (1.7 avg), limited minutes (73.3), low ICT involvement, and moderate away fixture difficulty suggest below-average return despite decent price point."
+727,2.1,75,"Low recent form (1.3 avg) and limited minutes (49 min) suggest bench role, but moderate fixture difficulty (FDR 3) and consensus around 1.4-3.0 pts indicates a modest return or blank is most likely."
+627,2.2,72,Poor recent form (2.0 avg) and moderate away fixture (FDR 3) suggest a typical blank or low-scoring return; ensemble consensus around 2.3 pts supports modest expectation.
+551,2.2,75,"Poor form (2.0 avg), inconsistent minutes (60 min avg), and a tough away fixture (FDR 4) against Aston Villa suggest a below-average return, aligned with ensemble consensus."
+253,2.5,65,"Poor recent form (2.0 avg) and inconsistent minutes (60 min avg) suggest a typical blank, though home fixture vs WHU (FDR 2) provides modest upside."
+812,2.5,68,"Injury concerns evident from reduced minutes (60 avg), tough away fixture (FDR 4), and inconsistent form suggest a likely blank or low points return."
+374,2.1,68,"Low recent minutes (51.3 avg) and poor form (0.7 pts) suggest rotation risk, but a moderate away fixture (FDR 3) offers some upside if he plays full 90."
+170,2.1,81,"Poor form (1.7 avg), limited minutes (58 min), and low involvement (ICT 1.3) suggest a typical bench rotation player; home fixture provides slight upside over away matches."
+686,2.1,78,"Low minutes (38 min avg) and minimal recent form suggest bench/squad rotation role, though Liverpool's attacking quality provides slight upside in a moderate fixture."
+539,2.3,75,"Inconsistent form (2.7 avg) with limited minutes and a tough away fixture (FDR 4) suggests a below-average return, though baseline defensive points keep it above a blank."
+519,2.1,68,"Poor form (1.3 avg), limited minutes (36 min), and low ICT involvement suggest rotation risk despite the easy home fixture, though BUR's weak defence offers some upside."
+224,2.0,75,"Poor form (1.3 avg), limited minutes (63.7), tough away fixture (FDR 4), and low ICT suggests a likely blank with minimal attacking contribution."
+673,1.8,68,"Very limited minutes (30 avg) and poor form (1.3 pts) suggest continued bench role despite home fixture, though upgraded opponent difficulty (FDR 3) offers marginal upside."
+356,2.1,79,Limited minutes (35 min avg) and minimal involvement (ICT 0.7) suggest a bench player with inconsistent playing time; moderate fixture difficulty offers minimal upside.
+414,2.1,65,"Poor recent form (1.0 avg) and limited minutes (30.7) suggest bench rotation risk despite easy fixture, though easy opponent offers upside if he plays."
+709,2.0,76,"Poor form (1.3 avg), inconsistent minutes (60), and moderate away fixture suggest a likely blank or minimal return, aligned with ensemble consensus."
+41,2.0,65,"Low playing time (30 min avg) and minimal involvement (ICT 0.6) limit upside despite easy home fixture, with consensus models suggesting 1.5-3.0 range."
+192,2.1,75,Low minutes (54.3 avg) and poor form (2.3 pts) against title-chasing Man City (FDR 4) suggest a modest return despite home advantage.
+272,1.8,82,Severe lack of playing time (30 min avg) and minimal involvement (0.8 ICT) indicate Lerma is not a reliable starter despite the easy fixture.
+717,1.8,68,Severe lack of playing time (24 mins/3GW) and poor form suggest Xavi remains a bench player despite the favorable home fixture.
+731,2.0,58,"Low minutes (21.3 avg) and poor form (2.7 pts) suggest bench role, with modest return expected even in moderate fixture."
+338,2.0,72,"Low form (1.3 avg), limited minutes (46 min avg), and moderate fixture difficulty suggest a below-average return, aligning with consensus model predictions."
+220,2.1,82,"Inconsistent minutes (60 avg suggests rotation risk), moderate away fixture difficulty (FDR 4), and poor recent form point to a below-average return with elevated uncertainty around playing time."
+53,1.8,68,"Low minutes (31 mins avg) and poor form (2 pts) suggest bench role or rotation risk despite easy home fixture, aligning with the Auto-Research model's cautious view."
+320,1.8,68,"Severe lack of playing time (30 min avg) and poor form (0.3 pts) suggest bench rotation risk, though moderate away fixture offers slight upside over blanks."
+181,2.1,72,"Poor form (1.0 avg), limited minutes (34.3), and low ICT index suggest a bench-role player unlikely to capitalize on a moderate home fixture."
+376,1.8,76,"Gomez is barely playing (36 min avg) with minimal involvement, making consistent minutes unlikely despite a moderate fixture."
+785,1.8,75,"Poor form (1.3 avg), limited minutes (51 min), low involvement (ICT 1.2), and moderate away fixture suggest a blank or minimal return despite reasonable FDR."
+143,2.0,75,"Severe form collapse (0.3 avg) with minimal minutes suggests rotation/bench risk despite home fixture, though moderate FDR 3 offers slight upside."
+19,2.2,65,"Poor recent form (2.0 avg), inconsistent minutes (40.7), and a brutal away fixture vs Manchester City (FDR 5) suggest a low return despite Martinelli's talent."
+20,1.8,85,"Severe lack of minutes (28 min/GW), negligible involvement (ICT 1.1), and hardest fixture (FDR 5) vs Man City makes a blank or minimal return nearly certain."
+547,2.1,74,"Low form (2.0 avg), limited minutes (31.7), and a tough away fixture (FDR 4) suggest another modest return, aligned with consensus model predictions."
+367,1.8,65,"Mamardashvili is a backup GK with minimal recent minutes (30 avg), so unless he starts this away fixture, he'll likely blank or score minimally like his recent form suggests."
+73,1.8,82,"Low minutes (25.7 avg) suggest bench status or rotation risk despite easy home fixture, making consistent playing time unlikely."
+609,2.2,65,"Low minutes (30 avg) and involvement (ICT 0.7) suggest rotation risk, but moderate fixture difficulty (FDR 3) and defensive positioning offer some upside if he plays."
+270,1.8,88,"Consistent lack of minutes (30 avg) and minimal involvement (ICT 0.5) indicate bench player status despite favorable fixture, aligning with ensemble consensus."
+85,1.8,72,"Despite an easy home fixture, Adams' minimal minutes (30 avg) and poor recent form (1.3 pts) suggest bench role or sporadic involvement rather than a return."
+365,2.2,62,"Limited minutes (32.7 avg) and poor form (1.0 pts) suggest bench rotation risk despite moderate fixture difficulty, aligning with consensus models."
+209,1.8,85,"Poor form (1.7 avg), limited minutes (50), low involvement (ICT 2.6), and a hard home fixture vs Man City makes a near-blank most likely despite consensus predictions."
+382,2.5,68,"Poor form (1.7 avg), limited minutes (51 min avg), and low involvement (ICT 4.9) suggest minimal impact despite moderate fixture difficulty."
+571,2.1,62,"Low playing time (29 min avg) and inconsistent form suggest Davies is not nailed, making a cameo appearance most likely despite the favourable home fixture."
+671,1.5,75,Severe lack of playing time (35 mins avg) and minimal attacking involvement (0.6 ICT) suggest limited opportunity despite a moderate fixture.
+167,1.8,82,"Baleba's minimal playing time (30 mins avg) and very low involvement (0.4 ICT) suggest he's a bench player, making a blank or minimal contribution most likely despite the home fixture."
+672,1.8,82,"Low form (1.3 pts avg), inconsistent minutes (62.7 avg suggests rotation risk), difficult away fixture (FDR 4), and ensemble model consensus all point to a blank or minimal return."
+813,1.8,85,"Poor form (1.7 avg), low minutes (54), minimal involvement (ICT 3.2), and tough away fixture (FDR 4) suggest a blank or minimal return, aligned with consensus predictions."
+638,1.8,62,"Inconsistent minutes (31 min avg) and poor form suggest rotation risk, though moderate fixture difficulty (FDR 3) offers some upside if he starts."
+662,1.8,81,"Low minutes (38.3 avg) suggests bench rotation risk, difficult away fixture vs Man City (FDR 5), and minimal recent involvement make a blank highly likely."
+676,1.8,75,"Poor form (1.7 avg), low minutes (52), minimal involvement (ICT 0.7), and tough home fixture vs Man City all point to a blank or near-blank despite model consensus around 2-3 pts."
+144,1.8,75,Low playing time (30 min avg) and minimal involvement (ICT 1.0) suggest Coppola is a rotation risk despite the moderate home fixture.
+236,1.8,72,Severely limited minutes (23 min avg) and poor form suggest bench role; difficult away fixture (FDR 4) offers minimal upside if deployed.
+195,1.8,81,"Minimal recent minutes (35.3 avg) and poor form (0.7 pts) suggest a backup status, making a blank or token appearance most likely despite home fixture."
+319,1.8,78,"Severely limited minutes (32.7 avg) suggest bench rotation risk, and away fixture (FDR 3) with poor recent form indicates a likely blank or minimal return."
+18,1.2,82,"Very low minutes (20 avg), terrible form (1.0 pts), hardest fixture (FDR 5 vs Man City), and minimal involvement (ICT 2.1) suggest a likely blank or minimal return."
+491,1.8,65,Severely limited minutes (30 avg) and poor recent form suggest bench role or sporadic involvement despite home fixture advantage.
+608,1.8,68,"Low minutes (30 avg) suggest rotation risk, weak form, and minimal attacking involvement indicate a likely blank or substitute appearance against a mid-tier defence."
+345,1.8,68,"Low minutes (28.3 avg) and poor form suggest rotation risk, though a moderate away fixture (FDR 3) offers slight upside if he starts."
+304,1.8,65,Very low minutes (29.7 avg) and minimal involvement (ICT 1.7) suggest backup role; poor form and tough fixture vs Liverpool offer little upside despite home advantage.
+816,1.8,75,Severely limited minutes (35 avg) and minimal involvement (ICT 0.5) suggest bench/rotation player status with little upside despite moderate fixture difficulty.
+39,1.8,75,"Maatsen is a rotation risk with minimal recent minutes (32.7 avg) and low ICT, so even against easy fixture FDR 2, he's unlikely to start or deliver attacking returns."
+250,1.2,85,"Delap is averaging only 20.7 minutes with minimal involvement (ICT 1.2) in a difficult away fixture, indicating bench status or limited impact."
+575,1.8,68,"Severely limited minutes (27.3 avg) and poor recent form suggest bench rotation risk despite a favourable home fixture, with clean sheet upside the only realistic path to points."
+244,1.8,82,"Severe lack of game time (33 min avg), low attacking involvement (ICT 1.1), and difficult away fixture (FDR 4) suggest minimal returns despite cheap price."
+347,1.8,68,"Low minutes (44 avg) and zero form suggest bench rotation risk, though moderate fixture difficulty (FDR 3) offers modest upside if he plays."
+321,1.5,72,"Low minutes (30.7 avg) and minimal involvement (ICT 0.7) suggest rotation risk, with only a clean sheet chance in a moderate fixture offering modest upside."
+573,1.8,65,"Low minutes (25 min avg) and minimal involvement suggest Spence remains a bench/rotation player despite home fixture, though a clean sheet could provide modest return."
+229,1.2,75,Severely limited minutes (30 avg) and poor form suggest rotation risk; away fixture (FDR 4) offers minimal clean sheet probability for a benchwarmer.
+663,1.8,65,"Poor form (1.0 avg), minimal minutes (36 min/GW), and low ICT involvement suggest rotation risk despite moderate fixture difficulty."
+30,1.8,82,"Poor form (1.3 avg), minimal minutes (35 min), hardest fixture (FDR 5 vs Man City), and low ICT index suggest a bench appearance or blank is most likely."
+648,1.5,68,"Mykolenko's severely limited minutes (28.3 avg) and negligible involvement (ICT 0.6) suggest bench/fringe status, with Auto-Research's 1.2pts estimate aligning with expected blank or cameo appearance."
+331,1.8,75,"Cairney is a benchwarmer averaging only 27 mins/gw with minimal involvement (ICT 0.8), making a blank or token appearance most likely despite a moderate fixture."
+438,1.2,62,"Severe lack of playing time (28 min avg) and poor form suggest bench rotation risk, though moderate fixture difficulty prevents complete blank expectation."
+305,1.2,82,"Minimal minutes (27 avg) and negligible ICT involvement suggest bench role continues despite home fixture, aligning with Auto-Research XGBoost's cautious outlook."
+678,1.2,82,"Minimal playing time (22.7 min avg), poor form (0.3 pts), hard away fixture (FDR 4), and low ICT suggest benching or token appearance is likely."
+645,1.2,81,"Severely limited minutes (24.7 avg), minimal involvement (ICT 0.5), and poor recent form suggest a bench player unlikely to impact an away fixture."
+326,1.2,81,Extremely limited minutes (20.7 avg) and minimal involvement (0.5 ICT) suggest bench role; away fixture to moderate opponent offers little upside.
+718,1.2,82,Severe lack of minutes (21 avg) and negligible involvement (ICT 0.5) indicates bench player status with minimal return potential against mid-tier fixture.
+462,1.2,82,"Chronic lack of playing time (20.7 min avg) and minimal recent involvement make a blank or cameo appearance most likely, despite moderate fixture difficulty."

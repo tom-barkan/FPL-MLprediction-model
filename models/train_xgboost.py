@@ -23,8 +23,8 @@ DROP_COLS = ["player_id", "player_name", "target_points", "gameweek"]
 
 def load_and_split():
     df = pd.read_csv(FEATURES_PATH)
-    train = df[df["gameweek"] <= 30].copy()
-    test = df[df["gameweek"] > 30].copy()
+    train = df[df["gameweek"] <= 32].copy()
+    test = df[df["gameweek"] > 32].copy()
     return train, test
 
 
@@ -135,8 +135,8 @@ def main():
 
     print("Loading data...")
     train, test = load_and_split()
-    print(f"Train: {len(train)} rows (GW 4-30)")
-    print(f"Test:  {len(test)} rows (GW 31+)")
+    print(f"Train: {len(train)} rows (GW 4-32)")
+    print(f"Test:  {len(test)} rows (GW 33+)")
 
     X_train, y_train, X_test, y_test = prepare_features(train, test)
     print(f"Features: {list(X_train.columns)}\n")
@@ -149,6 +149,10 @@ def main():
     print(f"Model saved to {MODEL_PATH}")
 
     print("\nEvaluating...")
+    if len(test) == 0:
+        print("No test data available (GW 33+ not yet played). Skipping evaluation.")
+        print(f"\nModel trained on {len(train)} rows and saved to {MODEL_PATH}")
+        return
     results, preds = evaluate(model, X_test, y_test, test)
     results["train_size"] = len(train)
 
