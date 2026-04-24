@@ -5,7 +5,7 @@ import importlib.util
 ROOT = Path(__file__).parent.parent
 DATA_PATH = ROOT / "data" / "processed" / "features.csv"
 BASELINE_PATH = Path(__file__).parent / "baseline_mae.json"
-TEMPORAL_SPLIT_GW = 33
+TEMPORAL_SPLIT_GW = 34
 
 def load_data():
     df = pd.read_csv(DATA_PATH)

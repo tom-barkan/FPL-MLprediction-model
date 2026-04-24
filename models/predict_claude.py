@@ -387,7 +387,8 @@ def main():
 
     has_auto = "auto_xgb_predicted_pts" in merged.columns
     auto_hdr = " {'Auto':>6}" if has_auto else ""
-    print(f"\n{'Player':<16} {'XGB':>6}{' Auto':>6 if has_auto else ''} {'LLM':>6} {'Claude':>6} {'Conf':>5} {'Reasoning'}")
+    auto_col = f"{'Auto':>6} " if has_auto else ""
+    print(f"\n{'Player':<16} {'XGB':>6} {auto_col}{'LLM':>6} {'Claude':>6} {'Conf':>5} {'Reasoning'}")
     print(f"{'-'*90}")
     for _, r in merged.head(15).iterrows():
         reason = r.get('claude_reasoning', '')[:35] if pd.notna(r.get('claude_reasoning')) else ''
