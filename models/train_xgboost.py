@@ -23,8 +23,8 @@ DROP_COLS = ["player_id", "player_name", "target_points", "gameweek"]
 
 def load_and_split():
     df = pd.read_csv(FEATURES_PATH)
-    train = df[df["gameweek"] <= 33].copy()
-    test = df[df["gameweek"] > 33].copy()
+    train = df[df["gameweek"] <= 34].copy()
+    test = df[df["gameweek"] > 34].copy()
     return train, test
 
 
@@ -135,8 +135,8 @@ def main():
 
     print("Loading data...")
     train, test = load_and_split()
-    print(f"Train: {len(train)} rows (GW 4-33)")
-    print(f"Test:  {len(test)} rows (GW 34+)")
+    print(f"Train: {len(train)} rows (GW 4-34)")
+    print(f"Test:  {len(test)} rows (GW 35+)")
 
     X_train, y_train, X_test, y_test = prepare_features(train, test)
     print(f"Features: {list(X_train.columns)}\n")

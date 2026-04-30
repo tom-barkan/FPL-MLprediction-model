@@ -137,22 +137,22 @@ def main():
     print(f"Loaded {len(df)} rows from features.csv")
 
     # Split: train = GW 4-30, test = GW 31+
-    train_full = df[df["gameweek"] <= 33]
-    test = df[df["gameweek"] > 33]
+    train_full = df[df["gameweek"] <= 34]
+    test = df[df["gameweek"] > 34]
 
-    # Validation split for MLX: GW 31-33 from training data
-    train_mlx_raw = train_full[train_full["gameweek"] <= 30]
-    valid_mlx = train_full[train_full["gameweek"].between(31, 33)]
+    # Validation split for MLX: GW 32-34 from training data
+    train_mlx_raw = train_full[train_full["gameweek"] <= 31]
+    valid_mlx = train_full[train_full["gameweek"].between(32, 34)]
 
     # Balance the MLX training set: oversample underrepresented point values
     # so the model learns to differentiate rather than always predicting the mode
     train_mlx = balance_training_data(train_mlx_raw)
 
     print(f"\nSplit sizes:")
-    print(f"  Train (GW 4-30 for MLX, balanced): {len(train_mlx)} rows")
-    print(f"  Valid (GW 31-33 for MLX): {len(valid_mlx)} rows")
-    print(f"  Train full (GW 4-33):    {len(train_full)} rows")
-    print(f"  Test (GW 34+):           {len(test)} rows")
+    print(f"  Train (GW 4-31 for MLX, balanced): {len(train_mlx)} rows")
+    print(f"  Valid (GW 32-34 for MLX): {len(valid_mlx)} rows")
+    print(f"  Train full (GW 4-34):    {len(train_full)} rows")
+    print(f"  Test (GW 35+):           {len(test)} rows")
 
     # Simple JSONL format
     print("\nBuilding simple prompts...")

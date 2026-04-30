@@ -160,7 +160,7 @@ def predict_xgboost(next_gw_df):
 
     # Align columns with training
     train_df = pd.read_csv(FEATURES_PATH)
-    train = train_df[train_df["gameweek"] <= 33]
+    train = train_df[train_df["gameweek"] <= 34]
     X_train = train.drop(columns=DROP_COLS)
     X_train = pd.get_dummies(X_train, columns=["position"])
     X = X.reindex(columns=X_train.columns, fill_value=0)
